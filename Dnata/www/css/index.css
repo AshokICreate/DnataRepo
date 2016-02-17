@@ -1,0 +1,192 @@
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:white;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:14px;
+    width: 100%;
+    height: 100%;
+    padding:0px;
+    margin:0px;
+    color: white;
+}
+
+#mainContainer
+{
+  position: fixed;
+  width:100%;
+  height:100%;
+}
+#filler
+{
+  position: fixed;
+  width:100%;
+  height:100%;
+  z-index:90;
+  opacity:1;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-transition: display 1s; /* For Safari 3.1 to 6.0 */
+  transition: display 1s;
+}
+
+#filler.hide{
+  opacity:0;
+  height: 0;
+  display: none;
+}
+
+.container,.gclass{
+  position: relative;;
+  width: 100%;
+  height: 100%;
+}
+
+.headerContainer {
+  position: relative;
+  padding: 0.25em;
+  font-size: 3vh;
+  height: 6%;
+  margin-bottom: 3%;
+  margin-top: 0.2%;
+  border-style: solid;
+  border-width: 1px 0px;
+  border-color: #f7f7f7;
+  color:#0f88ca;
+
+}
+.headerContainer > div.title {
+  text-align: center;
+  font-weight: bold;
+  margin: 0.5em 0 0.5em 0;
+}
+
+.backBtContainer {
+  height: 2em;
+  z-index: 2;
+  cursor: pointer;
+  width:25%;
+  position: absolute;
+  padding: 0.25em;
+}
+.backBtContainer div {
+  float: left;
+  margin: 0.5em 0 0.5em 0;
+}
+
+.controller
+{
+  position: relative;
+  width: 100%;
+  height: 90%;
+}
+
+.actionBarContainer {
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    background: white;
+    color:#0f88ca;
+    z-index:100;
+    left:0%;
+    -webkit-transition: left 1s; /* For Safari 3.1 to 6.0 */
+    transition: left 1s;
+}
+
+.actionBarContainer#home_swiper {
+    z-index: 90;
+    width: 10%;
+    background: transparent;
+}
+
+.actionBarContainer.actionBarHide {
+    left: -30%;
+}
+.actionBarItem {
+    position: relative;
+    width: 100%;
+    height: 15%;
+    border-bottom: 0.1em solid #0f88ca;
+    cursor: pointer;
+}
+
+.actionBarIcon,.gridIcon{
+    width: 100%;
+    height: 70%;
+}
+
+.actionBarName,.gridName {
+    width: 100%;
+    text-align: center;
+}
+
+.gridContainer {
+    position: relative;
+    width: 97%;
+    height: 97%;
+    padding-left: 3%;
+    padding-top: 3%;
+}
+
+.gridItem {
+    position: relative;
+    width: 47%;
+    height: 23.8%;
+    float: left;
+    margin-right: 3%;
+    margin-bottom: 2%;
+    background-color: #0f88ca;
+}
+
+.highlight
+{
+  background-color: #6abd45;
+  border-color: #6abd45;
+  color:white;
+}
+
+.buttonContainer {
+    position: relative;
+    margin: 4em 0em auto !important;
+    text-align: center;
+}
+
+.buttonName {
+    background-color: #222;
+    padding: 1em;
+    margin: 0.25em auto !important;
+    width: 68%;
+    height: 1.5em;
+    cursor: pointer;
+}
+
+.inputBox{
+  position: relative;
+  width: 100%;
+  margin: 1em 0 2em 0;
+}
+
+.descBox{
+  position: relative;
+  width: 100%;
+  height: 40%;
+  margin: 1em 0 2em 0;
+}
+
+.label{
+  position: relative;
+  width: 20%;
+  height: 2em;
+  font-weight: bold;
+}
+
+.field{
+  position: relative;
+  width: 75%;
+  height: 2em;
+  margin-left: 5%;
+}
