@@ -1,7 +1,8 @@
 define(function (require) {
   var TextBox= require('views/textBox');
   var TextareaBox = require('views/textareaBox');
-  var Button = require ("views/button");
+  var ToggleButton = require("views/toggleButton");
+  var SubmitButton = require("views/submitbutton");  var Button = require ("views/button");
   var actions = require ("actions/formActions");
   var Store = require ("stores/formStore");
 
@@ -32,6 +33,12 @@ define(function (require) {
       {
           actions.createText(text);
       },
+      onToggleButton:function(index){
+        console.log("toggle button clicked",index);
+      },
+
+
+
       render: function () {
           var content = this.state.entered.map(function(text,i)
                     {
@@ -44,7 +51,8 @@ define(function (require) {
                 {content}
                 <TextareaBox name={"Enter description"} onSave={this._onSave}/>
                 <Button name={'Clear'} click={this.onclick}> </Button>
-
+                <ToggleButton names={['First', 'Second']} onTouch={this.onToggleButton}/>
+                <SubmitButton/>
               </div>
           );
       }
