@@ -1,0 +1,68 @@
+.buttonContainer {
+    position: relative;
+    margin: 4em 0em auto !important;
+    text-align: center;
+}
+
+.buttonName {
+    background-color: #222;
+    padding: 1em;
+    margin: 0.25em auto !important;
+    width: 68%;
+    height: 1.5em;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.inputBox{
+  position: relative;
+  width: 100%;
+  margin: 1em 0 2em 0;
+}
+
+.descBox{
+  position: relative;
+  width: 75%;
+  height: 5em;
+  margin-left: 5%;
+}
+
+.label{
+  position: relative;
+  width: 20%;
+  height: 2em;
+  font-weight: bold;
+}
+
+.field{
+  position: relative;
+  width: 75%;
+  height: 2em;
+  margin-left: 5%;
+}
+
+.radiogroup{
+  position: relative;
+  margin-left:5%;
+}
+
+.list{
+  position: relative;
+  width: 20%;
+  height: 2em;
+  font-weight: bold;
+}
+
+.list .title,
+.list .tick{
+    display: inline-block;
+    margin-bottom: 0;
+    position: relative;
+    width: 2em;
+    height: 1em;
+}
+
+.hide{
+  display: none;
+  visibility: hidden;
+}
