@@ -2,25 +2,38 @@ define(function (require) {
 
     var ToggleButton = React.createClass ({
 
-
         onToggleButtonSegmentClick: function (i,event) {
-            event.stopPropagation();
-            if(i === 0){
-              $(event.target).removeClass("toggle_first_segment toggleBtn_inactive").addClass( "toggle_first_segment toggleBtn_active" );
-              $(event.target).next().removeClass("toggle_second_segment toggleBtn_active").addClass( "toggle_second_segment toggleBtn_inactive" );
+            if(this.state.selectedbutton === 1){
+              this.setState({selectedbutton: 2});
             }else{
-              $(event.target).removeClass("toggle_second_segment toggleBtn_inactive").addClass( "toggle_second_segment toggleBtn_active" );
-              $(event.target).prev().removeClass("toggle_first_segment toggleBtn_active").addClass( "toggle_first_segment toggleBtn_inactive" );
+              this.setState({selectedbutton: 1});
             }
-            this.props.onTouch(i);
+            this.props.onTouch(this.props.names[i]);
+        },
+
+        getInitialState: function(){
+            return{
+              selectedbutton: 1
+
+            }
         },
 
         render: function () {
 
+           var firstButtonClassName = " ";
+           var secondButtonClassName = " ";
+           if(this.state.selectedbutton === 1){
+              firstButtonClassName = "toggle_first_segment toggleBtn_active";
+              secondButtonClassName = "toggle_second_segment";
+           }else{
+              firstButtonClassName = "toggle_first_segment";
+              secondButtonClassName = "toggle_second_segment toggleBtn_active";
+           }
+
             return (
                 <div className="toggle_button_container">
-                  <button className="toggle_first_segment toggleBtn_active" onClick={this.onToggleButtonSegmentClick.bind(this,0)}>{(this.props.names.length >= 2) ? this.props.names[0] : "YES"}</button>
-                  <button className="toggle_second_segment toggleBtn_inactive" onClick={this.onToggleButtonSegmentClick.bind(this,1)}>{(this.props.names.length >= 2) ? this.props.names[1] : "YES"}</button>
+                  <button className={firstButtonClassName} onClick={this.onToggleButtonSegmentClick.bind(this)}>{(this.props.names.length >= 2) ? this.props.names[0] : "YES"}</button>
+                  <button className={secondButtonClassName} onClick={this.onToggleButtonSegmentClick.bind(this)}>{(this.props.names.length >= 2) ? this.props.names[1] : "NO"}</button>
                 </div>
             );
         }
