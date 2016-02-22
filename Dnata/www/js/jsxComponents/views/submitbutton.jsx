@@ -2,22 +2,27 @@ define(function (require) {
 
     var SubmitButton = React.createClass ({
 
-
+      getInitialState: function(){
+          return{
+            submitButton: true
+          }
+      },
         onSubmitButtonClick: function (event) {
-            event.stopPropagation();
-            if($(event.target).hasClass("submit_btn green_background")){
-              $(event.target).removeClass("submit_btn green_background").addClass( "submit_btn high_grey_background" );
-            }else{
-              $(event.target).removeClass("submit_btn high_grey_background").addClass( "submit_btn green_background" );
-            }
+            this.setState({submitButton: (this.state.submitButton)?false:true});
         },
 
 
         render: function () {
 
+           if (this.state.submitButton){
+              submitButtonCss = "submit_btn green_background";
+           }else{
+             submitButtonCss = "submit_btn high_grey_background";
+           }
+
             return (
                 <div className="submit_container">
-                  <button className="submit_btn green_background" onClick={this.onSubmitButtonClick}>&#10003;</button>
+                  <button className={submitButtonCss} onClick={this.onSubmitButtonClick}>&#10003;</button>
                 </div>
             );
         }
