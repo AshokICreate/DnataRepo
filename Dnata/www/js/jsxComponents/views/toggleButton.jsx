@@ -3,12 +3,9 @@ define(function (require) {
     var ToggleButton = React.createClass ({
 
         onToggleButtonSegmentClick: function (i,event) {
-            if(this.state.selectedbutton === 1){
-              this.setState({selectedbutton: 2});
-            }else{
-              this.setState({selectedbutton: 1});
-            }
-            this.props.onTouch(this.props.names[i]);
+            var toggleButton = (this.state.selectedbutton === 1)?2:1;
+            this.setState({selectedbutton: toggleButton});
+            this.props.onTouch(this.props.names[toggleButton]);
         },
 
         getInitialState: function(){
