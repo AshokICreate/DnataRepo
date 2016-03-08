@@ -2,11 +2,11 @@ define (function (require) {
     var appDispatcher = require ("util/appDispatcher");
     var EventEmitter = require ("event-emitter").EventEmitter;
     var assign = require ("object-assign");
-    var constants = require ("constants/formConstants");
+    var constants = require ("constants/loginConstants");
 
     var entered =[];
 
-    var FormStore = assign ({}, EventEmitter.prototype, {
+    var LoginStore = assign ({}, EventEmitter.prototype, {
 
       getEntered:function()
       {
@@ -25,21 +25,12 @@ define (function (require) {
 
     appDispatcher.register (function (action) {
         switch (action.actionType) {
-            case constants.Form_Clear:
+            case constants.Login_Auth:
                 {
-                    entered.length=0;
-                    FormStore.emitChange();
-                    break;
-                }
-            case constants.Form_CreateText:
-                {
-                    entered.push(action.text);
-                    FormStore.emitChange();
-                    break;
-                }
-            case constants.Form_CreateLogin:
-                {
-                  //authentication 
+                  //authentication
+
+                  LoginStore.emitChange();
+
                 }
             default:
                 {
@@ -48,5 +39,5 @@ define (function (require) {
         }
     });
 
-    return FormStore;
+    return LoginStore;
   });

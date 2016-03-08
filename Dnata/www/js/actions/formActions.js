@@ -12,6 +12,12 @@ define (function (require) {
             appDispatcher.dispatch ({
                 actionType: constants.Form_Clear,
             });
+        },
+        createLogin: function (text) {
+          appDispatcher.dispatch ({
+            actionType: constants.Form_CreateLogin,
+            text: text
+          });
         }
     };
     return formActions;
