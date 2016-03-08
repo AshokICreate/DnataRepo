@@ -39,10 +39,27 @@ define (function (require) {
 
     function getFormData(id)
     {
-
+      var assignmentId = "";
+      var gotFormData = function(data)
+      {
+        console.log(data);
+      }
       var gotTasks = function(data)
       {
-          console.log(data);
+          if(data.items)
+          {
+            for(var i=0;i<data.items.length;i++)
+            {
+                var obj = data.items[i];
+                if(obj.metricName === id)
+                {
+                  serverCall.connectServer("GET","tasks/"+obj.assignmentId+"/form","",gotFormData);
+                  assignmentId = obj.assignmentId;
+                  return;
+                }
+            }
+
+          }
       }
       serverCall.connectServer("GET","tasks","",gotTasks)
     }
