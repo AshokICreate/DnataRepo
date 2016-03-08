@@ -1,16 +1,16 @@
 <appName "Dnata">
-<actual_injury "Actual Injury">
-<potential_injury "Potential Injury">
+<MS_INC_ACTUAL_INJURY "Actual Injury">
+<MS_INC_POTENTIAL_INJ_FORM "Potential Injury">
 <feedback "Feedback">
 <observation "Observation">
 <safety_contact "Safety Contact">
 <settings "Settings">
 <logout "Logout">
-<workplace_injury "Workplace injury">
-<aircraft_damage "Aircraft damage">
-<weight_and_balance "Weight and balance">
-<security_breach "Security breach">
-<dangerous_goods "Dangerous goods">
-<gse_damage "GSE damage">
-<property_damage "Property damage">
-<plant_and_equipment_damage "Plant and equipment damage">
+<PSD "Injury details">
+<FLY "Aircraft damage">
+<WAB "Weight and balance">
+<SBR "Security breaches">
+<DGR "Dangerous goods">
+<EQD "GSE damage">
+<PRD "Property damage">
+<PAE "Plant and equipment damage">

@@ -1,7 +1,6 @@
 define (function () {
     return {
-        Form_Clear: "form_clear",
-        Form_CreateText: "form_createtext",
-        CHANGE_EVENT: 'form_change'
+        Form_Data: "form_data",
+        CHANGE_DATA_EVENT: 'form_data_change'
     };
 });

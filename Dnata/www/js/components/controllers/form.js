@@ -1,23 +1,10 @@
 define(function (require) {
-  var TextBox= require('views/textBox');
-  var TextareaBox = require('views/textareaBox');
-  var Button = require ("views/button");
   var actions = require ("actions/formActions");
   var Store = require ("stores/formStore");
 
-  function getState () {
-      return {
-          entered: Store.getEntered()
-      };
-  }
-
   var form = React.createClass ({displayName: "form",
-      onclick:function()
-      {
-          actions.clear();
-      },
       getInitialState: function () {
-          return getState();
+          return getContent(this.props.id);
       },
       componentDidMount: function () {
           Store.addChangeListener (this._onChange);
@@ -25,30 +12,36 @@ define(function (require) {
       componentWillUnmount: function () {
           Store.removeChangeListener (this._onChange);
       },
-      _onChange: function () {
-          this.setState (getState ());
-      },
-      _onSave:function(text)
+      _onChange:function()
       {
-          actions.createText(text);
+
       },
       render: function () {
-          var content = this.state.entered.map(function(text,i)
-                    {
-                        return (React.createElement("li", {key: i}, text, " "));
-                    }
-                  );
+          var content = this.state.content;
           return (
-              React.createElement("div", null, 
-                React.createElement(TextBox, {name: "Enter text", onSave: this._onSave}), 
-                content, 
-                React.createElement(TextareaBox, {name: "Enter description", onSave: this._onSave}), 
-                React.createElement(Button, {name: 'Clear', click: this.onclick}, " ")
-
+              React.createElement("div", {className: "gclass"}, 
+                content
               )
           );
       }
   });
   return form;
+
+  function getContent(id)
+  {
+      var formData = Store.data;
+      if(formData[id])
+      {
+        return render(formData[id])
+      }
+
+      actions.getFormData(id);
+      return {content:"loader"};
+  }
+
+  function render(data)
+  {
+
+  }
 
 });

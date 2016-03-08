@@ -3,46 +3,47 @@ define (function (require) {
     var EventEmitter = require ("event-emitter").EventEmitter;
     var assign = require ("object-assign");
     var constants = require ("constants/formConstants");
-
-    var entered =[];
+    var serverCall = require ("util/serverCall");
 
     var FormStore = assign ({}, EventEmitter.prototype, {
+      data:{
 
-      getEntered:function()
-      {
-        return entered;
       },
       emitChange: function() {
-        this.emit(constants.CHANGE_EVENT);
+        this.emit(constants.CHANGE_DATA_EVENT);
       },
       addChangeListener: function(callback) {
-        this.on(constants.CHANGE_EVENT, callback);
+        this.on(constants.CHANGE_DATA_EVENT, callback);
       },
       removeChangeListener: function(callback) {
-        this.removeListener(constants.CHANGE_EVENT, callback);
+        this.removeListener(constants.CHANGE_DATA_EVENT, callback);
       }
     });
 
     appDispatcher.register (function (action) {
-        switch (action.actionType) {
-            case constants.Form_Clear:
-                {
-                    entered.length=0;
-                    FormStore.emitChange();
-                    break;
-                }
-            case constants.Form_CreateText:
-                {
-                    entered.push(action.text);
-                    FormStore.emitChange();
-                    break;
-                }
-            default:
-                {
-                    console.log ("No Registered action");
-                }
+      switch (action.actionType) {
+        case constants.Form_Data:
+        {
+          getFormData(action.formId);
+          FormStore.emitChange();
+          break;
         }
+        default:
+        {
+          console.log ("No Registered action");
+        }
+      }
     });
 
     return FormStore;
+
+    function getFormData(id)
+    {
+
+      var gotTasks = function(data)
+      {
+          console.log(data);
+      }
+      serverCall.connectServer("GET","tasks","",gotTasks)
+    }
   });

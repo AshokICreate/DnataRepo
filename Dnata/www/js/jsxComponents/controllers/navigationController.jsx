@@ -21,7 +21,7 @@ define(function (require) {
         NavigationStore.removeChangeListener (this._onChange);
     },
     componentWillReceiveProps: function(nextProps) {
-      NavigationActions.clearControllers();
+      //NavigationActions.clearControllers(); try changing root controller
       this.setState({
         controller:nextProps.controller
       });
