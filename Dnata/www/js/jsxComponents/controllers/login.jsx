@@ -12,7 +12,9 @@ define(function (require) {
         Store.removeChangeListener (this._onChange);
     },
     _onChange: function () {
+      if(Store.entered!== null){
       appactions.createHome();
+      }
     },
     loginButtonClicked: function () {
       console.log("Clicked");

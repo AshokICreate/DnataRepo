@@ -3,8 +3,9 @@ define (function (require) {
     var EventEmitter = require ("event-emitter").EventEmitter;
     var assign = require ("object-assign");
     var constants = require ("constants/loginConstants");
+    var serverCall = require ("util/serverCall");
 
-    var entered =[];
+    var entered;
 
     var LoginStore = assign ({}, EventEmitter.prototype, {
 
@@ -22,14 +23,23 @@ define (function (require) {
         this.removeListener(constants.CHANGE_EVENT, callback);
       }
     });
+    function login(){
+      var gotLoginData = function(data)
+      {
+        console.log(data);
+        entered = data;
+        LoginStore.emitChange();
+      }
+      serverCall.connectServer("GET","handshake","",gotLoginData);
+      return entered;
+    }
 
     appDispatcher.register (function (action) {
         switch (action.actionType) {
             case constants.Login_Auth:
                 {
                   //authentication
-
-                  LoginStore.emitChange();
+                  login();
 
                 }
             default:
