@@ -18,6 +18,8 @@ requirejs(["jquery-2.1.4.min", "react", "flux", "l20n.min"], function (jquery, r
     window.l20n = L20n.getContext ();
     window.getString = function (key) {
         var value = window.l20n.getSync (key);
+        if(!value)
+          value = key;
         return value;
     };
     window.l20n.registerLocales (defaultLanguage, languagesSupported);

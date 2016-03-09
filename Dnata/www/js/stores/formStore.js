@@ -5,9 +5,33 @@ define (function (require) {
     var constants = require ("constants/formConstants");
     var serverCall = require ("util/serverCall");
 
-    var FormStore = assign ({}, EventEmitter.prototype, {
-      data:{
+    var formData;
+    var keysToShow ={
+      "MS_INC_POTENTIAL_INJ_FORM":[
+                                  "INCIDENT_DESCRIPTION_LKP",
+                                  "INC_DATE_AND_TIME",
+                                  "INC_DATE_AND_TIME",
+                                  "INCIDENT_TIME_HOUR",
+                                  "INCIDENT_TIME_MINUTES",
+                                  "INC_WHILE",
+                                  "INC_WAS",
+                                  "INC_BECAUSE",
+                                  "INC_LOCATION_LKP",
+                                  "INC_SUB_LOCATION_LKP",
+                                  "INC_SUB_LOCATION_LOCALIZED_LKP",
+                                  "INC_EXACT_LOCATION",
+                                  "INC_SHARED_ONLY_HEAD_SAFETY",
+                                  "INC_ATTACHMENT",
+                                  "INC_COMMENTS"]
+    }
 
+    var FormStore = assign ({}, EventEmitter.prototype, {
+      getData:function(){
+          return formData;
+      },
+      getKeysToShow:function(id)
+      {
+        return keysToShow[id];
       },
       emitChange: function() {
         this.emit(constants.CHANGE_DATA_EVENT);
@@ -25,7 +49,6 @@ define (function (require) {
         case constants.Form_Data:
         {
           getFormData(action.formId);
-          FormStore.emitChange();
           break;
         }
         default:
@@ -42,7 +65,16 @@ define (function (require) {
       var assignmentId = "";
       var gotFormData = function(data)
       {
-        console.log(data);
+        var obj = {
+                    assignmentId:assignmentId,
+                    data:data
+                  }
+        if(!formData)
+        {
+          formData = {};
+        }
+        formData[id] = obj;
+        FormStore.emitChange();
       }
       var gotTasks = function(data)
       {
