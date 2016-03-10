@@ -58,7 +58,7 @@ define(function (require) {
             case constants.POPUP:
             case constants.DROPDOWN:
             {
-                if(element.resource.source===form)
+                if(element.resource.source==="form")
                 {
                     var values = getValuesOfResource(data.resources,element.resource.ref);
                     var isSingleSelect = true;
@@ -101,10 +101,10 @@ define(function (require) {
       return {content:content};
   }
 
-  function getValuesOfResource(resources,id) {
+  function getValuesOfResource(resources,refid) {
       var values= [];
-      for (var key in resources[id]) {
-        var value = resources[id][key];
+      for (var key in resources[refid]) {
+        var value = resources[refid][key];
         values.push(value);
       }
 
