@@ -5,13 +5,12 @@ define (function (require) {
     var constants = require ("constants/loginConstants");
     var serverCall = require ("util/serverCall");
 
-    var entered;
-
+    var isLoggedin = false;
     var LoginStore = assign ({}, EventEmitter.prototype, {
 
-      getEntered:function()
+      isUserLoggedIn:function()
       {
-        return entered;
+        return isLoggedin;
       },
       emitChange: function() {
         this.emit(constants.CHANGE_EVENT);
@@ -27,11 +26,11 @@ define (function (require) {
       var gotLoginData = function(data)
       {
         console.log(data);
-        entered = data;
+        if(data.authenticated === "yes")
+          isLoggedin = true;
         LoginStore.emitChange();
       }
       serverCall.connectServer("GET","handshake","",gotLoginData);
-      return entered;
     }
 
     appDispatcher.register (function (action) {

@@ -12,8 +12,11 @@ define(function (require) {
         Store.removeChangeListener (this._onChange);
     },
     _onChange: function () {
-      if(Store.entered!== null){
-      appactions.createHome();
+      if(Store.isUserLoggedIn())
+        appactions.createHome();
+      else{
+        //error
+        console.log("Error in authentication");
       }
     },
     loginButtonClicked: function () {

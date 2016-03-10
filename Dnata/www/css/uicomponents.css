@@ -39,6 +39,24 @@
   margin: 1em 0 2em 0;
 }
 
+.selectBox{
+  position: relative;
+  border-radius: 15px;
+  border: 1px solid #D3D3D3;
+  outline: none;
+  width: 90%;
+  padding:1em;
+  height: 30%;
+}
+
+#line{
+
+}
+
+#arrow{
+
+}
+
 .label{
   position: relative;
   width: 99%;
