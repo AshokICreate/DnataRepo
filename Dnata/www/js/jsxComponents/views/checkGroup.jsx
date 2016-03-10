@@ -4,6 +4,8 @@ define(function(require){
 
   propTypes: {
     name: React.PropTypes.string.isRequired,
+    id: React.PropTypes.string.isRequired,
+    defaultchecked: React.PropTypes.string,
     options:React.PropTypes.array.isRequired,
     onSave: React.PropTypes.func.isRequired
   },
@@ -29,7 +31,7 @@ define(function(require){
         if(flag)
         {
             content.push(
-                <input key={i} className={className} name="mobile" type="checkbox" onChange={this._handleChange} value={array[i]} checked>{array[i]}</input>
+                <input key={i} className={className} name="mobile" type="checkbox" onChange={this._handleChange} defaultChecked={this.props.defaultchecked} value={array[i]} checked>{array[i]}</input>
             );
           }
           else {

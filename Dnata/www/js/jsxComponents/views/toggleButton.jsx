@@ -5,13 +5,14 @@ define(function (require) {
       propTypes: {
         name: React.PropTypes.string.isRequired,
         options: React.PropTypes.array,
+        id: React.PropTypes.string.isRequired,
         onSave: React.PropTypes.func.isRequired
       },
 
         onToggleButtonSegmentClick: function (i,event) {
             var toggleButton = (this.state.selectedbutton === 1)?2:1;
             this.setState({selectedbutton: toggleButton});
-            this.props.onSave(this.props.options[toggleButton]);
+            this.props.onSave(this.props.id,this.props.options[toggleButton]);
         },
 
         getInitialState: function(){
