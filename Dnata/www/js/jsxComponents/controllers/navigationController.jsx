@@ -12,19 +12,17 @@ define(function (require) {
 
   var navigator = React.createClass({
     getInitialState: function () {
-        return {controller:this.props.controller};
+        return {};
     },
     componentDidMount: function () {
         NavigationStore.addChangeListener (this._onChange);
+        NavigationActions.pushController(this.props.controller);
     },
     componentWillUnmount: function () {
         NavigationStore.removeChangeListener (this._onChange);
     },
     componentWillReceiveProps: function(nextProps) {
-      //NavigationActions.clearControllers(); try changing root controller
-      this.setState({
-        controller:nextProps.controller
-      });
+      NavigationActions.changeRootController(nextProps.controller);
     },
     _onChange: function () {
         this.setState (getState());

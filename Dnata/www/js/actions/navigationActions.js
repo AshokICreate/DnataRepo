@@ -10,12 +10,19 @@ define (function (require) {
         },
         popController: function () {
             appDispatcher.dispatch ({
-                actionType: constants.Navigation_POP,
+                actionType: constants.Navigation_POP
+            });
+        },
+        changeRootController:function(controller)
+        {
+            appDispatcher.dispatch ({
+                actionType: constants.Navigation_ChangeRoot,
+                controller: controller
             });
         },
         clearControllers:function(){
             appDispatcher.dispatch ({
-                actionType: constants.Navigation_Clear,
+                actionType: constants.Navigation_Clear
             });
         }
     };

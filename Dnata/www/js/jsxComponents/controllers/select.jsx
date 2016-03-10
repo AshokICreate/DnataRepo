@@ -2,12 +2,12 @@ define(function(require) {
 
   var SelectList = require('views/selectList');
   var Button = require('views/button');
-  var array = ["1","2","3"];
-
   var select = React.createClass ({
 
   propTypes:{
-      onSave: React.PropTypes.func.isRequired
+      onSave: React.PropTypes.func.isRequired,
+      options: React.PropTypes.array.isRequired,
+      isSingleSelect: React.PropTypes.bool.isRequired
   },
 
   selectedValue: function(selvalue){
@@ -15,8 +15,9 @@ define(function(require) {
   },
 
   render: function () {
+      var array = this.props.options;
       return(
-        <SelectList options={array} onSelected={this.selectedValue} isSingle={false}/>
+        <SelectList options={array} onSelected={this.selectedValue} isSingle={this.props.isSingleSelect}/>
         );
       }
       });
