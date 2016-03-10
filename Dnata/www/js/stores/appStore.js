@@ -28,7 +28,7 @@ define (function (require) {
           case constants.Home_Screen:
               {
                   isLoggedin = true;
-                  FormStore.emitChange();
+                  AppStore.emitChange();
                   break;
               }
 

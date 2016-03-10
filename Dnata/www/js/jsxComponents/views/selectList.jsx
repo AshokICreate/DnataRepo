@@ -1,10 +1,11 @@
 define(function(require) {
   var NavigationActions = require ("actions/navigationActions");
+  var Button = require('views/button');
   var selectList = React.createClass({
 
   propTypes:{
     options: React.PropTypes.array.isRequired,
-    onSave: React.PropTypes.func.isRequired,
+    onSelected: React.PropTypes.func.isRequired,
     isSingle: React.PropTypes.bool.isRequired
   },
 
@@ -16,7 +17,7 @@ define(function(require) {
   checkMark: function(key,event) {
       if(this.props.isSingle)
       {
-        this.props.onSave(this.props.options[key]);
+        this.props.onSelected(this.props.options[key]);
         NavigationActions.popController();
       }
       else{
@@ -37,7 +38,7 @@ define(function(require) {
             tempArray.push(this.props.options[key]);
         }
         this.setState({temp:tempArray});
-        this.props.onSave(this.state.temp);
+        this.props.onSelected(this.state.temp);
       }
   },
 
