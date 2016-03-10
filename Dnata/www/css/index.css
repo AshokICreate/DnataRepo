@@ -47,6 +47,10 @@ body {
   height: 100%;
 }
 
+.form{
+  color:black;
+}
+
 .headerContainer {
   position: relative;
   padding: 0.25em;

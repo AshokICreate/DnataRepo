@@ -4,7 +4,7 @@ define (function (require) {
     var assign = require ("object-assign");
     var constants = require ("constants/appConstants");
 
-    var isLoggedin = false;
+    var isLoggedin = true;
 
     var AppStore = assign ({}, EventEmitter.prototype, {
 
