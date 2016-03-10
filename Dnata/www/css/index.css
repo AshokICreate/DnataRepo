@@ -49,6 +49,7 @@ body {
 
 .form{
   color:black;
+  overflow-y: scroll;
 }
 
 .headerContainer {
