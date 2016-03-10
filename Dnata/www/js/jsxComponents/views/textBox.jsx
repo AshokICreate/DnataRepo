@@ -4,6 +4,8 @@ define(function (require) {
 
     propTypes: {
       name: React.PropTypes.string.isRequired,
+      id: React.PropTypes.string.isRequired,
+      defaultvalue:React.PropTypes.string,
       onSave: React.PropTypes.func.isRequired
     },
 
@@ -26,7 +28,7 @@ define(function (require) {
         return (
               <div className="inputBox">
                 <div className="label">{getString(name)}</div>
-                <input className={className} onChange={this._handleChange} onBlur={this._save} value={value}/>
+                <input className={className} onChange={this._handleChange} onBlur={this._save} defaultValue={this.props.defaultvalue} value={value}/>
               </div>
           );
       }

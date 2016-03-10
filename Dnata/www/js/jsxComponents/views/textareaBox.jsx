@@ -4,6 +4,8 @@ var textareaBox = React.createClass({
 
   propTypes: {
     name: React.PropTypes.string.isRequired,
+    id: React.PropTypes.string.isRequired,
+    defaultvalue: React.PropTypes.string,
     onSave: React.PropTypes.func.isRequired
   },
     getInitialState: function() {
@@ -28,7 +30,7 @@ var textareaBox = React.createClass({
     return (
           <div className="descBox">
           <div className="label">{getString(name)}</div>
-          <textarea name="description" className={className} onChange={this._handleChange} onBlur={this._save} value={value}/>
+          <textarea name="description" className={className} defaultValue={this.props.defaultvalue} onChange={this._handleChange} onBlur={this._save} value={value}/>
           </div>
           );
       }
