@@ -5,18 +5,29 @@ define(function (require) {
   propTypes: {
     name: React.PropTypes.string.isRequired,
     onSelectBoxClick: React.PropTypes.func.isRequired
+    defaultvalue: React.PropTypes.array
   },
+
   _onClick:function()
   {
-      this.props.onSelectBoxClick(this.props.id);
+      this.props.onSelectBoxClick(this.props.id,this.props.defaultvalue);
   },
   render: function () {
     var name = this.props.name;
+    var dvalue = this.props.defaultvalue;
+    var content = [];
+    for(var i = 0; i < dvalue.length; i++){
+      content.push(
+      <li defaultValue={dvalue[i]}</li>
+      );
+    }
     return(
-      <div>
+      <div className="inputBox">
       <div className="label">{getString(name)}</div>
-      <br/>
-      <input className="selectBox" onClick={this._onClick}><div id="line"></div> <div id="arrow"></div></input>
+      <div className="selectBox" onClick={this._onClick}>
+        {content}
+        <div id="line">|</div> <div id="arrow"></div>
+      </div>
       </div>
     );
   }
