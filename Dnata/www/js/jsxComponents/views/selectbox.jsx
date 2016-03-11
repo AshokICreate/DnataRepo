@@ -16,10 +16,13 @@ define(function (require) {
     var name = this.props.name;
     var dvalue = this.props.defaultvalue;
     var content = [];
-    for(var i = 0; i < dvalue.length; i++){
-      content.push(
-      <li className="selectlist">dvalue[i]</li>
-      );
+    if(dvalue)
+    {
+      for(var i = 0; i < dvalue.length; i++){
+        content.push(
+        <li>{dvalue[i]}</li>
+        );
+      }
     }
     return(
       <div className="inputBox">
