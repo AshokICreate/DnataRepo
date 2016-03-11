@@ -4,7 +4,7 @@ define(function (require) {
 
   propTypes: {
     name: React.PropTypes.string.isRequired,
-    onSelectBoxClick: React.PropTypes.func.isRequired
+    onSelectBoxClick: React.PropTypes.func.isRequired,
     defaultvalue: React.PropTypes.array
   },
 
@@ -18,7 +18,7 @@ define(function (require) {
     var content = [];
     for(var i = 0; i < dvalue.length; i++){
       content.push(
-      <li defaultValue={dvalue[i]}</li>
+      <li className="selectlist">dvalue[i]</li>
       );
     }
     return(

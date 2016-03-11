@@ -27,12 +27,18 @@
 }
 
 .inputBox{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   position: relative;
   width: 100%;
   margin: 1em 0 2em 0;
 }
 
 .descBox{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   position: relative;
   width: 100%;
   height: 40%;
@@ -40,6 +46,9 @@
 }
 
 .selectBox{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   position: relative;
   border-radius: 20px;
   border: 1px solid #D3D3D3;
@@ -66,6 +75,9 @@
 }
 
 .label{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   position: relative;
   width: 99%;
   margin-left:3%;
@@ -74,6 +86,9 @@
 }
 
 .field{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   position: relative;
   width: 80%;
   height: 2em;
@@ -81,11 +96,17 @@
 }
 
 .radiogroup{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   position: relative;
   margin-left:5%;
 }
 
 .list{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     position: relative;
     width: 100%;
     height: 100%;
@@ -96,8 +117,11 @@
     padding-bottom: 3%;
 }
 
-.title
+.listtitle
 {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     display: inline-block;
     margin-bottom: 0;
     position: relative;
@@ -123,6 +147,9 @@
 }
 
 #checked{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   color: white;
   position: relative;
   font-family: Roboto;
@@ -136,6 +163,9 @@
 }
 
 .userdetails {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   color: white;
   margin-left: 10%;
   margin-top: 10%;
@@ -147,6 +177,9 @@
 
 
 .pwdetails{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   color: white;
   margin-left: 10%;
   margin-top: 15%;
@@ -157,6 +190,9 @@
 }
 
 #userinfo{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   border:none;
   background:transparent;
   border-bottom: 0.5vw solid white;
@@ -170,6 +206,9 @@
 }
 
 #pwdinfo{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   border:none;
   background:transparent;
   border-bottom: 0.5vw solid white;
@@ -215,6 +254,9 @@ position: relative;
 /*for the dnataid and password labels*/
 
 label{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   opacity:0.4;
   position:relative;
   font-family: Roboto;
@@ -225,6 +267,9 @@ label{
 
 
 .loginicon{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   background-color: white;
   position: relative;
   color: black;
@@ -233,16 +278,21 @@ label{
 }
 
 .loginscreen{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   background-color: #0f88ca;
   height: 70%;
   width: 100%;
   padding-top: 10%;
   padding-bottom: 5%;
   position: relative;
-
 }
 
 .loginbtn{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   display: table;
   margin: 0 auto;
   margin-top: 25%;
@@ -259,6 +309,9 @@ label{
   height: 10%;
 }
 .toggle_button_container{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   max-width: 100%;
   height: 30px;
 }
