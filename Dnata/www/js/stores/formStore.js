@@ -29,18 +29,22 @@ define (function (require) {
       getData:function(){
           return formData;
       },
+      getResorceData:function(url,callback)
+      {
+          serverCall.connectServer("GET",url,"",callback)
+      },
       getKeysToShow:function(id)
       {
         return keysToShow[id];
       },
-      emitChange: function() {
-        this.emit(constants.CHANGE_DATA_EVENT);
+      emitChange: function(eventId) {
+        this.emit(eventId);
       },
-      addChangeListener: function(callback) {
-        this.on(constants.CHANGE_DATA_EVENT, callback);
+      addChangeListener: function(eventId,callback) {
+        this.on(eventId, callback);
       },
-      removeChangeListener: function(callback) {
-        this.removeListener(constants.CHANGE_DATA_EVENT, callback);
+      removeChangeListener: function(eventId,callback) {
+        this.removeListener(eventId, callback);
       }
     });
 
@@ -62,37 +66,38 @@ define (function (require) {
 
     function getFormData(id)
     {
-      var assignmentId = "";
-      var gotFormData = function(data)
-      {
-        var obj = {
-                    assignmentId:assignmentId,
-                    data:data
-                  }
-        if(!formData)
+        var assignmentId = "";
+        var gotFormData = function(data)
         {
-          formData = {};
-        }
-        formData[id] = obj;
-        FormStore.emitChange();
-      }
-      var gotTasks = function(data)
-      {
-          if(data.items)
+          var obj = {
+                      assignmentId:assignmentId,
+                      data:data
+                    }
+          if(!formData)
           {
-            for(var i=0;i<data.items.length;i++)
-            {
-                var obj = data.items[i];
-                if(obj.metricName === id)
-                {
-                  serverCall.connectServer("GET","tasks/"+obj.assignmentId+"/form","",gotFormData);
-                  assignmentId = obj.assignmentId;
-                  return;
-                }
-            }
-
+            formData = {};
           }
-      }
-      serverCall.connectServer("GET","tasks","",gotTasks)
+          formData[id] = obj;
+          FormStore.emitChange(constants.Change_Data_Event);
+        }
+        var gotTasks = function(data)
+        {
+            if(data.items)
+            {
+              for(var i=0;i<data.items.length;i++)
+              {
+                  var obj = data.items[i];
+                  if(obj.metricName === id)
+                  {
+                    serverCall.connectServer("GET","tasks/"+obj.assignmentId+"/form","",gotFormData);
+                    assignmentId = obj.assignmentId;
+                    return;
+                  }
+              }
+
+            }
+        }
+        serverCall.connectServer("GET","tasks","",gotTasks)
     }
+
   });

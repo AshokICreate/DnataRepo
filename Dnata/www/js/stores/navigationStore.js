@@ -49,6 +49,13 @@ define (function (require) {
                     navigationStore.emitChange();
                     break;
                 }
+            case constants.Navigation_ChangeRoot:
+              {
+                    controllerStack =[];
+                    controllerStack.push(action.controller);
+                    navigationStore.emitChange();
+                    break;
+              }
             default:
                 {
                     console.log ("No Registered action");
