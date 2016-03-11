@@ -13,7 +13,7 @@ body {
     height: 100%;
     padding:0px;
     margin:0px;
-    color: black;
+    color: white;
 }
 
 #mainContainer
@@ -50,7 +50,7 @@ body {
 .form{
   color:black;
   overflow-y: scroll;
-  top:-2.5%
+  top:-2.5%;
 }
 
 .headerContainer {

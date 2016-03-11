@@ -68,6 +68,7 @@
   width: 90%;
   position: relative;
   border-right: solid #aaa 1px;
+  min-height: 1em;
 }
 
 #arrow{
