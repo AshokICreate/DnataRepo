@@ -54,24 +54,43 @@
   border: 1px solid #D3D3D3;
   outline: none;
   padding: 1em;
-  width: 90%;
+  width: 85%;
   height: 30%;
+  margin-right: 3%;
+  margin-left: 3%;
 }
 
 #line{
-    height: 12px;
+    display:inline-block;
+    width: 1px;
+    height: 100%;
+    position:relative;
     color:grey;
     opacity:0.5;
 }
 
+.dlist{
+  list-style-type: none;
+}
+
+.dlistclass{
+  display:inline-block;
+  width: 80%;
+  height:100%;
+}
+
 #arrow{
+  display: inline-block;
   position: relative;
   background-image:url('https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-right-01-128.png');
   background-repeat: no-repeat;
   background-position: right;
   background-size: 25px;
-  height: 12px;
+  height: 100%;
   opacity:0.5;
+  width: 19%;
+  /*display: table;
+  margin: 0 auto;*/
 }
 
 .label{
@@ -90,9 +109,14 @@
   -moz-appearance: none;
   appearance: none;
   position: relative;
-  width: 80%;
-  height: 2em;
-  margin-left: 5%;
+  border-radius: 20px;
+  border: 1px solid #D3D3D3;
+  outline: none;
+  padding: 1em;
+  width: 85%;
+  height: 30%;
+  margin-right: 3%;
+  margin-left: 3%;
 }
 
 .radiogroup{

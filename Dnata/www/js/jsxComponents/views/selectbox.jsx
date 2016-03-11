@@ -14,13 +14,14 @@ define(function (require) {
   },
   render: function () {
     var name = this.props.name;
-    var dvalue = this.props.defaultvalues;
+    //var dvalue = this.props.defaultvalues;
+    var dvalue = ["First","Sec","Third"];
     var content = [];
     if(dvalue)
     {
       for(var i = 0; i < dvalue.length; i++){
         content.push(
-        <li>{dvalue[i]}</li>
+        <li className="dlist">{dvalue[i]}</li>
         );
       }
     }
@@ -28,8 +29,10 @@ define(function (require) {
       <div className="inputBox">
       <div className="label">{getString(name)}</div>
       <div className="selectBox" onClick={this._onClick}>
+      <div className="dlistclass">
         {content}
-        <div id="line">|</div> <div id="arrow"></div>
+      </div>
+        <div id="line"></div><div id="arrow"></div>
       </div>
       </div>
     );
