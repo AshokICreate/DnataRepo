@@ -21,14 +21,14 @@ define(function(require){
 
     for (var i = 0; i < array.length; i++) {
 
-        if(array[i] === this.props.value)
+        if(array[i] === this.props.defaultchecked)
         {
           content.push(
-              <input key={i} className={className} name="gender" type="radio" onChange={this._handleChange} defaultChecked={this.props.defaultchecked} value={array[i]} checked>{array[i]}</input>
+              <input key={i} className={className} name={this.props.id} type="radio" onChange={this._handleChange}  value={array[i]} checked>{array[i]}</input>
           );
         }else {
           content.push(
-              <input key={i} className={className} name="gender" type="radio" onChange={this._handleChange} value={array[i]} >{array[i]}</input>
+              <input key={i} className={className} name={this.props.id} type="radio" onChange={this._handleChange} value={array[i]} >{array[i]}</input>
           );
         }
 

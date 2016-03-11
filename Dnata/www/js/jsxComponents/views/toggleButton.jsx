@@ -6,7 +6,8 @@ define(function (require) {
         name: React.PropTypes.string.isRequired,
         options: React.PropTypes.array,
         id: React.PropTypes.string.isRequired,
-        onSave: React.PropTypes.func.isRequired
+        onSave: React.PropTypes.func.isRequired,
+        defaultvalue:React.PropTypes.string
       },
 
         onToggleButtonSegmentClick: function (i,event) {
@@ -16,8 +17,15 @@ define(function (require) {
         },
 
         getInitialState: function(){
+            var index =1;
+            if(this.props.defaultvalue && this.props.defaultvalue !== "" && this.props.options )
+            {
+                index = this.props.options.indexOf(this.props.defaultvalue)+1;
+                if(index<1)
+                  index = 1;
+            }
             return{
-              selectedbutton: 1
+              selectedbutton: index
 
             }
         },

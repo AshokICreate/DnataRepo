@@ -32,14 +32,25 @@ define(function (require) {
       {
           return this.setState(this.getContent(this.props.id));
       },
+      _onComponentSave:function(id,value)
+      {
+          if(value)
+          {
+              var formsData = Store.getData();
+              var content = formsData[this.props.id].data.content;
+              content[id] = value;
+          }
+      },
       _onSelectBoxClick:function(key,options)
       {
           var content;
           var isSingleSelect = true;
           var formsData = Store.getData();
-          var structure = formsData[this.props.id].data.structure
-          var resources = formsData[this.props.id].data.resources
+          var structure = formsData[this.props.id].data.structure;
+          var resources = formsData[this.props.id].data.resources;
+          var content = formsData[this.props.id].data.content;
           var element = structure[key];
+          var value = content[key];
           if("multiple" === element.select )
           {
               isSingleSelect =false;
@@ -48,7 +59,7 @@ define(function (require) {
           if(element.resource.source==="form")
           {
               var options = getValuesOfResource(resources[element.resource.ref]);
-              content= <Select options={options} isSingleSelect={isSingleSelect} id={key} key={key}/>
+              content= <Select options={options} isSingleSelect={isSingleSelect} onSave={this._onComponentSave} id={key} key={key}/>
               var controllerData = {
                 title:getString("select"),
                 content:content,
@@ -75,7 +86,7 @@ define(function (require) {
               var gotResourceData=function(data)
               {
                   var options = getValuesOfResource(data);
-                  content= <Select options={options} isSingleSelect={isSingleSelect} id={key} key={key}/>
+                  content= <Select options={options} isSingleSelect={isSingleSelect} onSave={this._onComponentSave} id={key} key={key}/>
                   var controllerData = {
                     title:getString("select"),
                     content:content,
@@ -102,19 +113,20 @@ define(function (require) {
       renderUI:function(data,keys)
       {
           var structure = data.structure;
-          var content = [];
+          var content = data.content;
+          var contentUI = [];
           for(var i=0;i<keys.length;i++)
           {
               var key = keys[i];
               var element = structure[key];
-
+              var value = content[key];
               switch (element.fieldtype) {
                 case constants.Popup:
                 case constants.Dropdown:
                 {
                     if(element.resource.source==="form")
                     {
-                        var values = getValuesOfResource(data.resources[element.resource.ref]);
+                        var options = getValuesOfResource(data.resources[element.resource.ref]);
                         var isSingleSelect = true;
                         if("multiple" === element.select )
                         {
@@ -123,20 +135,20 @@ define(function (require) {
 
                         if(values.length==2 && isSingleSelect)
                         {
-                            content.push(<ToggleButton name={element.label} options={values} id={key} key={key}/>)
+                            contentUI.push(<ToggleButton name={element.label} options={options} onSave={this._onComponentSave} defaultvalue={value} id={key} key={key}/>)
 
                         }else if (values.length < 5) {
                             if(isSingleSelect)
                             {
-                                content.push(<RadioGroup name={element.label} options={values} id={key} key={key}/>)
+                                contentUI.push(<RadioGroup name={element.label} options={options} onSave={this._onComponentSave} defaultchecked={value} id={key} key={key}/>)
                             }else {
-                                content.push(<CheckGroup name={element.label} options={values} id={key} key={key}/>)
+                                contentUI.push(<CheckGroup name={element.label} options={options} onSave={this._onComponentSave} defaultchecked={value} id={key} key={key}/>)
                             }
                         }else {
-                            content.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} id={key} key={key}/>);
+                            contentUI.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} id={key} key={key}/>);
                         }
                     }else {
-                        content.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} id={key} key={key}/>);
+                        contentUI.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} id={key} key={key}/>);
                     }
                     break;
                 }
@@ -151,12 +163,12 @@ define(function (require) {
                 }
                 default:
                 {
-                    content.push(<TextBox name={element.label} id={key}  key={key}/>)
+                    contentUI.push(<TextBox name={element.label} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>)
                 }
               }
           }
 
-          return {content:content};
+          return {content:contentUI};
       }
   });
   return form;
