@@ -13,7 +13,7 @@ define(function (require) {
         onToggleButtonSegmentClick: function (i,event) {
             var toggleButton = (this.state.selectedbutton === 1)?2:1;
             this.setState({selectedbutton: toggleButton});
-            this.props.onSave(this.props.id,this.props.options[toggleButton]);
+            this.props.onSave(this.props.id,this.props.options[toggleButton-1]);
         },
 
         getInitialState: function(){
