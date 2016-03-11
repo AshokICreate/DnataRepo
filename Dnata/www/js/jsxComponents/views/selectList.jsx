@@ -5,12 +5,13 @@ define(function(require) {
 
   propTypes:{
     options: React.PropTypes.array.isRequired,
+    defaultvalue: React.PropTypes.array,
     onSelected: React.PropTypes.func.isRequired,
     isSingle: React.PropTypes.bool.isRequired
   },
 
   getInitialState: function () {
-    var mArray = [];
+    var mArray = this.props.defaultvalue;
     return { temp: mArray};
   },
 

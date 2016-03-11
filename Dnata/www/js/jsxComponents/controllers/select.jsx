@@ -8,6 +8,7 @@ define(function(require) {
     propTypes:{
         id: React.PropTypes.string.isRequired,
         options: React.PropTypes.array.isRequired,
+        defaultvalue: React.PropTypes.array,
         isSingleSelect: React.PropTypes.bool.isRequired,
         onSave: React.PropTypes.func.isRequired
     },
@@ -18,7 +19,7 @@ define(function(require) {
 
     render: function() {
         return(
-          <SelectList options={this.props.options} onSelected={this.selectedValue} isSingle={this.props.isSingleSelect}/>
+          <SelectList options={this.props.options} defaultvalue={this.props.defaultvalue} onSelected={this.selectedValue} isSingle={this.props.isSingleSelect}/>
           );
     }
   });
