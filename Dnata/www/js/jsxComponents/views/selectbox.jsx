@@ -4,8 +4,8 @@ define(function (require) {
 
   propTypes: {
     name: React.PropTypes.string.isRequired,
-    onSelectBoxClick: React.PropTypes.func.isRequired
-    defaultvalue: React.PropTypes.array
+    onSelectBoxClick: React.PropTypes.func.isRequired,
+    defaultvalues: React.PropTypes.array
   },
 
   _onClick:function()
@@ -16,10 +16,13 @@ define(function (require) {
     var name = this.props.name;
     var dvalue = this.props.defaultvalue;
     var content = [];
-    for(var i = 0; i < dvalue.length; i++){
-      content.push(
-      <li defaultValue={dvalue[i]}</li>
-      );
+    if(dvalue)
+    {
+      for(var i = 0; i < dvalue.length; i++){
+        content.push(
+        <li>{dvalue[i]}</li>
+        );
+      }
     }
     return(
       <div className="inputBox">

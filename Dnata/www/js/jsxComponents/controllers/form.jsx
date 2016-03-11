@@ -50,16 +50,30 @@ define(function (require) {
           var resources = formsData[this.props.id].data.resources;
           var content = formsData[this.props.id].data.content;
           var element = structure[key];
-          var value = content[key];
           if("multiple" === element.select )
           {
               isSingleSelect =false;
           }
 
+          var obj = content[key];
+          var defaultArray= [];
+          if(obj instanceof Array)
+          {
+              value = [];
+              for(var index=0;index<obj.length;index++)
+              {
+                  if( obj[index].value)
+                    defaultArray.push( obj[index].value);
+              }
+          }else {
+              if(obj.value)
+                defaultArray.push( obj.value)
+          }
+
           if(element.resource.source==="form")
           {
               var options = getValuesOfResource(resources[element.resource.ref]);
-              content= <Select options={options} isSingleSelect={isSingleSelect} onSave={this._onComponentSave} id={key} key={key}/>
+              content= <Select options={options} isSingleSelect={isSingleSelect} onSave={this._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
               var controllerData = {
                 title:getString("select"),
                 content:content,
@@ -86,7 +100,7 @@ define(function (require) {
               var gotResourceData=function(data)
               {
                   var options = getValuesOfResource(data);
-                  content= <Select options={options} isSingleSelect={isSingleSelect} onSave={this._onComponentSave} id={key} key={key}/>
+                  content= <Select options={options} isSingleSelect={isSingleSelect} onSave={this._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
                   var controllerData = {
                     title:getString("select"),
                     content:content,
@@ -119,25 +133,43 @@ define(function (require) {
           {
               var key = keys[i];
               var element = structure[key];
-              var value = content[key];
+              var obj = content[key];
+              var value;
+              if(obj instanceof Array)
+              {
+                  value = [];
+                  for(var index=0;index<obj.length;index++)
+                  {
+                      if(obj[index].value)
+                        value.push(obj[index].value);
+                  }
+              }else {
+                  if(obj.value)
+                    value = obj.value;
+                  else {
+                    value = "";
+                  }
+              }
+
               switch (element.fieldtype) {
                 case constants.Popup:
                 case constants.Dropdown:
                 {
+                    var isSingleSelect = true;
+                    if("multiple" === element.select )
+                    {
+                        isSingleSelect = false;
+                    }
+
                     if(element.resource.source==="form")
                     {
                         var options = getValuesOfResource(data.resources[element.resource.ref]);
-                        var isSingleSelect = true;
-                        if("multiple" === element.select )
-                        {
-                            isSingleSelect = false;
-                        }
 
-                        if(values.length==2 && isSingleSelect)
+                        if(options.length==2 && isSingleSelect)
                         {
                             contentUI.push(<ToggleButton name={element.label} options={options} onSave={this._onComponentSave} defaultvalue={value} id={key} key={key}/>)
 
-                        }else if (values.length < 5) {
+                        }else if (options.length < 5) {
                             if(isSingleSelect)
                             {
                                 contentUI.push(<RadioGroup name={element.label} options={options} onSave={this._onComponentSave} defaultchecked={value} id={key} key={key}/>)
@@ -148,7 +180,17 @@ define(function (require) {
                             contentUI.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} id={key} key={key}/>);
                         }
                     }else {
-                        contentUI.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} id={key} key={key}/>);
+
+                        var defaultArray;
+                        if(value instanceof Array)
+                        {
+                            defaultArray = value;
+                        }else {
+                            defaultArray = [];
+                            defaultArray.push(value);
+                        }
+
+                        contentUI.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} defaultvalues={defaultArray} id={key} key={key}/>);
                     }
                     break;
                 }
