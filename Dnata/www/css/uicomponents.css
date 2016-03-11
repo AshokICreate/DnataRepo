@@ -41,11 +41,11 @@
 
 .selectBox{
   position: relative;
-  border-radius: 15px;
+  border-radius: 20px;
   border: 1px solid #D3D3D3;
   outline: none;
+  padding: 1em;
   width: 90%;
-  padding:1em;
   height: 30%;
 }
 
@@ -54,7 +54,13 @@
 }
 
 #arrow{
-
+  position: relative;
+  background-image:url('https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-right-01-128.png');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 25px;
+  height: 12px;
+  opacity:0.5;
 }
 
 .label{
@@ -78,19 +84,30 @@
 }
 
 .list{
-  position: relative;
-  width: 20%;
-  height: 2em;
-  font-weight: bold;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    border-bottom: 2px solid;
+    border-bottom-color: #D3D3D3;
+    padding-top: 3%;
+    padding-bottom: 3%;
 }
 
-.list .title,
-.list .tick{
+.title
+{
     display: inline-block;
     margin-bottom: 0;
     position: relative;
-    width: 2em;
-    height: 1em;
+    height: 30%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.tick{
+  display: inline-block;
+  margin-bottom: 0;
+  position: relative;
 }
 
 .hide{
