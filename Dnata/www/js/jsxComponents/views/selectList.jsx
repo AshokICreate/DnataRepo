@@ -58,7 +58,7 @@ define(function(require) {
       }
       value.push(
         <div className="list" key={i} onClick={this.checkMark.bind(this,i)}>
-          <div className = "title"> {option[i]}</div>
+          <div className = "listtitle"> {option[i]}</div>
           <label className={className} >&#10003;</label>
         </div>
         );
