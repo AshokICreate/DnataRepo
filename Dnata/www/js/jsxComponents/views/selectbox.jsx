@@ -14,14 +14,13 @@ define(function (require) {
   },
   render: function () {
     var name = this.props.name;
-    //var dvalue = this.props.defaultvalues;
-    var dvalue = ["First","Sec","Third"];
+    var dvalue = this.props.defaultvalues;
     var content = [];
     if(dvalue)
     {
       for(var i = 0; i < dvalue.length; i++){
         content.push(
-        <li className="dlist">{dvalue[i]}</li>
+        <li className="dlist" key={i}>{dvalue[i]}</li>
         );
       }
     }
@@ -32,7 +31,6 @@ define(function (require) {
       <div className="dlistclass">
         {content}
       </div>
-        <div id="line"></div><div id="arrow"></div>
       </div>
       </div>
     );

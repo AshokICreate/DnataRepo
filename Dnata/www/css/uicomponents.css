@@ -55,18 +55,8 @@
   outline: none;
   padding: 1em;
   width: 85%;
-  height: 30%;
   margin-right: 3%;
   margin-left: 3%;
-}
-
-#line{
-    display:inline-block;
-    width: 1px;
-    height: 100%;
-    position:relative;
-    color:grey;
-    opacity:0.5;
 }
 
 .dlist{
@@ -75,8 +65,9 @@
 
 .dlistclass{
   display:inline-block;
-  width: 80%;
-  height:100%;
+  width: 90%;
+  position: relative;
+  border-right: solid #aaa 1px;
 }
 
 #arrow{
