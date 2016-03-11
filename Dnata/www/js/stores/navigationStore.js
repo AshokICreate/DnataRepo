@@ -18,14 +18,14 @@ define (function (require) {
 
         return controller;
       },
-      emitChange: function() {
-        this.emit(constants.CHANGE_EVENT);
+      emitChange: function(eventId) {
+        this.emit(eventId);
       },
-      addChangeListener: function(callback) {
-        this.on(constants.CHANGE_EVENT, callback);
+      addChangeListener: function(eventId,callback) {
+        this.on(eventId, callback);
       },
-      removeChangeListener: function(callback) {
-        this.removeListener(constants.CHANGE_EVENT, callback);
+      removeChangeListener: function(eventId,callback) {
+        this.removeListener(eventId, callback);
       }
     });
 
@@ -34,26 +34,26 @@ define (function (require) {
             case constants.Navigation_PUSH:
                 {
                     controllerStack.push(action.controller);
-                    navigationStore.emitChange();
+                    navigationStore.emitChange(constants.Change_Event);
                     break;
                 }
             case constants.Navigation_POP:
                 {
                     controllerStack.pop();
-                    navigationStore.emitChange();
+                    navigationStore.emitChange(constants.Change_Event);
                     break;
                 }
             case constants.Navigation_Clear:
                 {
                     controllerStack =[];
-                    navigationStore.emitChange();
+                    navigationStore.emitChange(constants.Change_Event);
                     break;
                 }
             case constants.Navigation_ChangeRoot:
               {
                     controllerStack =[];
                     controllerStack.push(action.controller);
-                    navigationStore.emitChange();
+                    navigationStore.emitChange(constants.Change_Event);
                     break;
               }
             default:

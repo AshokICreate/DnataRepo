@@ -1,8 +1,12 @@
 define(function(require) {
 
+  var NavigationStore = require("stores/navigationStore");
+  var NavigationActions = require ("actions/navigationActions");
+  var NavigationConstants = require ("constants/navigationConstants");
+
   var SelectList = require('views/selectList');
   var Button = require('views/button');
-
+  var selectedArray;
   var select = React.createClass ({
 
     propTypes:{
@@ -12,11 +16,27 @@ define(function(require) {
         isSingleSelect: React.PropTypes.bool.isRequired,
         onSave: React.PropTypes.func.isRequired
     },
-
-    selectedValue: function(selvalue){
-      this.props.onSave(this.props.id,selvalue);
+    componentDidMount: function () {
+        NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
     },
+    componentWillUnmount: function () {
+        NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+    },
+    _onRightButtonClick:function()
+    {
+        this.props.onSave(this.props.id,selectedArray);
+    },
+    selectedValue: function(selvalue){
+        if(this.props.isSingleSelect)
+        {
+          this.props.onSave(this.props.id,selvalue);
+          NavigationActions.popController();
+        }
+        else {
+          selectedArray = selvalue;
+        }
 
+    },
     render: function() {
         return(
           <SelectList options={this.props.options} defaultvalue={this.props.defaultvalues} onSelected={this.selectedValue} isSingle={this.props.isSingleSelect}/>

@@ -1,6 +1,4 @@
 define(function(require) {
-  var NavigationActions = require ("actions/navigationActions");
-  var Button = require('views/button');
   var selectList = React.createClass({
 
   propTypes:{
@@ -14,12 +12,10 @@ define(function(require) {
     var mArray = this.props.defaultvalue;
     return { temp: mArray};
   },
-
   checkMark: function(key,event) {
       if(this.props.isSingle)
       {
         this.props.onSelected(this.props.options[key]);
-        NavigationActions.popController();
       }
       else{
         var flag = false;
@@ -38,8 +34,8 @@ define(function(require) {
         else {
             tempArray.push(this.props.options[key]);
         }
+        this.props.onSelected(tempArray);
         this.setState({temp:tempArray});
-        this.props.onSelected(this.state.temp);
       }
   },
 

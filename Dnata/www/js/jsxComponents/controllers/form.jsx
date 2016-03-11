@@ -38,8 +38,27 @@ define(function (require) {
           {
               var formsData = Store.getData();
               var content = formsData[this.props.id].data.content;
-              content[id] = value;
+
+              if(value instanceof Array)
+              {
+                  var arrayObj = []
+                  for (var i=0;i<value.length;i++)
+                  {
+                      if(value[i] && value[i] !== "")
+                      {
+                          var obj = {value:value[i]};
+                          arrayObj.push(obj);
+                      }
+                  }
+                  content[id] = arrayObj;
+
+              }else if(value !== "")
+              {
+                  var obj = {value:value};
+                  content[id] = obj;
+              }
           }
+
       },
       _onSelectBoxClick:function(key,options)
       {
@@ -62,11 +81,11 @@ define(function (require) {
               value = [];
               for(var index=0;index<obj.length;index++)
               {
-                  if( obj[index].value)
+                  if( obj[index].value && obj[index].value!=="")
                     defaultArray.push( obj[index].value);
               }
           }else {
-              if(obj.value)
+              if(obj.value && obj.value!=="")
                 defaultArray.push( obj.value)
           }
 
@@ -77,7 +96,8 @@ define(function (require) {
               var controllerData = {
                 title:getString("select"),
                 content:content,
-                backButtonName:"back"
+                backButtonName:"back",
+                rightButtonName:"submit"
               };
               NavigationActions.pushController(controllerData);
           }else {
@@ -97,14 +117,16 @@ define(function (require) {
               }
               var url  = "tasks/"+formsData[this.props.id].assignmentId+"/form/resources/"+element.resource.ref+"?"+queryParams;
 
+              var that = this;
               var gotResourceData=function(data)
               {
                   var options = getValuesOfResource(data);
-                  content= <Select options={options} isSingleSelect={isSingleSelect} onSave={this._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
+                  content= <Select options={options} isSingleSelect={isSingleSelect} onSave={that._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
                   var controllerData = {
                     title:getString("select"),
                     content:content,
-                    backButtonName:"<"
+                    backButtonName:"back",
+                    rightButtonName:"submit"
                   };
                   NavigationActions.pushController(controllerData);
               }
@@ -140,7 +162,7 @@ define(function (require) {
                   value = [];
                   for(var index=0;index<obj.length;index++)
                   {
-                      if(obj[index].value)
+                      if(obj[index].value && obj[index].value!=="")
                         value.push(obj[index].value);
                   }
               }else {
@@ -177,7 +199,16 @@ define(function (require) {
                                 contentUI.push(<CheckGroup name={element.label} options={options} onSave={this._onComponentSave} defaultchecked={value} id={key} key={key}/>)
                             }
                         }else {
-                            contentUI.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} id={key} key={key}/>);
+                            var defaultArray;
+                            if(value instanceof Array)
+                            {
+                                defaultArray = value;
+                            }else {
+                                defaultArray = [];
+                                if(value!=="")
+                                  defaultArray.push(value);
+                            }
+                            contentUI.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} defaultvalues={defaultArray} id={key} key={key}/>);
                         }
                     }else {
 
@@ -187,7 +218,8 @@ define(function (require) {
                             defaultArray = value;
                         }else {
                             defaultArray = [];
-                            defaultArray.push(value);
+                            if(value!=="")
+                              defaultArray.push(value);
                         }
 
                         contentUI.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} defaultvalues={defaultArray} id={key} key={key}/>);

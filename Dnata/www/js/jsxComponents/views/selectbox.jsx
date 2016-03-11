@@ -14,7 +14,7 @@ define(function (require) {
   },
   render: function () {
     var name = this.props.name;
-    var dvalue = this.props.defaultvalue;
+    var dvalue = this.props.defaultvalues;
     var content = [];
     if(dvalue)
     {

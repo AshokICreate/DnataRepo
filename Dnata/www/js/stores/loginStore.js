@@ -13,13 +13,13 @@ define (function (require) {
         return isLoggedin;
       },
       emitChange: function() {
-        this.emit(constants.CHANGE_EVENT);
+        this.emit(constants.Change_Event);
       },
       addChangeListener: function(callback) {
-        this.on(constants.CHANGE_EVENT, callback);
+        this.on(constants.Change_Event, callback);
       },
       removeChangeListener: function(callback) {
-        this.removeListener(constants.CHANGE_EVENT, callback);
+        this.removeListener(constants.Change_Event, callback);
       }
     });
     function login(){

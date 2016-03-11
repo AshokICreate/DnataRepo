@@ -3,6 +3,7 @@ define(function (require) {
   var Header = require("views/header");
   var NavigationStore = require("stores/navigationStore");
   var NavigationActions = require ("actions/navigationActions");
+  var constants = require ("constants/navigationConstants");
 
   function getState () {
       return {
@@ -15,17 +16,27 @@ define(function (require) {
         return {};
     },
     componentDidMount: function () {
-        NavigationStore.addChangeListener (this._onChange);
+        NavigationStore.addChangeListener (constants.Change_Event,this._onChange);
         NavigationActions.pushController(this.props.controller);
     },
     componentWillUnmount: function () {
-        NavigationStore.removeChangeListener (this._onChange);
+        NavigationStore.removeChangeListener (constants.Change_Event,this._onChange);
     },
     componentWillReceiveProps: function(nextProps) {
       NavigationActions.changeRootController(nextProps.controller);
     },
     _onChange: function () {
         this.setState (getState());
+    },
+    _onBackButtonClick:function(event)
+    {
+        NavigationStore.emitChange(constants.Back_Click_Event);
+        NavigationActions.popController();
+    },
+    _onRightButtonClick:function(event)
+    {
+        NavigationStore.emitChange(constants.Right_Click_Event);
+        NavigationActions.popController();
     },
     render:function()
     {
@@ -42,12 +53,16 @@ define(function (require) {
 
           }else if(this.state.controller.backButtonName)
           {
-              leftButton = <Back name={this.state.controller.backButtonName} />;
+              leftButton = <Back name={this.state.controller.backButtonName} onClick={this._onBackButtonClick}/>;
           }
 
           if(this.state.controller.rightButton)
           {
               rightButton = this.state.controller.rightButton;
+
+          }else if(this.state.controller.rightButtonName)
+          {
+              rightButton = <Back id="rightMenuButton" name={this.state.controller.rightButtonName} onClick={this._onRightButtonClick}/>;
           }
 
           var title = this.state.controller.title ? this.state.controller.title:"";
