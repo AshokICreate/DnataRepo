@@ -5,7 +5,7 @@ define(function (require) {
   propTypes: {
     name: React.PropTypes.string.isRequired,
     onSelectBoxClick: React.PropTypes.func.isRequired,
-    defaultvalue: React.PropTypes.array
+    defaultvalues: React.PropTypes.array
   },
 
   _onClick:function()
@@ -14,7 +14,7 @@ define(function (require) {
   },
   render: function () {
     var name = this.props.name;
-    var dvalue = this.props.defaultvalue;
+    var dvalue = this.props.defaultvalues;
     var content = [];
     if(dvalue)
     {
