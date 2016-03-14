@@ -26,6 +26,49 @@
        format('woff');
 }
 
+
+@font-face {
+    font-family: 'icomoon';
+    src:    url('../css/fonts/icomoon.eot?sb0wqh');
+    src:    url('../css/fonts/icomoon.eot?sb0wqh#iefix') format('embedded-opentype'),
+        url('../css/fonts/icomoon.ttf?sb0wqh') format('truetype'),
+        url('../css/fonts/icomoon.woff?sb0wqh') format('woff'),
+        url('../css/fonts/icomoon.svg?sb0wqh#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Next:before {
+    content: "\e907";
+}
+.icon-Save:before {
+    content: "\e908";
+}
+.icon-Add:before {
+    content: "\e909";
+}
+.icon-Back:before {
+    content: "\e90a";
+}
+.icon-Cancel:before {
+    content: "\e90b";
+}
+
 .inputBox{
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -65,24 +108,16 @@
 
 .dlistclass{
   display:inline-block;
-  width: 90%;
+  width: 85%;
   position: relative;
-  border-right: solid #aaa 1px;
+  /*border-right: solid #aaa 1px;*/
   min-height: 1em;
 }
 
 #arrow{
-  display: inline-block;
-  position: relative;
-  background-image:url('https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-right-01-128.png');
-  background-repeat: no-repeat;
-  background-position: right;
-  background-size: 25px;
-  height: 100%;
-  opacity:0.5;
-  width: 19%;
-  /*display: table;
-  margin: 0 auto;*/
+  display:inline-block;
+  margin-left: 8%;
+  color: #aaa;
 }
 
 .label{
@@ -119,18 +154,21 @@
   margin-left:5%;
 }
 
+.listContainer
+{
+    color:black;
+    display:table;
+}
 .list{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     position: relative;
     width: 100%;
-    height: 100%;
     font-weight: bold;
-    border-bottom: 2px solid;
-    border-bottom-color: #D3D3D3;
-    padding-top: 3%;
-    padding-bottom: 3%;
+    border-bottom: 1px solid #ddd;
+    padding: 3%;
+    font-size: 1.9vh;
 }
 
 .listtitle
@@ -141,9 +179,8 @@
     display: inline-block;
     margin-bottom: 0;
     position: relative;
-    height: 30%;
     margin-left: 5%;
-    margin-right: 5%;
+    width: 80%;
 }
 
 .tick{
@@ -328,8 +365,9 @@ label{
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  max-width: 100%;
-  height: 30px;
+  max-width: 80%;
+  height: 2em;
+  margin-left: 3%;
 }
 
 .toggle_first_segment:focus {outline:0;}

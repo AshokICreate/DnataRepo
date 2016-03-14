@@ -123,7 +123,7 @@ define(function (require) {
                   var options = getValuesOfResource(data);
                   content= <Select options={options} isSingleSelect={isSingleSelect} onSave={that._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
                   var controllerData = {
-                    title:getString("select"),
+                    title:getString("Select"),
                     content:content,
                     backButtonName:"back",
                     rightButtonName:"submit"

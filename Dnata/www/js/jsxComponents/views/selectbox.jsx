@@ -28,9 +28,10 @@ define(function (require) {
       <div className="inputBox">
       <div className="label">{getString(name)}</div>
       <div className="selectBox" onClick={this._onClick}>
-      <div className="dlistclass">
-        {content}
-      </div>
+        <div className="dlistclass">
+          {content}
+        </div>
+        <span className="icon-Next" id="arrow"></span>
       </div>
       </div>
     );

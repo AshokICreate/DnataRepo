@@ -53,17 +53,25 @@ body {
   top:-2.5%;
 }
 
+.navigationBar {
+    position: relative;
+    width: 100%;
+    color: black;
+    font-size: 2.5vh;
+    height: 6%;
+    margin-bottom: 3%;
+    margin-top: 0.2%;
+    border-style: solid;
+    border-width: 1px 0px;
+    border-color: #f7f7f7;
+}
+
 .headerContainer {
-  position: relative;
-  padding: 0.25em;
-  font-size: 3vh;
-  height: 6%;
-  margin-bottom: 3%;
-  margin-top: 0.2%;
-  border-style: solid;
-  border-width: 1px 0px;
-  border-color: #f7f7f7;
-  color:#0f88ca;
+  position: absolute;
+  height: 100%;
+  color: #0f88ca;
+  text-align: center;
+  width: 100%;
 
 }
 .headerContainer > div.title {
@@ -72,16 +80,28 @@ body {
   margin: 0.5em 0 0.5em 0;
 }
 
-.backBtContainer {
-  height: 2em;
+.menuBtContainer {
   z-index: 2;
   cursor: pointer;
-  width:25%;
+  top: 0;
+  height: 100%;
+  width: 25%;
   position: absolute;
-  padding: 0.25em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  font-size: 2.2vh;
 }
-.backBtContainer div {
-  float: left;
+
+.menuBtContainer.right
+{
+    left: 73%;
+}
+.menuBtContainer > div.titleLeft {
+  text-align: left;
+  margin: 0.5em 0 0.5em 0;
+}
+.menuBtContainer > div.titleRight {
+  text-align:right;
   margin: 0.5em 0 0.5em 0;
 }
 

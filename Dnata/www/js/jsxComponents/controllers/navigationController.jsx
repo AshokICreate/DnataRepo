@@ -1,5 +1,5 @@
 define(function (require) {
-  var Back = require("views/back");
+  var MenuButton = require("views/menuButton");
   var Header = require("views/header");
   var NavigationStore = require("stores/navigationStore");
   var NavigationActions = require ("actions/navigationActions");
@@ -53,7 +53,7 @@ define(function (require) {
 
           }else if(this.state.controller.backButtonName)
           {
-              leftButton = <Back name={this.state.controller.backButtonName} onClick={this._onBackButtonClick}/>;
+              leftButton = <MenuButton name={this.state.controller.backButtonName} onClick={this._onBackButtonClick}/>;
           }
 
           if(this.state.controller.rightButton)
@@ -62,17 +62,19 @@ define(function (require) {
 
           }else if(this.state.controller.rightButtonName)
           {
-              rightButton = <Back id="rightMenuButton" name={this.state.controller.rightButtonName} onClick={this._onRightButtonClick}/>;
+              rightButton = <MenuButton align="right" id="rightMenuButton" name={this.state.controller.rightButtonName} onClick={this._onRightButtonClick}/>;
           }
 
           var title = this.state.controller.title ? this.state.controller.title:"";
           controller = <div className="gclass">
-                      {leftButton}
-                      <Header name={title}/>
-                      {rightButton}
-                      <div className="controller">
-                        {this.state.controller.content}
-                      </div>
+                        <div className="navigationBar">
+                          {leftButton}
+                          <Header name={title}/>
+                          {rightButton}
+                        </div>
+                        <div className="controller">
+                          {this.state.controller.content}
+                        </div>
                     </div>;
       }
 

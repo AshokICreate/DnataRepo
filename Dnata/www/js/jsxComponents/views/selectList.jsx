@@ -59,7 +59,7 @@ define(function(require) {
       value.push(
         <div className="list" key={i} onClick={this.checkMark.bind(this,i)}>
           <div className = "listtitle"> {option[i]}</div>
-          <label className={className} >&#10003;</label>
+          <div className={className} >&#10003;</div>
         </div>
         );
       }
@@ -68,7 +68,7 @@ define(function(require) {
 
   render: function () {
     return(
-      <div>
+      <div className="gclass listContainer">
       {this.getContents()}
       </div>
       );
