@@ -20,7 +20,6 @@ define(function (require) {
       }
     },
     loginButtonClicked: function () {
-      console.log("Clicked");
       var username = $("#userinfo").val();
       var pwd = $("#pwdinfo").val();
       var checked = $("#checked:checked");
