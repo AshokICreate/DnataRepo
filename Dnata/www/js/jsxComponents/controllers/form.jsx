@@ -9,6 +9,8 @@ define(function (require) {
   var SelectBox = require ("views/selectBox");
   var Select = require ("controllers/select");
   var NavigationActions = require ("actions/navigationActions");
+  var NavigationStore = require ("stores/navigationStore");
+  var NavigationConstants = require ("constants/navigationConstants");
 
   var form = React.createClass ({
       getInitialState: function () {
@@ -16,9 +18,11 @@ define(function (require) {
       },
       componentDidMount: function () {
           Store.addChangeListener (constants.Change_Data_Event,this._onChange);
+          NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
       },
       componentWillUnmount: function () {
           Store.removeChangeListener (constants.Change_Data_Event,this._onChange);
+          NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
       },
       render: function () {
           var content = this.state.content;
@@ -31,6 +35,16 @@ define(function (require) {
       _onChange:function()
       {
           return this.setState(this.getContent(this.props.id));
+      },
+      _onRightButtonClick:function()
+      {
+          /*do validations */
+          var onSumbit = function(data)
+          {
+              console.log("Submit sucessfull");
+          }
+          Store.submitFormData(this.props.id,onSumbit);
+          console.log("Submit")
       },
       _onComponentSave:function(id,value)
       {

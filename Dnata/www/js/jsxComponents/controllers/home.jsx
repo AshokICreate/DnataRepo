@@ -20,24 +20,36 @@ define(function (require) {
       },
       getContent:function(item)
       {
+
+          var content;
+          var rightButtonName;
+          var leftButtonName;
           switch (item)
           {
               case "MS_INC_ACTUAL_INJURY":
               {
-                  return <Grid items={store.getInjuryFormItems()}/>;
+                  content = <Grid items={store.getInjuryFormItems()}/>;
+                  break;
               }
               default:
               {
-                  return <Form id={item} />;
+                  content =  <Form id={item} />;
+                  rightButtonName = "Submit";
+                  leftButtonName = "Back"
               }
           }
+
+          var controllerData = {
+            title:this.state.item,
+            content:content,
+            rightButtonName:rightButtonName,
+            leftButtonName:leftButtonName
+          };
+
+          return controllerData;
       },
       render: function() {
-        var content = this.getContent(this.state.item);
-        var controllerData = {
-          title:this.state.item,
-          content:content
-        };
+        var controllerData = this.getContent(this.state.item);
 
         var data = this.homeMenuItems;
         var actionBarData = {

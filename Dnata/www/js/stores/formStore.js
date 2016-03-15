@@ -33,6 +33,12 @@ define (function (require) {
       {
           serverCall.connectServer("GET",url,"",callback)
       },
+      submitFormData:function(id,callback)
+      {
+          var obj = formData[id];
+          var data = JSON.stringify(obj.data);
+          serverCall.connectServer("PUT","tasks/"+obj.assignmentId+"/form",data,callback);
+      },
       getKeysToShow:function(id)
       {
         return keysToShow[id];

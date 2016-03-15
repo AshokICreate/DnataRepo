@@ -36,7 +36,6 @@ define(function (require) {
     _onRightButtonClick:function(event)
     {
         NavigationStore.emitChange(constants.Right_Click_Event);
-        NavigationActions.popController();
     },
     render:function()
     {

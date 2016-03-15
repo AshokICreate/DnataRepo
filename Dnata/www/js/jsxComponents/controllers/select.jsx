@@ -25,6 +25,7 @@ define(function(require) {
     _onRightButtonClick:function()
     {
         this.props.onSave(this.props.id,selectedArray);
+        NavigationActions.popController();
     },
     selectedValue: function(selvalue){
         if(this.props.isSingleSelect)

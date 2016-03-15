@@ -1,7 +1,7 @@
 define(function (require) {
   var actions = require ("actions/loginActions");
-  var appactions = require ("actions/AppActions");
-  var Store = require ("stores/LoginStore");
+  var appactions = require ("actions/appActions");
+  var Store = require ("stores/loginStore");
 
   var login = React.createClass({
 
