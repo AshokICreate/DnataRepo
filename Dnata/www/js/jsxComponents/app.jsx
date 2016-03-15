@@ -18,7 +18,7 @@ define(function (require) {
     },
     componentWillUnmount: function () {
         Store.removeChangeListener (this.reInitiateApp);
-        LoginStore.addChangeListener (this.onChange);
+        LoginStore.removeChangeListener (this.onChange);
     },
     reInitiateApp:function()
     {
