@@ -56,16 +56,24 @@ define (function (require) {
 
     appDispatcher.register (function (action) {
       switch (action.actionType) {
-        case constants.Form_Data:
+        case constants.Get_Form_Data:
         {
           getFormData(action.formId);
           break;
         }
+        case constants.Clear_Form_Data:
+        {
+          delete formData[action.formId];
+          break;
+        }
         default:
         {
-          console.log ("No Registered action");
+            console.log ("No Registered action");
+            return true;
         }
       }
+
+      FormStore.emitChange(constants.NO_Change);
     });
 
     return FormStore;

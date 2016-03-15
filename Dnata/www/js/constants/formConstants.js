@@ -1,7 +1,9 @@
 define (function () {
     return {
-        Form_Data: "form_data",
+        Get_Form_Data: "get_form_data",
+        Clear_Form_Data:"clear_form_data",
         Change_Data_Event: 'form_data_change',
+        NO_Change:'no_change',
         Popup:"POPUP",
         Dropdown:"DROPDOWN",
         Calendar:"CALENDAR",

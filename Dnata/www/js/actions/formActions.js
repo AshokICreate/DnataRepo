@@ -5,9 +5,15 @@ define (function (require) {
 
       getFormData: function (id) {
           appDispatcher.dispatch ({
-              actionType: constants.Form_Data,
+              actionType: constants.Get_Form_Data,
               formId: id
           });
+      },
+      clearFormData:function(id){
+        appDispatcher.dispatch ({
+            actionType: constants.Clear_Form_Data,
+            formId: id
+        });
       }
     };
     return formActions;
