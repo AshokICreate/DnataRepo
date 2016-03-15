@@ -1,13 +1,13 @@
 define(function (require) {
   var ActionBar= require('views/actionbar');
   var NavigationController = require ("controllers/navigationController");
-  var store = require('stores/homeStore');
+  var Store = require('stores/homeStore');
   var Grid = require ("controllers/gridController");
   var Form = require ("controllers/form");
 
   var home = React.createClass({
       displayName: 'home',
-      homeMenuItems:store.getHomeMenuItems(),
+      homeMenuItems:Store.getHomeMenuItems(),
       getInitialState:function()
       {
         var data = this.homeMenuItems;
@@ -28,7 +28,7 @@ define(function (require) {
           {
               case "MS_INC_ACTUAL_INJURY":
               {
-                  content = <Grid items={store.getInjuryFormItems()}/>;
+                  content = <Grid items={Store.getInjuryFormItems()}/>;
                   break;
               }
               default:

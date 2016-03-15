@@ -6,16 +6,25 @@ define(function (require) {
     // var Form = require ("controllers/form");
     // var Button = require ("views/button");
     var Store = require("stores/appStore");
+    var LoginStore = require("stores/loginStore");
     var Home = require ("controllers/home");
     var Login = require ("controllers/login");
     var app = React.createClass({
         displayName: 'dnata',
 
     componentDidMount: function () {
-        Store.addChangeListener (this.onChange);
+        Store.addChangeListener (this.reInitiateApp);
+        LoginStore.addChangeListener (this.onChange);
     },
     componentWillUnmount: function () {
-        Store.removeChangeListener (this.onChange);
+        Store.removeChangeListener (this.reInitiateApp);
+        LoginStore.removeChangeListener (this.onChange);
+    },
+    reInitiateApp:function()
+    {
+        this.setState({content:""});
+        var that = this;
+        setTimeout(function(){ that.onChange(); }, 100);
     },
     onChange:function()
     {
@@ -23,7 +32,7 @@ define(function (require) {
     },
     getContents:function () {
         var content;
-        if(Store.showScreen()){
+        if(LoginStore.isUserLoggedIn()){
           content = <Home />;
         }
         else {

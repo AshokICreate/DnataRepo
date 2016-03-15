@@ -4,14 +4,7 @@ define (function (require) {
     var assign = require ("object-assign");
     var constants = require ("constants/appConstants");
 
-    var isLoggedin = true;
-
     var AppStore = assign ({}, EventEmitter.prototype, {
-
-      showScreen:function()
-      {
-        return isLoggedin;
-      },
       emitChange: function() {
         this.emit(constants.Change_Event);
       },
@@ -25,17 +18,16 @@ define (function (require) {
 
     appDispatcher.register (function (action) {
         switch (action.actionType) {
-          case constants.Home_Screen:
-              {
-                  isLoggedin = true;
-                  AppStore.emitChange();
-                  break;
-              }
-
+          case constants.ReInitiate:
+          {
+              isLoggedin = false; /*crude fix*/
+              AppStore.emitChange();
+              break;
+          }
           default:
-              {
-                  console.log ("No Registered action");
-              }
+          {
+              return true;
+          }
         }
     });
 

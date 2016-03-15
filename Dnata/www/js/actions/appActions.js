@@ -2,10 +2,10 @@ define (function (require) {
     var appDispatcher = require ("util/appDispatcher");
     var constants = require ("constants/appConstants");
     var AppActions = {
-        createHome: function () {
-          appDispatcher.dispatch ({
-            actionType: constants.Home_Screen
-          });
+        reInitiateApp: function (id) {
+            appDispatcher.dispatch ({
+                actionType: constants.ReInitiate
+            });
         }
     };
     return AppActions;

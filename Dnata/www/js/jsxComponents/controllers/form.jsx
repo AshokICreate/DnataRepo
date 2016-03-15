@@ -11,6 +11,7 @@ define(function (require) {
   var NavigationActions = require ("actions/navigationActions");
   var NavigationStore = require ("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
+  var appActions = require ("actions/appActions");
 
   var form = React.createClass ({
       getInitialState: function () {
@@ -39,9 +40,13 @@ define(function (require) {
       _onRightButtonClick:function()
       {
           /*do validations */
+          var that = this;
           var onSumbit = function(data)
           {
               console.log("Submit sucessfull");
+              actions.clearFormData(that.props.id);
+              appActions.reInitiateApp();
+
           }
           Store.submitFormData(this.props.id,onSumbit);
           console.log("Submit")

@@ -1,6 +1,5 @@
 define(function (require) {
   var actions = require ("actions/loginActions");
-  var appactions = require ("actions/appActions");
   var Store = require ("stores/loginStore");
 
   var login = React.createClass({
@@ -12,12 +11,8 @@ define(function (require) {
         Store.removeChangeListener (this._onChange);
     },
     _onChange: function () {
-      if(Store.isUserLoggedIn())
-        appactions.createHome();
-      else{
-        //error
+      if(!Store.isUserLoggedIn())
         console.log("Error in authentication");
-      }
     },
     loginButtonClicked: function () {
       var username = $("#userinfo").val();
