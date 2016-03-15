@@ -72,7 +72,6 @@
 .inputBox{
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   position: relative;
   width: 100%;
   margin: 1em 0 2em 0;
@@ -81,7 +80,6 @@
 .descBox{
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   position: relative;
   width: 100%;
   height: 40%;
@@ -92,7 +90,6 @@
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   position: relative;
   border-radius: 20px;
   border: 1px solid #D3D3D3;
@@ -124,7 +121,6 @@
 .label{
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   position: relative;
   width: 99%;
   margin-left:3%;
@@ -135,7 +131,6 @@
 .field{
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   position: relative;
   border-radius: 20px;
   border: 1px solid #D3D3D3;
@@ -148,9 +143,7 @@
 }
 
 .radiogroup{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  background-color: white;
   position: relative;
   margin-left:5%;
 }
@@ -202,6 +195,7 @@
 
 #checked{
   color: white;
+  background-color: white;
   position: relative;
   font-family: Roboto;
   font-size: 3.2vh;
@@ -216,7 +210,6 @@
 .userdetails {
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   color: white;
   margin-left: 10%;
   margin-top: 10%;
@@ -230,7 +223,6 @@
 .pwdetails{
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   color: white;
   margin-left: 10%;
   margin-top: 15%;
@@ -243,7 +235,6 @@
 #userinfo{
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   border:none;
   background:transparent;
   border-bottom: 0.5vw solid white;
@@ -259,7 +250,6 @@
 #pwdinfo{
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   border:none;
   background:transparent;
   border-bottom: 0.5vw solid white;
@@ -320,19 +310,22 @@ label{
 .loginicon{
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   background-color: white;
   position: relative;
   color: black;
   height: 27%;
   width: 100%;
+  background-image: url('http://www.theemiratesgroup.com/english/images/Dnata_tcm409-2151189.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
 }
 
 .loginscreen{
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   background-color: #0f88ca;
+  background-image: url('./img/dnatalogo.png');
   height: 70%;
   width: 100%;
   padding-top: 10%;
@@ -343,7 +336,6 @@ label{
 .loginbtn{
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   display: table;
   margin: 0 auto;
   margin-top: 25%;

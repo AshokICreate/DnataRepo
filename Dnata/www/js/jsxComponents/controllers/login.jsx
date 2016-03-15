@@ -29,7 +29,7 @@ define(function (require) {
   render: function () {
     return(
       <div className= "gclass">
-        <div className="loginicon"> <center>dnata</center></div>
+        <div className="loginicon"></div>
         <div className="loginscreen">
           <center className="center">
             <input id="checked" type="checkbox">I have a dnata account</input>
