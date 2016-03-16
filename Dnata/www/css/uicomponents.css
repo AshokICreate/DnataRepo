@@ -225,7 +225,6 @@
   position: relative;
   font-family: Roboto;
   font-size: 3vh;
-  height: 10%;
 }
 
 
@@ -235,11 +234,10 @@
   appearance: none;
   color: white;
   margin-left: 10%;
-  margin-top: 15%;
+  margin-top: 10%;
   position: relative;
   font-family: Roboto;
   font-size: 3vh;
-  height:10%;
 }
 
 #userinfo{
@@ -274,37 +272,13 @@
   font-size: medium;
 }
 
-/*for the placeholder*/
-
-/*input[type="text"]::-webkit-input-placeholder {
-color: white !important;
-opacity: 0.4;
-font-size: 3vmax;
-position: relative;
+.errorMsg {
+  position: relative;
+  color: orange;
+  height: 1em;
+  margin-top: 5%;
+  margin-left: 10%;
 }
-
-input[type="text"]:-moz-placeholder {
-color: white !important;
-opacity: 0.4;
-font-size: 3vmax;
-position: relative;
-}
-
-input[type="text"]::-moz-placeholder {
-color: white !important;
-opacity: 0.4;
-font-size: 3vmax;
-position: relative;
-}
-
-input[type="text"]:-ms-input-placeholder {
-color: white !important;
-opacity: 0.4;
-font-size: 3vmax;
-position: relative;
-} */
-
-/*for the dnataid and password labels*/
 
 label{
   -webkit-appearance: none;
@@ -348,7 +322,7 @@ label{
   appearance: none;
   display: table;
   margin: 0 auto;
-  margin-top: 25%;
+  margin-top: 8%;
   border-radius: 50px;
   border: 1px solid white;
   background-color: white;
