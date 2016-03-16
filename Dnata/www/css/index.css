@@ -295,6 +295,7 @@ body {
   margin-top: 5%;
   margin-left: 10%;
   font-family: Roboto;
+  width:83%;
 }
 
 
@@ -329,7 +330,7 @@ label{
   -moz-appearance: none;
   display: table;
   margin: 0 auto;
-  margin-top: 8%;
+  margin-top: 12%;
   border-radius: 50px;
   border: 1px solid white;
   background-color: white;
