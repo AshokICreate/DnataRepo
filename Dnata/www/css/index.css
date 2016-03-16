@@ -317,7 +317,6 @@ label{
   -webkit-appearance: none;
   -moz-appearance: none;
   background-color: #0f88ca;
-  background-image: url('./img/dnatalogo.png');
   height: 70%;
   width: 100%;
   padding-top: 10%;
@@ -330,7 +329,7 @@ label{
   -moz-appearance: none;
   display: table;
   margin: 0 auto;
-  margin-top: 25%;
+  margin-top: 8%;
   border-radius: 50px;
   border: 1px solid white;
   background-color: white;
