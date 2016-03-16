@@ -22,15 +22,18 @@ define (function (require) {
         this.removeListener(constants.Change_Event, callback);
       }
     });
-    function login(){
+    function login(user){
       var gotLoginData = function(data)
       {
         console.log(data);
         if(data.authenticated === "yes")
+        {
           isLoggedin = true;
+
+        }
         LoginStore.emitChange();
       }
-      serverCall.connectServer("GET","handshake","",gotLoginData);
+      serverCall.connectServer("GET","handshake",user,gotLoginData);
     }
 
     appDispatcher.register (function (action) {
@@ -38,7 +41,7 @@ define (function (require) {
             case constants.Login_Auth:
                 {
                   //authentication
-                  login();
+                  login(action.user);
 
                 }
             default:

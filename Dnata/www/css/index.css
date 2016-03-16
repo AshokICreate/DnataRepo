@@ -288,6 +288,14 @@ body {
   font-size: medium;
 }
 
+.errorMsg {
+  position: relative;
+  color: orange;
+  height: 1em;
+  margin-top: 5%;
+  margin-left: 10%;
+}
+
 
 /*for the dnataid and password labels*/
 

@@ -156,7 +156,6 @@
 .list{
     -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none;
     position: relative;
     width: 100%;
     font-weight: bold;
@@ -169,7 +168,6 @@
 {
     -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none;
     display: inline-block;
     margin-bottom: 0;
     position: relative;

@@ -4,6 +4,10 @@ define(function (require) {
 
   var login = React.createClass({
 
+    getInitialState:function()
+    {
+      return {msg:""}
+    },
     componentDidMount: function () {
         Store.addChangeListener (this._onChange);
     },
@@ -12,7 +16,7 @@ define(function (require) {
     },
     _onChange: function () {
       if(!Store.isUserLoggedIn())
-        console.log("Error in authentication");
+        this.setState({msg:"* Authentication failed. Please check your credentials"});
     },
     loginButtonClicked: function () {
       var username = $("#userinfo").val();
@@ -23,7 +27,7 @@ define(function (require) {
          pwd: pwd,
          checked: checked,
       }
-    actions.createLogin(Obj);
+    actions.doLogin(Obj);
   },
 
   render: function () {
@@ -36,13 +40,14 @@ define(function (require) {
           </center>
           <br/>
           <div className="userdetails">
-          <label for="username">dnata id</label><br/>
-          <input id="userinfo" type="text" name="username"></input><br/>
+            <label for="username">dnata id</label><br/>
+            <input id="userinfo" type="text" name="username" value="s130906"></input><br/>
           </div>
           <div className="pwdetails">
-          <label for="pwd">Password</label><br/>
-          <input id="pwdinfo" type="password" name="pwd"></input>
+            <label for="pwd">Password</label><br/>
+            <input id="pwdinfo" type="password" name="pwd"></input>
           </div>
+          <div className="errorMsg">{this.state.msg}</div>
           <button className="loginbtn" onClick={this.loginButtonClicked}>LOGIN</button>
         </div>
       </div>
