@@ -8,9 +8,17 @@ define (function (require) {
                 className="menuBtContainer right"
                 titleClass = "titleRight"
             }
+
+            if("Submit"===this.props.name){
+                titleClass = titleClass+" icon-Save"
+            }else if("Back"===this.props.name){
+              titleClass = titleClass+" icon-Back"
+            }else if("Next"===this.props.name){
+              titleClass = titleClass+" icon-Next"
+            }
             return (
                 <div className={className} onClick={this.props.onClick}>
-                    <div className={titleClass}>{getString(this.props.name)}</div>
+                    <div className={titleClass}></div>
                 </div>
             );
         }

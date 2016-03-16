@@ -115,8 +115,8 @@ define(function (require) {
               var controllerData = {
                 title:getString("select"),
                 content:content,
-                backButtonName:"back",
-                rightButtonName:"submit"
+                backButtonName:"Back",
+                rightButtonName:"Submit"
               };
               NavigationActions.pushController(controllerData);
           }else {
@@ -144,8 +144,8 @@ define(function (require) {
                   var controllerData = {
                     title:getString("Select"),
                     content:content,
-                    backButtonName:"back",
-                    rightButtonName:"submit"
+                    backButtonName:"Back",
+                    rightButtonName:"Submit"
                   };
                   NavigationActions.pushController(controllerData);
               }

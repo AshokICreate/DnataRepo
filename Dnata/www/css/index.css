@@ -86,23 +86,35 @@ body {
   top: 0;
   height: 100%;
   width: 25%;
-  position: absolute;
+  float:left;
   padding-left: 0.25em;
   padding-right: 0.25em;
-  font-size: 2.2vh;
+  /*font-size: 2.2vh;*/
 }
+
 
 .menuBtContainer.right
 {
-    left: 73%;
+    float: right;
 }
 .menuBtContainer > div.titleLeft {
   text-align: left;
   margin: 0.5em 0 0.5em 0;
 }
 .menuBtContainer > div.titleRight {
-  text-align:right;
-  margin: 0.5em 0 0.5em 0;
+  /*margin: 0.5em 0 0.5em 0;*/
+  background-color: #0f88ca;
+  text-align: center;
+/* padding: 10% 0 10% 0; */
+  background-color: #0f88ca;
+  width: 50%;
+  float: right;
+/* margin-top: 5%; */
+/* margin-bottom: 5%; */
+  position: relative;
+  color: white;
+/* margin-top: 10%; */
+  height: 100%
 }
 
 .controller
