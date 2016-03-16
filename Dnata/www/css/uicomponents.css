@@ -315,10 +315,9 @@ label{
   color: black;
   height: 27%;
   width: 100%;
-  background-image: url('http://www.theemiratesgroup.com/english/images/Dnata_tcm409-2151189.jpg');
+  background-image: url('../img/dnatalogo.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 60%;
 }
 
 .loginscreen{
