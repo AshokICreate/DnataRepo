@@ -202,3 +202,135 @@ body {
     height: 1.5em;
     cursor: pointer;
 }
+
+.loginicon{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+  position: relative;
+  color: black;
+  height: 27%;
+  width: 100%;
+  background-image: url('../img/dnatalogo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.center{
+  font-size: 3.2vh;
+  font-family: Roboto;
+}
+
+#checked{
+  color: white;
+  background-color: white;
+  position: relative;
+  font-family: Roboto;
+  font-size: 3.2vh;
+  align-self: center;
+  margin:3%;
+  -ms-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -o-transform: scale(1.5);
+}
+
+.userdetails {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color: white;
+  margin-left: 10%;
+  margin-top: 10%;
+  position: relative;
+  font-family: Roboto;
+  font-size: 3vh;
+}
+
+#userinfo{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border:none;
+  background:transparent;
+  border-bottom: 0.5vw solid white;
+  color:white;
+  outline: none;
+  padding-top: 5%;
+  width: 91%;
+  position:relative;
+  font-family: Roboto;
+  font-size: medium;
+}
+
+.pwdetails{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color: white;
+  margin-left: 10%;
+  margin-top: 10%;
+  position: relative;
+  font-family: Roboto;
+  font-size: 3vh;
+}
+
+
+#pwdinfo{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border:none;
+  background:transparent;
+  border-bottom: 0.5vw solid white;
+  color:white;
+  outline: none;
+  padding-top: 5%;
+  width: 91%;
+  position:relative;
+  font-family: Roboto;
+  font-size: medium;
+}
+
+
+/*for the dnataid and password labels*/
+
+label{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  opacity:0.4;
+  position:relative;
+  font-family: Roboto;
+  font-style: italic;
+  font-size: 3vh;
+  height: 5%;
+}
+
+
+.loginscreen{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #0f88ca;
+  background-image: url('./img/dnatalogo.png');
+  height: 70%;
+  width: 100%;
+  padding-top: 10%;
+  padding-bottom: 5%;
+  position: relative;
+}
+
+.loginbtn{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: table;
+  margin: 0 auto;
+  margin-top: 25%;
+  border-radius: 50px;
+  border: 1px solid white;
+  background-color: white;
+  color:#6abd45;
+  font-family: Roboto;
+  font-style: bold;
+  font-size: 3.2vh;
+  outline:none;
+  width: 91%;
+  position:relative;
+  height: 10%;
+}
