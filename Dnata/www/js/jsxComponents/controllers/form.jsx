@@ -248,7 +248,8 @@ define(function (require) {
                 }
                 case constants.Calendar:
                 {
-                  contentUI.push(<Calendar name={element.label} id={key} key={key}/>);
+                  value = value.split(" ")[0];
+                  contentUI.push(<Calendar name={element.label} onSave={this._onComponentSave} defaultvalue={value} id={key} key={key}/>);
                   break;
                 }
 
