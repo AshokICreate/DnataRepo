@@ -7,6 +7,7 @@ define(function (require) {
   var RadioGroup = require ("views/radioGroup");
   var CheckGroup = require ("views/checkGroup");
   var SelectBox = require ("views/selectBox");
+  var Calendar = require("views/calendar");
   var Select = require ("controllers/select");
   var NavigationActions = require ("actions/navigationActions");
   var NavigationStore = require ("stores/navigationStore");
@@ -247,7 +248,8 @@ define(function (require) {
                 }
                 case constants.Calendar:
                 {
-                    break;
+                  contentUI.push(<Calendar name={element.label} id={key} key={key}/>);
+                  break;
                 }
 
                 case constants.Attachment:

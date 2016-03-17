@@ -221,6 +221,13 @@ body {
   font-family: Roboto;
 }
 
+#checked:checked
+{
+  background-color: #6abd45;
+  cursor: pointer;
+
+}
+
 #checked{
   color: white;
   background-color: white;

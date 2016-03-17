@@ -38,7 +38,6 @@ define(function (require) {
           <center className="center">
             <input id="checked" type="checkbox">I have a dnata account</input>
           </center>
-          <br/>
           <div className="userdetails">
             <label for="username">dnata id</label><br/>
             <input id="userinfo" type="text" name="username" value="s130906"></input><br/>
