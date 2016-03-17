@@ -122,7 +122,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
-  width: 99%;
+  width: 97%;
   margin-left:3%;
   height: 2em;
   font-weight: bold;
@@ -151,17 +151,16 @@
 .listContainer
 {
     color:black;
-    display:table;
+    overflow-y: scroll
 }
 .list{
     -webkit-appearance: none;
     -moz-appearance: none;
     position: relative;
     width: 100%;
-    font-weight: bold;
     border-bottom: 1px solid #ddd;
     padding: 3%;
-    font-size: 1.9vh;
+    cursor: pointer;
 }
 
 .listtitle
@@ -169,7 +168,6 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     display: inline-block;
-    margin-bottom: 0;
     position: relative;
     margin-left: 5%;
     width: 80%;
@@ -177,7 +175,6 @@
 
 .tick{
   display: inline-block;
-  margin-bottom: 0;
   position: relative;
 }
 

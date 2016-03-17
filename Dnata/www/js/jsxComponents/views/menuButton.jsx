@@ -2,11 +2,11 @@ define (function (require) {
     var menuButton = React.createClass ({
         render: function () {
             var className = "menuBtContainer"
-            var titleClass = "titleLeft"
+            var titleClass = "menuBtTitle"
             if("right"===this.props.align)
             {
                 className="menuBtContainer right"
-                titleClass = "titleRight"
+                titleClass = "menuBtTitle titleRight"
             }
 
             if("Submit"===this.props.name){
