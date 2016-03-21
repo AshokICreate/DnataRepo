@@ -184,6 +184,10 @@
   visibility: hidden;
 }
 
+.field.time{
+  margin-top: 5%;
+}
+
 .toggle_button_container{
   -webkit-appearance: none;
   -moz-appearance: none;

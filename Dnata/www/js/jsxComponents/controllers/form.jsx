@@ -248,8 +248,18 @@ define(function (require) {
                 }
                 case constants.Calendar:
                 {
-                  value = value.split(" ")[0];
-                  contentUI.push(<Calendar name={element.label} onSave={this._onComponentSave} defaultvalue={value} id={key} key={key}/>);
+                  var valArray = value.split(" ");
+                  var date = Moment().format('YYYY-MM-DD');
+                  if(valArray !== ""){
+                    var date = valArray[0];
+                    date = Moment(date).format('YYYY-MM-DD');
+                  }
+                  var time = Moment().format('HH:mm');
+                  if(valArray.length === 2){
+                    time = valArray[1];
+                    time = Moment(time, 'HH:mm:ss').format('HH:mm');
+                  }
+                  contentUI.push(<Calendar name={element.label} onSave={this._onComponentSave} defaultdate={date} defaulttime={time} id={key} key={key}/>);
                   break;
                 }
 
