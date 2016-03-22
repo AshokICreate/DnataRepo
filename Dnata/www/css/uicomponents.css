@@ -69,6 +69,80 @@
     content: "\e90b";
 }
 
+.gridIcon:before{
+  font-size: 3.1em;
+  position: absolute;
+  top: 40%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+}
+
+.icon-PSD:before{
+  content: "\e900";
+}
+
+.icon-FLY:before{
+    content: "\e901";
+}
+
+.icon-WAB:before{
+    content: "\e902";
+}
+
+.icon-SBR:before{
+    content: "\e903";
+}
+
+.icon-DGR:before{
+    content: "\e904";
+}
+
+.icon-EQD:before{
+    content: "\e905";
+}
+
+.icon-PRD:before{
+    content: "\e906";
+}
+
+.icon-PAE:before{
+   content: "\e902";
+}
+
+.actionBarIcon:before{
+  font-size: 3.1em;
+  position: absolute;
+  top: 40%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+}
+
+.icon-MS_INC_ACTUAL_INJURY:before{
+  content: "\e90c";
+}
+
+.icon-MS_INC_POTENTIAL_INJ_FORM:before{
+  content: "\e90d";
+}
+
+.icon-feedback:before{
+  content: "\e90e";
+}
+
+.icon-observation:before{
+  content: "\e90f";
+}
+
+.icon-safety_contact:before{
+  content: "\e910";
+}
+
+.icon-settings:before{
+  content: "\e911";
+}
+
 .inputBox{
   -webkit-appearance: none;
   -moz-appearance: none;
