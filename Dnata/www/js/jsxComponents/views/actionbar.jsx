@@ -52,8 +52,9 @@ define (function (require) {
               {
                 className= "actionBarItem highlight"
               }
+              var iconClass = "actionBarIcon icon-"+name;
               return (<div key={i} className={className} onClick={that._onClick.bind(that, i)}>
-                  <div className="actionBarIcon" />
+                  <div className={iconClass} />
                   <div className="actionBarName" >{getString(name)}</div>
               </div>)
             });

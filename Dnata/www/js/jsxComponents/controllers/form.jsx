@@ -7,6 +7,7 @@ define(function (require) {
   var RadioGroup = require ("views/radioGroup");
   var CheckGroup = require ("views/checkGroup");
   var SelectBox = require ("views/selectBox");
+  var Calendar = require("views/calendar");
   var Select = require ("controllers/select");
   var NavigationActions = require ("actions/navigationActions");
   var NavigationStore = require ("stores/navigationStore");
@@ -247,7 +248,19 @@ define(function (require) {
                 }
                 case constants.Calendar:
                 {
-                    break;
+                  var valArray = value.split(" ");
+                  var date = Moment().format('YYYY-MM-DD');
+                  if(valArray !== ""){
+                    var date = valArray[0];
+                    date = Moment(date).format('YYYY-MM-DD');
+                  }
+                  var time = Moment().format('HH:mm');
+                  if(valArray.length === 2){
+                    time = valArray[1];
+                    time = Moment(time, 'HH:mm:ss').format('HH:mm');
+                  }
+                  contentUI.push(<Calendar name={element.label} onSave={this._onComponentSave} defaultdate={date} defaulttime={time} id={key} key={key}/>);
+                  break;
                 }
 
                 case constants.Attachment:
