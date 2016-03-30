@@ -1,11 +1,10 @@
 define (function (require) {
 
 	var server={requestURL:"", reqType:"",reqdata:"",callBackSuccess:""};
-	var URL= "http://vmisupdnatap/metricstream/m2";
+	var URL= "http://172.27.138.47/metricstream/m2";
 	var versionM2 = "2.3";
-	var userId = "s130906";
-
-	var BaseURL = URL+"/"+versionM2+"/"+userId+"/";
+	var BaseURL;
+	var authorization;
 
 	var servercall_success = function(msg)
 	{
@@ -20,7 +19,7 @@ define (function (require) {
 
 	var servercall_error = function(msg)
 	{
-
+			alert("Failed to connect to server. Please check your network.")
 	};
 
 	var cancel =  function()
@@ -32,12 +31,19 @@ define (function (require) {
 		serverCall.connectServer(server.reqType,server.requestURL,server.reqdata,server.callBackSuccess);
 	};
 
+
 	var serverCall = {
 
 		connectServer:function (reqType,reqURL,reqdata,successFunction)
 		{
 			try
 			{
+				if(reqURL=="handshake")
+				{
+						BaseURL = URL+"/"+versionM2+"/"+reqdata.username+"/";
+						authorization = reqdata.pwd;
+						reqdata = "";
+				}
 				var Type = reqType;
 				var ServiceUrl = BaseURL+reqURL;
 				var varData = reqdata;
@@ -54,7 +60,7 @@ define (function (require) {
 
 				$.ajax({
 					beforeSend			:  function (xhr){
-																xhr.setRequestHeader('authorization', 'M2');
+																xhr.setRequestHeader('authorization', authorization);
 																xhr.setRequestHeader('access-control-allow-origin','*');
 														},
 					cache						: false,

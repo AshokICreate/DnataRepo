@@ -10,7 +10,6 @@ define (function (require) {
       "MS_INC_POTENTIAL_INJ_FORM":[
                                   "INCIDENT_DESCRIPTION_LKP",
                                   "INC_DATE_AND_TIME",
-                                  "INC_DATE_AND_TIME",
                                   "INCIDENT_TIME_HOUR",
                                   "INCIDENT_TIME_MINUTES",
                                   "INC_WHILE",
@@ -94,6 +93,11 @@ define (function (require) {
           formData[id] = obj;
           FormStore.emitChange(constants.Change_Data_Event);
         }
+        var createdTask = function(data)
+        {
+            serverCall.connectServer("GET","tasks/"+data.assignmentId+"/form","",gotFormData);
+            assignmentId = data.assignmentId;
+        }
         var gotTasks = function(data)
         {
             if(data.items)
@@ -108,7 +112,7 @@ define (function (require) {
                     return;
                   }
               }
-
+              serverCall.connectServer("GET","tasks/formname="+Id,"",createdTask);
             }
         }
         serverCall.connectServer("GET","tasks","",gotTasks)

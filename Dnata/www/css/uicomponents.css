@@ -69,6 +69,80 @@
     content: "\e90b";
 }
 
+.gridIcon:before{
+  font-size: 3.1em;
+  position: absolute;
+  top: 40%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+}
+
+.icon-PSD:before{
+  content: "\e900";
+}
+
+.icon-FLY:before{
+    content: "\e901";
+}
+
+.icon-WAB:before{
+    content: "\e902";
+}
+
+.icon-SBR:before{
+    content: "\e903";
+}
+
+.icon-DGR:before{
+    content: "\e904";
+}
+
+.icon-EQD:before{
+    content: "\e905";
+}
+
+.icon-PRD:before{
+    content: "\e906";
+}
+
+.icon-PAE:before{
+   content: "\e902";
+}
+
+.actionBarIcon:before{
+  font-size: 3em;
+  position: absolute;
+  top: 40%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+}
+
+.icon-MS_INC_ACTUAL_INJURY:before{
+  content: "\e90c";
+}
+
+.icon-MS_INC_POTENTIAL_INJ_FORM:before{
+  content: "\e90d";
+}
+
+.icon-feedback:before{
+  content: "\e90e";
+}
+
+.icon-observation:before{
+  content: "\e90f";
+}
+
+.icon-safety_contact:before{
+  content: "\e910";
+}
+
+.icon-settings:before{
+  content: "\e911";
+}
+
 .inputBox{
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -116,13 +190,16 @@
   display:inline-block;
   margin-left: 8%;
   color: #aaa;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .label{
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
-  width: 99%;
+  width: 97%;
   margin-left:3%;
   height: 2em;
   font-weight: bold;
@@ -140,6 +217,7 @@
   height: 30%;
   margin-right: 3%;
   margin-left: 3%;
+  font-family: Roboto;
 }
 
 .radiogroup{
@@ -151,27 +229,23 @@
 .listContainer
 {
     color:black;
-    display:table;
+    overflow-y: scroll
 }
 .list{
     -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none;
     position: relative;
     width: 100%;
-    font-weight: bold;
     border-bottom: 1px solid #ddd;
     padding: 3%;
-    font-size: 1.9vh;
+    cursor: pointer;
 }
 
 .listtitle
 {
     -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none;
     display: inline-block;
-    margin-bottom: 0;
     position: relative;
     margin-left: 5%;
     width: 80%;
@@ -179,7 +253,6 @@
 
 .tick{
   display: inline-block;
-  margin-bottom: 0;
   position: relative;
 }
 
@@ -188,169 +261,10 @@
   visibility: hidden;
 }
 
-.center{
-  font-size: 3.2vh;
-  font-family: Roboto;
+.field.time{
+  margin-top: 5%;
 }
 
-#checked{
-  color: white;
-  background-color: white;
-  position: relative;
-  font-family: Roboto;
-  font-size: 3.2vh;
-  align-self: center;
-  margin:3%;
-  -ms-transform: scale(1.5);
-  -moz-transform: scale(1.5);
-  -webkit-transform: scale(1.5);
-  -o-transform: scale(1.5);
-}
-
-.userdetails {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  color: white;
-  margin-left: 10%;
-  margin-top: 10%;
-  position: relative;
-  font-family: Roboto;
-  font-size: 3vh;
-  height: 10%;
-}
-
-
-.pwdetails{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  color: white;
-  margin-left: 10%;
-  margin-top: 15%;
-  position: relative;
-  font-family: Roboto;
-  font-size: 3vh;
-  height:10%;
-}
-
-#userinfo{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border:none;
-  background:transparent;
-  border-bottom: 0.5vw solid white;
-  color:white;
-  outline: none;
-  padding-top: 5%;
-  width: 91%;
-  position:relative;
-  font-family: Roboto;
-  font-size: medium;
-}
-
-#pwdinfo{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border:none;
-  background:transparent;
-  border-bottom: 0.5vw solid white;
-  color:white;
-  outline: none;
-  padding-top: 5%;
-  width: 91%;
-  position:relative;
-  font-family: Roboto;
-  font-size: medium;
-}
-
-/*for the placeholder*/
-
-/*input[type="text"]::-webkit-input-placeholder {
-color: white !important;
-opacity: 0.4;
-font-size: 3vmax;
-position: relative;
-}
-
-input[type="text"]:-moz-placeholder {
-color: white !important;
-opacity: 0.4;
-font-size: 3vmax;
-position: relative;
-}
-
-input[type="text"]::-moz-placeholder {
-color: white !important;
-opacity: 0.4;
-font-size: 3vmax;
-position: relative;
-}
-
-input[type="text"]:-ms-input-placeholder {
-color: white !important;
-opacity: 0.4;
-font-size: 3vmax;
-position: relative;
-} */
-
-/*for the dnataid and password labels*/
-
-label{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  opacity:0.4;
-  position:relative;
-  font-family: Roboto;
-  font-style: italic;
-  font-size: 3vh;
-  height: 5%;
-}
-
-
-.loginicon{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: white;
-  position: relative;
-  color: black;
-  height: 27%;
-  width: 100%;
-  background-image: url('http://www.theemiratesgroup.com/english/images/Dnata_tcm409-2151189.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 60%;
-}
-
-.loginscreen{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: #0f88ca;
-  background-image: url('./img/dnatalogo.png');
-  height: 70%;
-  width: 100%;
-  padding-top: 10%;
-  padding-bottom: 5%;
-  position: relative;
-}
-
-.loginbtn{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  display: table;
-  margin: 0 auto;
-  margin-top: 25%;
-  border-radius: 50px;
-  border: 1px solid white;
-  background-color: white;
-  color:#6abd45;
-  font-family: Roboto;
-  font-style: bold;
-  font-size: 3.2vh;
-  outline:none;
-  width: 91%;
-  position:relative;
-  height: 10%;
-}
 .toggle_button_container{
   -webkit-appearance: none;
   -moz-appearance: none;

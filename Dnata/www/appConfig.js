@@ -13,8 +13,9 @@ requirejs.config({
         controllers:"../js/components/controllers"
     }
 });
-requirejs(["jquery-2.1.4.min", "react", "flux", "l20n.min"], function (jquery, react, flux, l20n) {
+requirejs(["jquery-2.2.1.min", "react", "flux", "l20n.min", "moment.min"], function (jquery, react, flux, l20n, moment) {
     window.React = react;
+    window.Moment = moment;
     window.l20n = L20n.getContext ();
     window.getString = function (key) {
         var value = window.l20n.getSync (key);

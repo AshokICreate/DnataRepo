@@ -21,8 +21,9 @@ define(function (require) {
           {
             className= "gridItem highlight"
           }
+          var iconClass = "gridIcon icon-"+name;
           return (<div key={i} className={className} onClick={that._onClick.bind(that, i)}>
-              <div className="gridIcon" />
+              <div className={iconClass} />
               <div className="gridName" >{getString(name)}</div>
           </div>)
         });

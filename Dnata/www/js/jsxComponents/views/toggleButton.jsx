@@ -10,7 +10,7 @@ define(function (require) {
         defaultvalue:React.PropTypes.string
       },
 
-        onToggleButtonSegmentClick: function (i,event) {
+        onToggleButtonSegmentClick: function (event) {
             var toggleButton = (this.state.selectedbutton === 1)?2:1;
             this.setState({selectedbutton: toggleButton});
             this.props.onSave(this.props.id,this.props.options[toggleButton-1]);
@@ -46,8 +46,8 @@ define(function (require) {
                 <div className="inputBox">
                   <div className="label">{getString(this.props.name)}</div>
                   <div className="toggle_button_container">
-                    <button className={firstButtonClassName} onClick={this.onToggleButtonSegmentClick.bind(this)}>{(this.props.options.length >= 2) ? this.props.options[0] : "YES"}</button>
-                    <button className={secondButtonClassName} onClick={this.onToggleButtonSegmentClick.bind(this)}>{(this.props.options.length >= 2) ? this.props.options[1] : "NO"}</button>
+                    <button className={firstButtonClassName} onClick={this.onToggleButtonSegmentClick}>{(this.props.options.length >= 2) ? this.props.options[0] : "YES"}</button>
+                    <button className={secondButtonClassName} onClick={this.onToggleButtonSegmentClick}>{(this.props.options.length >= 2) ? this.props.options[1] : "NO"}</button>
                   </div>
                 </div>
             );
