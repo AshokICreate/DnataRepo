@@ -7,7 +7,7 @@ body {
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:white;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-family:'Roboto Regular', 'Roboto Medium', Helvetica, Arial, sans-serif;
     font-size:14px;
     width: 100%;
     height: 100%;
@@ -22,20 +22,24 @@ body {
   width:100%;
   height:100%;
 }
-#filler
+
+.filler
 {
   position: fixed;
-  width:100%;
-  height:100%;
-  z-index:90;
-  opacity:1;
+  width: 100%;
+  height: 100%;
+  z-index: 90;
+  opacity: 1;
+  left: 0;
+  top: 0;
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-transition: display 1s; /* For Safari 3.1 to 6.0 */
   transition: display 1s;
   cursor: pointer;
 }
 
-#filler.hide{
+
+.filler.hide{
   opacity:0;
   height: 0;
   display: none;
@@ -81,7 +85,7 @@ body {
 }
 
 .menuBtContainer {
-  z-index: 102;
+  z-index: 89;
   cursor: pointer;
   top: 0;
   height: 100%;
@@ -212,11 +216,12 @@ body {
 .center{
   font-size: 3.2vh;
   font-family: Roboto;
+  font-weight: 400;
 }
 
 #checked:checked
 {
-  background-color: #6abd45;
+  background-color: #0f88ca;
   cursor: pointer;
 
 }
@@ -308,6 +313,7 @@ label{
   opacity:0.4;
   position:relative;
   font-family: Roboto;
+  font-weight: 300;
   font-style: italic;
   font-size: 3vh;
   height: 5%;
@@ -336,7 +342,7 @@ label{
   background-color: white;
   color:#6abd45;
   font-family: Roboto;
-  font-style: bold;
+  font-weight: 500;
   font-size: 3.2vh;
   outline:none;
   width: 91%;
