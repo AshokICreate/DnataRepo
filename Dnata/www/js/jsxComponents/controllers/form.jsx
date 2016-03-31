@@ -8,6 +8,7 @@ define(function (require) {
   var CheckGroup = require ("views/checkGroup");
   var SelectBox = require ("views/selectBox");
   var Calendar = require("views/calendar");
+  var Attach = require("views/attach");
   var Select = require ("controllers/select");
   var NavigationActions = require ("actions/navigationActions");
   var NavigationStore = require ("stores/navigationStore");
@@ -265,11 +266,12 @@ define(function (require) {
 
                 case constants.Attachment:
                 {
+                    contentUI.push(<Attach />);
                     break;
                 }
                 default:
                 {
-                    contentUI.push(<TextBox name={element.label} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>)
+                    contentUI.push(<TextBox name={element.label} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>);
                 }
               }
           }

@@ -1,33 +1,4 @@
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto Regular'),
-       local('Roboto-Regular'),
-       url(http://themes.googleusercontent.com/static/fonts/roboto/v11/2UX7WLTfW3W8TclTUvlFyQ.woff)
-       format('woff');
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Roboto Bold'),
-       local('Roboto-Bold'),
-       url(http://themes.googleusercontent.com/static/fonts/roboto/v11/d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff)
-       format('woff');
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Roboto Italic'),
-       local('Roboto-Italic'),
-       url(http://themes.googleusercontent.com/static/fonts/roboto/v11/1pO9eUAp8pSF8VnRTP3xnvesZW2xOQ-xsNqO47m55DA.woff)
-       format('woff');
-}
-
-
-@font-face {
     font-family: 'icomoon';
     src:    url('../css/fonts/icomoon.eot?sb0wqh');
     src:    url('../css/fonts/icomoon.eot?sb0wqh#iefix') format('embedded-opentype'),
@@ -375,6 +346,75 @@
   background-color: #0f88ca;
   color: white;
 }
+
+.attachment{
+  height: 15%;
+  width: 25%;
+  margin-left: 3%;
+  margin-top: 3%;
+  position: relative;
+}
+
+.attach:before{
+  background-color: #e6e7e8;
+  color: #bcbec0;
+  font-size: 2.5em;
+  margin-left: 3%;
+  margin-top: 15%;
+  padding: 10%;
+  top: 10%;
+  position: absolute;
+  border-radius: 0.15em;
+}
+
+.icon-Add:before {
+    content: "\e909";
+}
+
+.attachbox{
+  position: absolute;
+  top: 35%;
+  display: inline-block;
+  width: 94%;
+  height: 28%;
+  left:3%;
+  background-color: white;
+  border-radius: 2em;
+}
+
+.cancel{
+  position: absolute;
+  height: 20%;
+  width: 20%;
+  color: #7dc9ea;
+  left: 91%;
+  top: 6%;
+  font-size: 120%;
+}
+
+.capture {
+  position: relative;
+  display: inline-block;
+  height: 60%;
+  width: 50%;
+  margin-top: 15%;
+}
+
+.attachicon{
+  height: 60%;
+  width:100%;
+  color:#0f88ca;
+}
+
+.attachtext{
+  height: 40%;
+  width: 100%;
+  color: #6abd45;
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 400;
+}
+
 
 .green_background{
   background-color: #6abd45;

@@ -66,12 +66,12 @@ define (function (require) {
             var content = this.getContent();
 
             var className = "actionBarContainer actionBarHide";
-            var fillerClass = "hide";
+            var fillerClass = "filler hide";
 
             if(!this.state.hide)
             {
                 className = "actionBarContainer";
-                fillerClass = "";
+                fillerClass = "filler";
             }
 
             return (

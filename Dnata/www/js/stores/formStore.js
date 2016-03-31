@@ -10,8 +10,6 @@ define (function (require) {
       "MS_INC_POTENTIAL_INJ_FORM":[
                                   "INCIDENT_DESCRIPTION_LKP",
                                   "INC_DATE_AND_TIME",
-                                  "INCIDENT_TIME_HOUR",
-                                  "INCIDENT_TIME_MINUTES",
                                   "INC_WHILE",
                                   "INC_WAS",
                                   "INC_BECAUSE",
