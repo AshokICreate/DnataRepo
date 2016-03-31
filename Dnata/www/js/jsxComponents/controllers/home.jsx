@@ -35,7 +35,7 @@ define(function (require) {
               {
                   content =  <Form id={item} />;
                   rightButtonName = "Submit";
-                  leftButtonName = "Back"
+                  leftButtonName = "Back";
               }
           }
 
