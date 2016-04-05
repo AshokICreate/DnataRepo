@@ -68,7 +68,8 @@ define(function(require){
                     'tid TEXT,' +
                     'metricname TEXT,' +
                     'parentid TEXT,'+
-                    'arrayindex TEXT'+
+                    'arrayindex TEXT, '+
+                    'PRIMARY KEY(id, parentid)' +
                     ')';
                     tx.executeSql(createContentTable,[],function(sucesscb){
                       console.log('Content Table has been created sucessfully if created already it has been ignored');
@@ -115,7 +116,10 @@ define(function(require){
 
                 }
 
-                updateQuery += constructWhereParameters(whereparams);
+                if (whereparams.length > 0) {
+                      updateQuery += constructWhereParameters(whereparams);
+                }
+
 
                 t.executeSql(updateQuery, [], function (tx,sucess) {
                      console.log('Rows Updated Succesfully');
@@ -142,7 +146,24 @@ define(function(require){
                     });
                 });
             }
+        },
+      deleteData: function(tableName, whereParameters){
+        if(db){
+            db.transaction(function(t){
+              var deleteQuery = 'DELETE FROM ';
+              deleteQuery += tableName + " ";
+              if (whereParameters.length > 0) {
+                  deleteQuery += constructWhereParameters(whereParameters)
+              }
+
+              t.executeSql(deleteQuery, [], function (t, results) {
+                  console.log('Deleteing content is sucesseded');
+              }, function (t, error) {
+                console.log('Error while deleting content in table: ' + JSON.stringify(err));
+              });
+            });
         }
+      }
 
   };
   return dbActions;
