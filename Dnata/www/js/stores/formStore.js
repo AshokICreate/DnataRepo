@@ -18,8 +18,9 @@ define (function (require) {
                                   "INC_SUB_LOCATION_LOCALIZED_LKP",
                                   "INC_EXACT_LOCATION",
                                   "INC_SHARED_ONLY_HEAD_SAFETY",
-                                  "INC_ATTACHMENT",
-                                  "INC_COMMENTS"
+                                  "INC_COMMENTS",
+                                  "INC_ATTACHMENT"
+
                                 ],
         "MS_INC_ACTUAL_INJURY":[
                                   "INCIDENT_DATE",
