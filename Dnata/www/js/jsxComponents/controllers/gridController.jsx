@@ -1,6 +1,7 @@
 define(function (require) {
 
   var NavigationActions = require ("actions/navigationActions");
+  var Form = require ("controllers/form");
   var grid = React.createClass({
 
     getInitialState:function()
@@ -10,16 +11,16 @@ define(function (require) {
     _onClick: function (key) {
         this.setState({key:key});
 
-        var currentItem = this.state.items[key];
-        var content =  <Form id={currentItem} />;
-        var rightButtonName = "Submit";
+        var currentItem = this.props.items[key];
+        var content =  <Form id={this.props.id} subItem={currentItem} />;
+        var rightButtonName = "Next";
         var leftButtonName = "Back";
 
         var controllerData = {
           title:currentItem,
           content:content,
           rightButtonName:rightButtonName,
-          leftButtonName:leftButtonName
+          backButtonName:leftButtonName
         };
 
         NavigationActions.pushController(controllerData);
