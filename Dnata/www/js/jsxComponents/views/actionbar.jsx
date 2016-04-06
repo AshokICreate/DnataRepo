@@ -36,7 +36,7 @@ define (function (require) {
         {
             this._onMenuToggle(this.state.key);
         },
-        _onMenuToggle(key)
+        _onMenuToggle:function(key)
         {
             this.setState({hide:!this.state.hide,key:key});
         },
