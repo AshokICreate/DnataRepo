@@ -176,13 +176,21 @@ define(function (require) {
               for(var i=0;i<parameters.length;i++)
               {
                   var obj = parameters[i];
+                  var valueObj = content[obj.ref];
+                  var refValue = obj.value;
+                  if(valueObj.value && valueObj.value!=="")
+                  {
+                      refValue = valueObj.value;
+                  }
                   if(i==0)
                   {
-                      queryParams=obj.ref+"="+obj.value;
+                      queryParams=obj.ref+"="+refValue;
                   }
                   else {
-                      queryParams = queryParams +"&"+obj.ref+"="+obj.value
+                      queryParams = queryParams +"&"+obj.ref+"="+refValue
                   }
+
+
               }
               var url  = "tasks/"+formsData[this.props.id].assignmentId+"/form/resources/"+element.resource.ref+"?"+queryParams;
 
