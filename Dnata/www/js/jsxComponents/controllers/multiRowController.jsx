@@ -20,12 +20,31 @@ define(function(require){
       var array = this.state.tabsArray;
       array.push(row);
       this.setState({ activeTab:this.state.activeTab,tabsArray:array});
+
+      var formsData = Store.getData();
+      var content = formsData[this.props.id].data.content;
+
+      if(this.props.childId)
+      {
+          var obj = content[this.props.childId][0];
+          content[this.props.childId].push(obj);
+      }
     },
 
     onCancelButton:function(index){
       var array = this.state.tabsArray;
       array.splice(index,1);
       this.setState({ activeTab:this.state.activeTab,tabsArray:array});
+
+      var formsData = Store.getData();
+      var content = formsData[this.props.id].data.content;
+
+      if(this.props.childId)
+      {
+          var obj = content[this.props.childId];
+          obj.splice(index,1);
+      }
+
     },
 
     render: function(){

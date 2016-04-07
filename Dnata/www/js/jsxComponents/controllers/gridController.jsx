@@ -3,7 +3,8 @@ define(function (require) {
   var NavigationActions = require ("actions/navigationActions");
   var Form = require ("controllers/form");
   var MultiRowController = require ("controllers/multiRowController");
-
+  var Store = require ("stores/formStore");
+  
   var grid = React.createClass({
 
     getInitialState:function()
