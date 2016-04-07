@@ -47,22 +47,12 @@ define(function (require) {
       {
           /*do validations */
 
-          if(this.props.subItem)
+          if(this.props.onRightButtonClick)
           {
-            var content =  <Form id={this.props.id} childId={this.props.subItem} />;
-            var rightButtonName = "Submit";
-            var leftButtonName = "Back";
-
-            var controllerData = {
-              title:this.props.subItem,
-              content:content,
-              rightButtonName:rightButtonName,
-              backButtonName:leftButtonName
-            };
-
-            NavigationActions.pushController(controllerData);
+            this.props.onRightButtonClick();
             return;
           }
+          
           var that = this;
           var onSumbit = function(data)
           {
@@ -83,7 +73,7 @@ define(function (require) {
 
               if(this.props.childId)
               {
-                  content = content[this.props.childId][0];
+                  content = content[this.props.childId][this.props.rowId];
               }
 
               if(!content[id])
@@ -124,7 +114,7 @@ define(function (require) {
 
           if(this.props.childId)
           {
-              content = content[this.props.childId][0];
+              content = content[this.props.childId][this.props.rowId];
               structure = structure[this.props.childId];
           }
 
@@ -240,7 +230,7 @@ define(function (require) {
           if(childId)
           {
               structure = data.structure[childId];
-              content = data.content[childId][0];
+              content = data.content[childId][this.props.rowId];
           }
           var contentUI = [];
           for(var i=0;i<keys.length;i++)

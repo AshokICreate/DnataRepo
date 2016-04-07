@@ -1,5 +1,5 @@
 define(function(require){
-
+  var Form = require ("controllers/form");
   var MultiRow = React.createClass({
 
 
@@ -57,7 +57,7 @@ define(function(require){
         <div className="tab_container">
           {divsToArrange}
           <div className="plus_tab" onClick={this.addNewTab}>+</div>
-          <div className="tabViewContainer"></div>
+          <Form id={this.props.id} childId={this.props.childId} rowId={this.state.activeTab}/>
 
         </div>
 
