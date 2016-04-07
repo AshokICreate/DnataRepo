@@ -21,11 +21,9 @@ define(function (require) {
     loginButtonClicked: function () {
       var username = $("#userinfo").val();
       var pwd = $("#pwdinfo").val();
-      var checked = $("#checked:checked");
       var Obj = {
          username: username,
          pwd: pwd,
-         checked: checked,
       }
     actions.doLogin(Obj);
   },
@@ -35,9 +33,6 @@ define(function (require) {
       <div className= "gclass">
         <div className="loginicon"></div>
         <div className="loginscreen">
-          <center className="center">
-            <input id="checked" type="checkbox">I have a dnata account</input>
-          </center>
           <div className="userdetails">
             <label>dnata id</label><br/>
             <input id="userinfo" type="text" name="username" value="s130906"></input><br/>

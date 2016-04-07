@@ -108,7 +108,7 @@
 }
 
 .actionBarIcon:before{
-  font-size: 3em;
+  font-size: 2.7em;
   position: absolute;
   top: 40%;
   margin-right: -50%;
@@ -245,13 +245,14 @@
     -moz-appearance: none;
     display: inline-block;
     position: relative;
-    margin-left: 5%;
+    margin-left: 4%;
     width: 80%;
 }
 
 .tick{
   display: inline-block;
   position: relative;
+  margin-left: 2%;
 }
 
 .hide{
@@ -262,6 +263,30 @@
 .field.time{
   margin-top: 5%;
 }
+
+.searchclass{
+  position: relative;
+  height: 10%;
+  width: 90%;
+}
+
+#searchid{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  border-radius: 20px;
+  border: 1px solid #D3D3D3;
+  outline: none;
+  padding: 1em;
+  width:95%;
+  height: 30%;
+  margin-top: 2%;
+  margin-right: 2%;
+  margin-left: 5%;
+  font-family: Roboto;
+  background-color: white;
+}
+
 
 .toggle_button_container{
   -webkit-appearance: none;

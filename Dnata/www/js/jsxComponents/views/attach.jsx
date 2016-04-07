@@ -24,10 +24,7 @@ define(function (require) {
 
   onSuccess: function(imgData) {
     //onSuccess
-    console.log("Capture success");
-    // var smallImage = document.getElementById('smallImage');
-    // smallImage.style.display = 'block';
-    // smallImage.src = "data:image/jpeg;base64," + imageData;
+     console.log("Photo captured successfully");
      var array = this.state.images;
      array.push(imgData);
      this.setState({fadevalue:false});
@@ -41,8 +38,6 @@ define(function (require) {
   },
 
   onPhotoURISuccess: function(imgURI) {
-    //onSuccess
-    console.log("Album success");
     var array = this.state.images;
     array.push(imgURI);
     this.setState({fadevalue:false, images: array});

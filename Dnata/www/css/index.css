@@ -214,19 +214,19 @@ body {
   background-position: center;
 }
 
-.center{
+/*.center{
   font-size: 3.2vh;
   font-family: Roboto;
   font-weight: 400;
-}
+}*/
 
-#checked:checked
+/*#checked:checked
 {
   background-color: #0f88ca;
   cursor: pointer;
 
-}
-
+}*/
+/*
 #checked{
   color: white;
   background-color: white;
@@ -239,7 +239,7 @@ body {
   -moz-transform: scale(1.5);
   -webkit-transform: scale(1.5);
   -o-transform: scale(1.5);
-}
+}*/
 
 .userdetails {
   -webkit-appearance: none;
