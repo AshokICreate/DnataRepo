@@ -15,9 +15,10 @@ define(function (require) {
   var NavigationConstants = require ("constants/navigationConstants");
   var appActions = require ("actions/appActions");
 
-  var form = React.createClass ({
+  var Form = React.createClass ({
       getInitialState: function () {
-          return this.getContent(this.props.id);
+
+          return this.getContent(this.props.id,this.props.childId);
       },
       componentDidMount: function () {
           Store.addChangeListener (constants.Change_Data_Event,this._onChange);
@@ -26,6 +27,9 @@ define(function (require) {
       componentWillUnmount: function () {
           Store.removeChangeListener (constants.Change_Data_Event,this._onChange);
           NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+      },
+      componentWillReceiveProps: function(nextProps) {
+          this.setState(this.getContent(nextProps.id,nextProps.childId));
       },
       render: function () {
           var content = this.state.content;
@@ -42,6 +46,13 @@ define(function (require) {
       _onRightButtonClick:function()
       {
           /*do validations */
+
+          if(this.props.onRightButtonClick)
+          {
+            this.props.onRightButtonClick();
+            return;
+          }
+          
           var that = this;
           var onSumbit = function(data)
           {
@@ -60,6 +71,17 @@ define(function (require) {
               var formsData = Store.getData();
               var content = formsData[this.props.id].data.content;
 
+              if(this.props.childId)
+              {
+                  content = content[this.props.childId][this.props.rowId];
+              }
+
+              if(!content[id])
+              {
+                //remove this before release
+                alert("filed not found");
+                return;
+              }
               if(value instanceof Array)
               {
                   var arrayObj = []
@@ -89,7 +111,23 @@ define(function (require) {
           var structure = formsData[this.props.id].data.structure;
           var resources = formsData[this.props.id].data.resources;
           var content = formsData[this.props.id].data.content;
+
+          if(this.props.childId)
+          {
+              content = content[this.props.childId][this.props.rowId];
+              structure = structure[this.props.childId];
+          }
+
           var element = structure[key];
+
+
+          if(!element || !content[key])
+          {
+            //remove this before release
+            alert("filed not found");
+            return;
+          }
+
           if("multiple" === element.select )
           {
               isSingleSelect =false;
@@ -128,13 +166,21 @@ define(function (require) {
               for(var i=0;i<parameters.length;i++)
               {
                   var obj = parameters[i];
+                  var valueObj = content[obj.ref];
+                  var refValue = obj.value;
+                  if(valueObj.value && valueObj.value!=="")
+                  {
+                      refValue = valueObj.value;
+                  }
                   if(i==0)
                   {
-                      queryParams=obj.ref+"="+obj.value;
+                      queryParams=obj.ref+"="+refValue;
                   }
                   else {
-                      queryParams = queryParams +"&"+obj.ref+"="+obj.value
+                      queryParams = queryParams +"&"+obj.ref+"="+refValue
                   }
+
+
               }
               var url  = "tasks/"+formsData[this.props.id].assignmentId+"/form/resources/"+element.resource.ref+"?"+queryParams;
 
@@ -155,22 +201,37 @@ define(function (require) {
               Store.getResorceData(url,gotResourceData);
           }
       },
-      getContent:function (id)
+      getContent:function (id,childId)
       {
           var formsData = Store.getData();
           if(formsData && formsData[id])
           {
 
-            return this.renderUI(formsData[id].data,Store.getKeysToShow(id))
+            var contentUI;
+
+            if(childId)
+            {
+                contentUI = this.renderUI(formsData[id].data,Store.getKeysToShow(childId),childId);
+            }else {
+                contentUI = this.renderUI(formsData[id].data,Store.getKeysToShow(id));
+            }
+
+            return contentUI;
           }
 
           actions.getFormData(id);
           return {content:"loader"};
       },
-      renderUI:function(data,keys)
+      renderUI:function(data,keys,childId)
       {
           var structure = data.structure;
           var content = data.content;
+
+          if(childId)
+          {
+              structure = data.structure[childId];
+              content = data.content[childId][this.props.rowId];
+          }
           var contentUI = [];
           for(var i=0;i<keys.length;i++)
           {
@@ -279,7 +340,7 @@ define(function (require) {
           return {content:contentUI};
       }
   });
-  return form;
+  return Form;
 
   function getValuesOfResource(resourceData) {
       var values= [];

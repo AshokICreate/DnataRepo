@@ -4,7 +4,7 @@ define (function (require) {
     var assign = require ("object-assign");
     var constants = require ("constants/formConstants");
     var serverCall = require ("util/serverCall");
-
+    var JsonParser = require ("util/JSONParsers");
     var formData;
     var keysToShow ={
       "MS_INC_POTENTIAL_INJ_FORM":[
@@ -19,7 +19,48 @@ define (function (require) {
                                   "INC_EXACT_LOCATION",
                                   "INC_SHARED_ONLY_HEAD_SAFETY",
                                   "INC_COMMENTS",
-                                  "INC_ATTACHMENT"]
+                                  "INC_ATTACHMENT"
+
+                                ],
+        "MS_INC_ACTUAL_INJURY":[
+                                  "INCIDENT_DATE",
+                                  "ADN_WHILE",
+                                  "ADN_WAS",
+                                  "ADN_BECAUSE",
+                                  "INC_LOCATION",
+                                  "INC_SUB_LOCATION",
+                                  "EXACT_SUB_LOCATION",
+                                  "INC_EXACT_LOCATION",
+                                  "WITNESSES",
+                                  "ADN_SUPPORTING_DOC"
+                                ],
+        "PSD":[
+                "INJURED_PERSON_CAT",
+                "INJURED_PERSON_NAME",
+                "INJURED_PERSON_STAFF_NO",
+                "EMAIL_ADDRESS",
+                "INJURED_PERSON_JOB_TITLE",
+                "INJURED_PERSON_DEPT",
+                "INJURED_PERSON_COMPANY",
+                "INJURED_PERSON_MGR",
+                "ACTIVITY_DURING_INJURY",
+                "BODY_PART",
+                "INJURIES_SUSTAINED",
+                "MEDICAL_TREATMENT_RECIEVED"
+              ],
+        "FLY":[
+                "FLIGHT_NUMBER_AVAIL",
+                "FLIGHT_NUMBER",
+                "CARRIER_NAME",
+                "AIRCRAFT_TYPE",
+                "REGISTRATION_NUMBER",
+                "DAMAGE_ATTRIBUTABLE",
+                "ARD_DAMAGE_TIME_ACTIVITY",
+                "ARD_AIRCRAFT_DAMAGE",
+                "ARD_DAMAGE_PART",
+                "ARD_DAMAGE_TYPE",
+                "ARD_DELAY_SEVERITY"
+              ]
 
     }
 
@@ -89,8 +130,15 @@ define (function (require) {
           {
             formData = {};
           }
+
           formData[id] = obj;
           FormStore.emitChange(constants.Change_Data_Event);
+
+          // if(data)
+          // {
+          //   JsonParser.parseJsonToFormContent("content",data,assignmentId,id);
+          // }
+
         }
         var createdTask = function(data)
         {

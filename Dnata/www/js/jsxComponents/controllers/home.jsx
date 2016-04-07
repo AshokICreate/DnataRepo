@@ -28,14 +28,14 @@ define(function (require) {
           {
               case "MS_INC_ACTUAL_INJURY":
               {
-                  content = <Grid items={Store.getInjuryFormItems()}/>;
+                  content = <Grid items={Store.getInjuryFormItems()} id={item} />;
                   break;
               }
               default:
               {
                   content =  <Form id={item} />;
                   rightButtonName = "Submit";
-                  leftButtonName = "Back"
+                  leftButtonName = "Back";
               }
           }
 
