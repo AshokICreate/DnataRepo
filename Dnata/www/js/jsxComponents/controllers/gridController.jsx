@@ -2,63 +2,64 @@ define(function (require) {
 
   var NavigationActions = require ("actions/navigationActions");
   var Form = require ("controllers/form");
-  var MultiRowController = require ("controllers/multiRowController");
-  var Store = require ("stores/formStore");
+  var NavigationStore = require ("stores/navigationStore");
+  var NavigationConstants = require ("constants/navigationConstants");
   
   var grid = React.createClass({
 
     getInitialState:function()
     {
-      return {key:0};
+      return {itemsSelected:[]};
+    },
+    componentDidMount: function () {
+        NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onNext);
+    },
+    componentWillUnmount: function () {
+        NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onNext);
     },
     _onNext:function()
     {
-        var currentItem = this.props.items[this.state.key];
-        var content =  <MultiRowController id={this.props.id} childId={currentItem} />;
+        var content =  <Form id={this.props.id} />;
         var rightButtonName = "Submit";
         var leftButtonName = "Back";
 
         var controllerData = {
-          title:currentItem,
+          title:this.props.id,
           content:content,
-          rightButtonName:rightButtonName,
-          backButtonName:leftButtonName
+          rightButtonName:"Submit",
+          leftButtonName:"Back"
         };
 
         NavigationActions.pushController(controllerData);
     },
     _onClick: function (key) {
-        this.setState({key:key});
 
-        var currentItem = this.props.items[key];
-        var content =  <Form id={this.props.id} onRightButtonClick={this._onNext}/>;
-        var rightButtonName = "Next";
-        var leftButtonName = "Back";
+        var itemsSelected = this.state.itemsSelected;
+        var index = itemsSelected.indexOf(key);
 
-        var controllerData = {
-          title:currentItem,
-          content:content,
-          rightButtonName:rightButtonName,
-          backButtonName:leftButtonName
-        };
-
-        NavigationActions.pushController(controllerData);
+        if(index>-1)
+        {
+          itemsSelected.splice(index,1)
+        }else {
+          itemsSelected.push(key)
+        }
+        this.setState({itemsSelected:itemsSelected});
 
     },
     getContent:function(){
 
         var that =this;
-        var currentItem = this.state.key;
+        var itemsSelected = this.state.itemsSelected;
         var content = this.props.items.map(function(name,i)
         {
           var className= "gridItem";
-
-          if(currentItem===i)
+          var index = itemsSelected.indexOf(name);
+          if(index>-1)
           {
             className= "gridItem highlight"
           }
           var iconClass = "gridIcon icon-"+name;
-          return (<div key={i} className={className} onClick={that._onClick.bind(that, i)}>
+          return (<div key={i} className={className} onClick={that._onClick.bind(that, name)}>
               <div className={iconClass} />
               <div className="gridName" >{getString(name)}</div>
           </div>)

@@ -1,4 +1,5 @@
 <appName "Dnata">
+<report_injury "Report Injury">
 <MS_INC_ACTUAL_INJURY "ACTUAL INJURY">
 <MS_INC_POTENTIAL_INJ_FORM "POTENTIAL INJURY">
 <feedback "FEEDBACK">

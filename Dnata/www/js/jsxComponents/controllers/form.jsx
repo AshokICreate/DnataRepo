@@ -52,7 +52,7 @@ define(function (require) {
             this.props.onRightButtonClick();
             return;
           }
-          
+
           var that = this;
           var onSumbit = function(data)
           {
@@ -155,7 +155,7 @@ define(function (require) {
               var controllerData = {
                 title:getString("select"),
                 content:content,
-                backButtonName:"Back",
+                leftButtonName:"Back",
                 rightButtonName:"Submit"
               };
               NavigationActions.pushController(controllerData);
@@ -192,7 +192,7 @@ define(function (require) {
                   var controllerData = {
                     title:getString("Select"),
                     content:content,
-                    backButtonName:"Back",
+                    leftButtonName:"Back",
                     rightButtonName:"Submit"
                   };
                   NavigationActions.pushController(controllerData);

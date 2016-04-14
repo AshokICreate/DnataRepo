@@ -1,15 +1,9 @@
 define(function (require) {
 
-    // var NavigationStore = require ("stores/navigationStore");
-    // var NavigationController = require ("controllers/navigationController");
-    // var NavigationActions = require ("actions/navigationActions");
-    // var Form = require ("controllers/form");
-    // var Button = require ("views/button");
     var Store = require("stores/appStore");
     var LoginStore = require("stores/loginStore");
     var Home = require ("controllers/home");
     var Login = require ("controllers/login");
-    var DnataHome = require("controllers/dnataHome");
 
     var app = React.createClass({
         displayName: 'dnata',
@@ -35,7 +29,7 @@ define(function (require) {
     getContents:function () {
         var content;
         if(LoginStore.isUserLoggedIn()){
-          content = <DnataHome />;
+          content = <Home />;
         }
         else {
           content = <Login />;
