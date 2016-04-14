@@ -50,9 +50,9 @@ define(function (require) {
           {
               leftButton = this.state.controller.leftButton;
 
-          }else if(this.state.controller.backButtonName)
+          }else if(this.state.controller.leftButtonName)
           {
-              leftButton = <MenuButton name={this.state.controller.backButtonName} onClick={this._onBackButtonClick}/>;
+              leftButton = <MenuButton name={this.state.controller.leftButtonName} onClick={this._onBackButtonClick}/>;
           }
 
           if(this.state.controller.rightButton)

@@ -1,69 +1,78 @@
 define(function (require) {
-  var ActionBar= require('views/actionbar');
-  var NavigationController = require ("controllers/navigationController");
   var Store = require('stores/homeStore');
   var Grid = require ("controllers/gridController");
-  var Form = require ("controllers/form");
+  var ActualInjury = require ("controllers/actualInjury");
+  var NavigationController = require ("controllers/navigationController");
+  var NavigationActions = require ("actions/navigationActions");
+  var dnatahome = React.createClass({
 
-  var home = React.createClass({
-      displayName: 'home',
-      homeMenuItems:Store.getHomeMenuItems(),
-      getInitialState:function()
+  _handleChange: function(key){
+    var content;
+    var leftButtonName = "Back";
+    var rightButtonName;
+    switch(key){
+      case "MS_INC_ACTUAL_INJURY":
       {
-        var data = this.homeMenuItems;
-        return {item:data[0]};
-      },
-      _onMenuItemClick:function(key)
-      {
-        var data = this.homeMenuItems;
-        this.setState({item:data[key]});
-      },
-      getContent:function(item)
-      {
-
-          var content;
-          var rightButtonName;
-          var leftButtonName;
-          switch (item)
-          {
-              case "MS_INC_ACTUAL_INJURY":
-              {
-                  content = <Grid items={Store.getPotentialInjuryFormItems()} id={item} />;
-                  break;
-              }
-              default:
-              {
-                  content =  <Form id={item} />;
-                  rightButtonName = "Submit";
-                  leftButtonName = "Back";
-              }
-          }
-
-          var controllerData = {
-            title:this.state.item,
-            content:content,
-            rightButtonName:rightButtonName,
-            leftButtonName:leftButtonName
-          };
-
-          return controllerData;
-      },
-      render: function() {
-        var controllerData = this.getContent(this.state.item);
-
-        var data = this.homeMenuItems;
-        var actionBarData = {
-           items:data,
-           onMenuItemClick:this._onMenuItemClick
-        };
-        return (
-            <div className="gclass">
-              <ActionBar data={actionBarData} />
-              <NavigationController controller={controllerData} />
-            </div>
-        );
+        content = <ActualInjury items={Store.getActualInjuryFormItems()} id={key} />;
+        break;
       }
-  });
-  return home;
 
+      case "MS_INC_POTENTIAL_INJ_FORM":
+      {
+        content = <Grid items={Store.getPotentialInjuryFormItems()} id={key} />;
+        rightButtonName="Next"
+        break;
+      }
+
+      case "feedback":
+      {
+        break;
+      }
+    }
+
+    var controllerData = {
+      title:key,
+      content:content,
+      rightButtonName:rightButtonName,
+      leftButtonName:leftButtonName
+    };
+
+    NavigationActions.pushController(controllerData);
+  },
+
+  getContent:function(){
+     var contentItems = Store.getHomeMenuItems();
+
+     var content = [];
+     for (var i=0;i<contentItems.length;i++){
+
+       var eachItem = contentItems[i]
+       var className = "sectionItem";
+       var iconClass = "sectionIcon icon-"+eachItem;
+       content.push(
+            <div key={i} className={className} onClick={this._handleChange.bind(this, eachItem)}>
+              <div className={iconClass}> </div>
+              <div className="sectionName" >{getString(eachItem)}</div>
+            </div>
+       );
+     }
+     return content;
+  },
+
+  render:function(){
+    var content = this.getContent();
+    var controllerData = {
+      title:"report_injury",
+      content:content,
+      rightButtonName:"logout"
+    };
+
+    return(
+      <div className="gclass">
+        <NavigationController controller={controllerData} />
+      </div>
+      );
+    }
+  });
+  return dnatahome;
 });

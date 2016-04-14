@@ -156,7 +156,7 @@ define(function (require) {
               var controllerData = {
                 title:getString("select"),
                 content:content,
-                backButtonName:"Back",
+                leftButtonName:"Back",
                 rightButtonName:"Submit"
               };
               NavigationActions.pushController(controllerData);
@@ -193,7 +193,7 @@ define(function (require) {
                   var controllerData = {
                     title:getString("Select"),
                     content:content,
-                    backButtonName:"Back",
+                    leftButtonName:"Back",
                     rightButtonName:"Submit"
                   };
                   NavigationActions.pushController(controllerData);

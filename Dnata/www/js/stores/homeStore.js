@@ -3,8 +3,7 @@ define (function (require) {
   var EventEmitter = require ("event-emitter").EventEmitter;
   var assign = require ("object-assign");
 
-  var homeMenuItems = ["MS_INC_ACTUAL_INJURY","MS_INC_POTENTIAL_INJ_FORM","feedback","observation","safety_contact","settings"];
-  var dnataHomeItems = ["MS_INC_ACTUAL_INJURY","MS_INC_POTENTIAL_INJ_FORM","feedback"];
+  var homeMenuItems = ["MS_INC_ACTUAL_INJURY","MS_INC_POTENTIAL_INJ_FORM","feedback"];
   var potentialInjuryFormItems = ["PSD","FLY","WAB", "SBR","DGR","EQD","PRD", "PAE"];
   var actualInjuryFormItems = ["PSD","FLY","EQD"];
 
@@ -16,11 +15,7 @@ define (function (require) {
     },
     getPotentialInjuryFormItems:function()
     {
-      return potentialinjuryFormItems;
-    },
-    getdnataHomeItems:function()
-    {
-      return dnataHomeItems;
+      return potentialInjuryFormItems;
     },
     getActualInjuryFormItems:function()
     {
