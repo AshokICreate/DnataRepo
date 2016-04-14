@@ -28,7 +28,7 @@ define(function (require) {
           {
               case "MS_INC_ACTUAL_INJURY":
               {
-                  content = <Grid items={Store.getInjuryFormItems()} id={item} />;
+                  content = <Grid items={Store.getPotentialInjuryFormItems()} id={item} />;
                   break;
               }
               default:

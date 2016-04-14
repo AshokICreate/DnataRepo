@@ -1,12 +1,12 @@
 <appName "Dnata">
-<MS_INC_ACTUAL_INJURY "Actual Injury">
-<MS_INC_POTENTIAL_INJ_FORM "Potential Injury">
-<feedback "Feedback">
+<MS_INC_ACTUAL_INJURY "ACTUAL INJURY">
+<MS_INC_POTENTIAL_INJ_FORM "POTENTIAL INJURY">
+<feedback "FEEDBACK">
 <observation "Observation">
 <safety_contact "Safety Contact">
 <settings "Settings">
 <logout "Logout">
-<PSD "Injury details">
+<PSD "Workplace Injury">
 <FLY "Aircraft damage">
 <WAB "Weight and balance">
 <SBR "Security breaches">

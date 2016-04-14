@@ -177,6 +177,7 @@ body {
     margin-right: 3%;
     margin-bottom: 2%;
     background-color: #0f88ca;
+    border-radius: 0.4em;
 }
 
 .highlight
@@ -294,16 +295,6 @@ body {
   font-size: medium;
 }
 
-.errorMsg {
-  position: relative;
-  color: orange;
-  height: 1em;
-  margin-top: 5%;
-  margin-left: 10%;
-  font-family: Roboto;
-  width:83%;
-}
-
 
 /*for the dnataid and password labels*/
 
@@ -350,3 +341,112 @@ label{
   position:relative;
   height: 10%;
 }
+
+.errorMsg {
+  position: relative;
+  color: orange;
+  height: 1em;
+  margin-top: 5%;
+  margin-left: 10%;
+  font-family: Roboto;
+  width:83%;
+}
+
+.msfooter{
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: small;
+  position: relative;
+  color: white;
+  height: 1.5em;
+  width: 90%;
+  text-align: center;
+  margin-top: 13%;
+}
+
+#msbold{
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.vfooter {
+  font-family: Roboto;
+  font-weight: 300;
+  position: relative;
+  color: white;
+  height: 1.5em;
+  width: 90%;
+  text-align: center;
+  margin-top: 2%;
+}
+.homecontroller {
+    position: relative;
+    width: 100%;
+    height: 94%;
+}
+
+ .sectionItem{
+   position:relative;
+   background-color: #0f88ca;
+   height: 33.3%;
+   width: 100%;
+   cursor: pointer;
+ }
+
+.sectionIcon{
+  position: relative;
+  width: 100%;
+  height: 60%;
+  font-size: 4.2em;
+  text-align: center;
+  top: 20%;
+  cursor: pointer;
+}
+
+.sectionName{
+  position: relative;
+  width: 100%;
+  height:40%;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 1.6em;
+  cursor: pointer;
+ }
+
+ .actualcontroller{
+   position: relative;
+   width: 100%;
+   height: 94%;
+   cursor: pointer;
+ }
+
+ .actualItem{
+   position:relative;
+   background-color: #0f88ca;
+   height: 25%;
+   width: 75%;
+   margin: 10% auto;
+   border-radius: 0.5em;
+   cursor: pointer;
+ }
+
+ .actualIcon{
+   position: relative;
+   width: 100%;
+   height: 60%;
+   font-size: 4em;
+   text-align: center;
+   top: 15%;
+   cursor: pointer;
+ }
+
+ .actualName{
+   position: relative;
+   width: 100%;
+   height:40%;
+   text-align: center;
+   font-family: Roboto;
+   font-size: 1.3em;
+   top: 7%;
+   cursor: pointer;
+ }
