@@ -19,6 +19,16 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Icon-3';
+    src:
+        url('fonts/Icon-3.ttf?7m67un') format('truetype'),
+        url('fonts/Icon-3.woff?7m67un') format('woff'),
+        url('fonts/Icon-3.svg?7m67un#Icon-3') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 [class^="icon-"], [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
@@ -49,6 +59,32 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+
+/*[class^="icon"], [class*=" icon"] {*/
+    /* use !important to prevent issues with browser extensions that change fonts */
+    /*font-family: 'Icon-3' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;*/
+
+    /* Better Font Rendering =========== */
+    /*-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}*/
+
+/*.iconCalender:before {
+    content: "\e1005";
+}
+.iconClock-01:before {
+    content: "\e1006";
+}
+.iconsearch:before {
+    content: "\e1007";
+}*/
 
 .icon-Next:before {
     content: "\e907";
@@ -107,14 +143,6 @@
    content: "\e902";
 }
 
-.actionBarIcon:before{
-  font-size: 2.7em;
-  position: absolute;
-  top: 40%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  left: 50%;
-}
 
 .icon-MS_INC_ACTUAL_INJURY:before{
   content: "\e90c";
@@ -148,13 +176,37 @@
   margin: 1em 0 2em 0;
 }
 
-.descBox{
+.field{
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
-  width: 100%;
-  height: 40%;
-  margin: 1em 0 2em 0;
+  border-radius: 20px;
+  border: 1px solid #D3D3D3;
+  outline: none;
+  padding: 1em;
+  width: 85%;
+  height: 30%;
+  margin-right: 3%;
+  margin-left: 3%;
+  font-family: Roboto;
+  background-color: white;
+}
+
+.descfield{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  border-radius: 20px;
+  border: 1px solid #D3D3D3;
+  outline: none;
+  padding: 1em;
+  width: 85%;
+  height: 10em;
+  margin-right: 3%;
+  margin-left: 3%;
+  font-family: Roboto;
+  background-color: white;
+  resize: none;
 }
 
 .selectBox{
@@ -202,21 +254,6 @@
   font-weight: bold;
 }
 
-.field{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  position: relative;
-  border-radius: 20px;
-  border: 1px solid #D3D3D3;
-  outline: none;
-  padding: 1em;
-  width: 85%;
-  height: 30%;
-  margin-right: 3%;
-  margin-left: 3%;
-  font-family: Roboto;
-  background-color: white;
-}
 
 .radiogroup{
   background-color: white;
@@ -270,7 +307,7 @@
   width: 90%;
 }
 
-#searchid{
+.searchbox{
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
@@ -285,6 +322,7 @@
   margin-left: 5%;
   font-family: Roboto;
   background-color: white;
+  cursor:pointer;
 }
 
 

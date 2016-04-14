@@ -4,6 +4,7 @@ define(function (require) {
     var LoginStore = require("stores/loginStore");
     var Home = require ("controllers/home");
     var Login = require ("controllers/login");
+    var Feedback = require("controllers/feedback");
 
     var app = React.createClass({
         displayName: 'dnata',

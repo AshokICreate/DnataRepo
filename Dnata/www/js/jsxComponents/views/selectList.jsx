@@ -10,6 +10,9 @@ define(function(require) {
 
   getInitialState: function () {
     var mArray = this.props.defaultvalue;
+    if(!mArray){
+      mArray = [];
+    }
     return { temp: mArray, options: this.props.options};
   },
   checkMark: function(key,event) {
@@ -85,7 +88,7 @@ define(function(require) {
     return(
       <div className="gclass listContainer">
         <div className="searchclass">
-          <input id="searchid" type="search" placeholder="Search" onChange={this.searchText}></input>
+          <input className="searchbox" id="searchid" type="search" placeholder="Search" onChange={this.searchText}></input>
         </div>
       {this.getContents()}
       </div>

@@ -4,6 +4,7 @@ define(function (require) {
   var ActualInjury = require ("controllers/actualInjury");
   var NavigationController = require ("controllers/navigationController");
   var NavigationActions = require ("actions/navigationActions");
+  var Feedback = require("controllers/feedback");
   var home = React.createClass({
 
   _handleChange: function(key){
@@ -20,12 +21,14 @@ define(function (require) {
       case "MS_INC_POTENTIAL_INJ_FORM":
       {
         content = <Grid items={Store.getPotentialInjuryFormItems()} id={key} />;
-        rightButtonName="Next"
+        rightButtonName="Next";
         break;
       }
 
       case "feedback":
       {
+        content = <Feedback />;
+          rightButtonName="Submit";
         break;
       }
     }
@@ -47,7 +50,11 @@ define(function (require) {
      for (var i=0;i<contentItems.length;i++){
 
        var eachItem = contentItems[i]
-       var className = "sectionItem";
+       var className = "sectionEvenItem";
+       if(i%2 !== 0)
+       {
+         className = "sectionOddItem";
+       }
        var iconClass = "sectionIcon icon-"+eachItem;
        content.push(
             <div key={i} className={className} onClick={this._handleChange.bind(this, eachItem)}>
