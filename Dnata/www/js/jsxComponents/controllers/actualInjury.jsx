@@ -4,15 +4,14 @@ define(function(require){
   var Form = require ("controllers/form");
   var NavigationActions = require ("actions/navigationActions");
   var MultiRowController = require ("controllers/multiRowController");
-
+  var currentItem = "";
 var actualhome = React.createClass({
   getInitialState:function()
   {
-    return {key:0};
+    return {key:""};
   },
   _onNext:function()
   {
-      var currentItem = this.props.items[this.state.key];
       var content =  <MultiRowController id={this.props.id} childId={currentItem} />;
       var rightButtonName = "Submit";
       var leftButtonName = "Back";
@@ -27,15 +26,14 @@ var actualhome = React.createClass({
       NavigationActions.pushController(controllerData);
   },
   _onClick: function (key) {
-      this.setState({key:key});
+      currentItem = key;
 
-      var currentItem = this.props.items[key];
       var content =  <Form id={this.props.id} onRightButtonClick={this._onNext}/>;
       var rightButtonName = "Next";
       var leftButtonName = "Back";
 
       var controllerData = {
-        title:currentItem,
+        title:key,
         content:content,
         rightButtonName:rightButtonName,
         leftButtonName:leftButtonName

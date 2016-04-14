@@ -7,18 +7,18 @@ define(function (require) {
     },
 
   _onAttach: function() {
-    this.setState({fadevalue: true});
+    this.setState({fadevalue: true,images:this.state.images});
   },
 
   _onCancel: function() {
-    this.setState({fadevalue: false});
+    this.setState({fadevalue: false,images:this.state.images});
   },
 
 
   _capturePhoto: function() {
     // Take picture using device camera and retrieve image as base64-encoded string
      navigator.camera.getPicture(this.onSuccess, this.onFail, { quality: 50,
-       destinationType: navigator.camera.DestinationType.DATA_URL,
+       destinationType: navigator.camera.DestinationType.FILE_URI,
        cameraDirection:navigator.camera.Direction.BACK});
   },
 
@@ -27,7 +27,7 @@ define(function (require) {
      console.log("Photo captured successfully");
      var array = this.state.images;
      array.push(imgData);
-     this.setState({fadevalue:false});
+     this.setState({fadevalue:false,images:array});
   },
 
   _uploadPhoto: function() {

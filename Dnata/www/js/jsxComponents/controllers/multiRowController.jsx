@@ -1,5 +1,7 @@
 define(function(require){
   var Form = require ("controllers/form");
+  var Store = require ("stores/formStore");
+
   var MultiRow = React.createClass({
 
 
@@ -13,7 +15,7 @@ define(function(require){
     },
 
     addNewTab:function(e){
-      e.preventDefault();
+      e.stopPropagation();
       var noofTabsinScreen = this.state.tabsArray.length+1;
       var row = "Row "+noofTabsinScreen
 
@@ -31,7 +33,8 @@ define(function(require){
       }
     },
 
-    onCancelButton:function(index){
+    onCancelButton:function(index,e){
+      e.stopPropagation();
       var array = this.state.tabsArray;
       array.splice(index,1);
       this.setState({ activeTab:this.state.activeTab,tabsArray:array});
@@ -72,16 +75,18 @@ define(function(require){
           );
         }
 
+      var plus_tab;
+      if(length<2)
+        plus_tab = <div className="plus_tab" onClick={this.addNewTab}>+</div>;
+
       return(
-        <div className="tab_container">
-          {divsToArrange}
-          <div className="plus_tab" onClick={this.addNewTab}>+</div>
+        <div className="container">
+          <div className="tab_container">
+            {divsToArrange}
+            {plus_tab}
+          </div>
           <Form id={this.props.id} childId={this.props.childId} rowId={this.state.activeTab}/>
-
         </div>
-
-
-
 
       );
     }

@@ -4,7 +4,7 @@ define(function (require) {
   var ActualInjury = require ("controllers/actualInjury");
   var NavigationController = require ("controllers/navigationController");
   var NavigationActions = require ("actions/navigationActions");
-  var dnatahome = React.createClass({
+  var home = React.createClass({
 
   _handleChange: function(key){
     var content;
@@ -68,11 +68,9 @@ define(function (require) {
     };
 
     return(
-      <div className="gclass">
-        <NavigationController controller={controllerData} />
-      </div>
+      <NavigationController controller={controllerData} />
       );
     }
   });
-  return dnatahome;
+  return home;
 });
