@@ -14,6 +14,7 @@ define(function (require) {
   var NavigationStore = require ("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
   var appActions = require ("actions/appActions");
+  var Feedback = require("controllers/feedback");
 
   var Form = React.createClass ({
       getInitialState: function () {
@@ -52,7 +53,7 @@ define(function (require) {
             this.props.onRightButtonClick();
             return;
           }
-          
+
           var that = this;
           var onSumbit = function(data)
           {
@@ -79,7 +80,7 @@ define(function (require) {
               if(!content[id])
               {
                 //remove this before release
-                alert("filed not found");
+                alert("file not found");
                 return;
               }
               if(value instanceof Array)

@@ -10,6 +10,7 @@ define(function (require) {
     var Home = require ("controllers/home");
     var Login = require ("controllers/login");
     var DnataHome = require("controllers/dnataHome");
+    var Feedback = require("controllers/feedback");
 
     var app = React.createClass({
         displayName: 'dnata',
@@ -35,7 +36,7 @@ define(function (require) {
     getContents:function () {
         var content;
         if(LoginStore.isUserLoggedIn()){
-          content = <DnataHome />;
+          content = <Feedback />;
         }
         else {
           content = <Login />;

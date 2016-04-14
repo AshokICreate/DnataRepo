@@ -39,23 +39,14 @@ define(function (require) {
 
   getContent:function(){
      var contentItems = Store.getdnataHomeItems();
-    /* var content = this.contentitems.map(function(name, i){
-
-        var className = "sectionItem";
-        var iconClass = "sectionIcon icon-"+name;
-        return(
-            <div key={i} className={className}>
-              <div className={iconClass}> </div>
-              <div className="sectionName" >{name}</div>
-              </div>
-        )
-     });*/
-
      var content = [];
      for (var i=0;i<contentItems.length;i++){
-
-       var eachItem = contentItems[i]
-       var className = "sectionItem";
+       var eachItem = contentItems[i];
+       var className = "sectionEvenItem";
+       if(i%2 !== 0)
+       {
+         className = "sectionOddItem";
+       }
        var iconClass = "sectionIcon icon-"+eachItem;
        content.push(
             <div key={i} className={className} onClick={this._handleChange.bind(this, i)}>

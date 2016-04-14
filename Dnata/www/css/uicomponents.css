@@ -148,13 +148,37 @@
   margin: 1em 0 2em 0;
 }
 
-.descBox{
+.field{
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
-  width: 100%;
-  height: 40%;
-  margin: 1em 0 2em 0;
+  border-radius: 20px;
+  border: 1px solid #D3D3D3;
+  outline: none;
+  padding: 1em;
+  width: 85%;
+  height: 30%;
+  margin-right: 3%;
+  margin-left: 3%;
+  font-family: Roboto;
+  background-color: white;
+}
+
+.descfield{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  border-radius: 20px;
+  border: 1px solid #D3D3D3;
+  outline: none;
+  padding: 1em;
+  width: 85%;
+  height: 10em;
+  margin-right: 3%;
+  margin-left: 3%;
+  font-family: Roboto;
+  background-color: white;
+  resize: none;
 }
 
 .selectBox{
@@ -202,21 +226,6 @@
   font-weight: bold;
 }
 
-.field{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  position: relative;
-  border-radius: 20px;
-  border: 1px solid #D3D3D3;
-  outline: none;
-  padding: 1em;
-  width: 85%;
-  height: 30%;
-  margin-right: 3%;
-  margin-left: 3%;
-  font-family: Roboto;
-  background-color: white;
-}
 
 .radiogroup{
   background-color: white;
