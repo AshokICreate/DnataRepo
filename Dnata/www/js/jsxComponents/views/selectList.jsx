@@ -10,6 +10,9 @@ define(function(require) {
 
   getInitialState: function () {
     var mArray = this.props.defaultvalue;
+    if(!mArray){
+      mArray = [];
+    }
     return { temp: mArray, options: this.props.options};
   },
   checkMark: function(key,event) {
@@ -40,7 +43,7 @@ define(function(require) {
   },
 
   searchText: function () {
-    var text = $("#searchid").val().toLowerCase();;
+    var text = $(".searchid").val().toLowerCase();;
     var searcharray = [];
     for(var i=0;i<this.props.options.length;i++){
       if(this.props.options[i].toLowerCase().indexOf(text)>=0){
@@ -85,7 +88,7 @@ define(function(require) {
     return(
       <div className="gclass listContainer">
         <div className="searchclass">
-          <input id="searchid" type="search" placeholder="Search" onChange={this.searchText}></input>
+          <input className="searchid" type="search" placeholder="Search" onChange={this.searchText}></input>
         </div>
       {this.getContents()}
       </div>
