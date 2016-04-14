@@ -43,7 +43,7 @@ define(function(require) {
   },
 
   searchText: function () {
-    var text = $(".searchid").val().toLowerCase();;
+    var text = $("#searchid").val().toLowerCase();;
     var searcharray = [];
     for(var i=0;i<this.props.options.length;i++){
       if(this.props.options[i].toLowerCase().indexOf(text)>=0){
@@ -88,7 +88,7 @@ define(function(require) {
     return(
       <div className="gclass listContainer">
         <div className="searchclass">
-          <input className="searchid" type="search" placeholder="Search" onChange={this.searchText}></input>
+          <input className="searchbox" id="searchid" type="search" placeholder="Search" onChange={this.searchText}></input>
         </div>
       {this.getContents()}
       </div>
