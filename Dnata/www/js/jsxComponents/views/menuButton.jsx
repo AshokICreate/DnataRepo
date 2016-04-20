@@ -15,6 +15,8 @@ define (function (require) {
               titleClass = titleClass+" icon-Back"
             }else if("Next"===this.props.name){
               titleClass = titleClass+" icon-Next"
+            }else if("Logout" ===this.props.name){
+              titleClass = titleClass+" icon-Menu7"
             }
             return (
                 <div className={className} onClick={this.props.onClick}>
