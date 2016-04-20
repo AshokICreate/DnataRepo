@@ -101,6 +101,9 @@
 .icon-Cancel:before {
     content: "\e90b";
 }
+.icon-Menu7:before {
+    content: "\e912";
+}
 
 .gridIcon:before{
   font-size: 3.1em;

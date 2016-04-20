@@ -71,8 +71,8 @@ define(function (require) {
     var controllerData = {
       title:"report_injury",
       content:content,
-      rightButtonName:"logout"
-    };
+      rightButtonName:"Logout"
+    }; 
 
     return(
       <NavigationController controller={controllerData} />
