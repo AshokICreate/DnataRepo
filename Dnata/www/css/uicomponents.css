@@ -626,6 +626,7 @@
   border-color: #0f88ca;
   text-align: center;
   padding-top: 1%;
+  cursor: pointer;
 }
 
 .plus_tab{
@@ -640,6 +641,7 @@
   border-color: #0f88ca;
   text-align: center;
   padding-top: 1%;
+  cursor: pointer;
 }
 
 
@@ -659,6 +661,7 @@
    width: 20%;
    height: auto;
    top: 20%;
+   cursor: pointer;
  }
 
  .tabViewContainer{

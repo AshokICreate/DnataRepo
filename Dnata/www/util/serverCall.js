@@ -1,8 +1,8 @@
 define (function (require) {
 
 	var server={requestURL:"", reqType:"",reqdata:"",callBackSuccess:""};
-	var URL= "http://172.27.138.47/metricstream/m2";
-	var versionM2 = "2.3";
+	var URL= "http://172.27.138.47/metricstream";
+	var versionM2 = "m2/2.3";
 	var BaseURL;
 	var authorization;
 
