@@ -25,7 +25,7 @@ define (function (require) {
     function login(user){
       var gotLoginData = function(data)
       {
-        console.log(data);
+        // console.log(data);
         if(data.authenticated === "yes")
         {
           isLoggedin = true;

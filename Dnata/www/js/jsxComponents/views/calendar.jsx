@@ -31,7 +31,7 @@ define(function(require){
 
   render: function() {
     var name = this.props.name;
-    var className = "field";
+    var className = "cfield image-Calender";
 
     return(
       <div className="inputBox">
