@@ -206,13 +206,18 @@
     border: 1px solid #D3D3D3;
     outline: none;
     padding: 1em;
-    width: 35%;
+    width: 37%;
     height: 1.5em;
-    margin-right: 2%;
     margin-left: 3%;
     font-family: Roboto;
     background-color: white;
 }
+
+.cfield.time{
+  width: 37%;
+  margin-right: 3%;
+}
+
 
 .descfield{
   -webkit-appearance: none;
@@ -327,9 +332,6 @@
   visibility: hidden;
 }
 
-.cfield.time{
-  width: 35%;
-}
 
 .searchclass{
   position: relative;
