@@ -61,14 +61,14 @@ define(function(require){
             cssName = "tab selected";
           }
 
-          var crossDiv = <div className="closediv"  onClick={this.onCancelButton.bind(this,i)}>X</div>;
+          var crossDiv = <div className="closediv"  onClick={this.onCancelButton.bind(this,i)}>✕</div>;
 
           if(i==0)
           {
             crossDiv="";
           }
           divsToArrange.push(
-            <div  className={cssName} onClick={this._onButtonSelect.bind(this,i)}>
+            <div  className={cssName} key={i} onClick={this._onButtonSelect.bind(this,i)}>
               <div>{this.state.tabsArray[i]}</div>
               {crossDiv}
             </div>

@@ -5,6 +5,7 @@ define(function (require) {
     propTypes: {
       name: React.PropTypes.string.isRequired,
       id: React.PropTypes.string.isRequired,
+      isRequired: React.PropTypes.bool.isRequired,
       defaultvalue:React.PropTypes.string,
       onSave: React.PropTypes.func.isRequired
     },
@@ -24,11 +25,17 @@ define(function (require) {
         var value = this.state.value;
         var name = this.props.name;
         var className = "field";
+        var classRequired = "hide";
+        if(this.props.isRequired)
+        {
+          classRequired = "require";
+        }
 
         return (
               <div className="inputBox">
+                <div className={classRequired}>*</div>
                 <div className="label">{getString(name)}</div>
-                <input className={className} onChange={this._handleChange} onBlur={this._save} defaultValue={this.props.defaultvalue} value={value}/>
+                <input className={className} maxLength="60" onChange={this._handleChange} onBlur={this._save} defaultValue={this.props.defaultvalue} value={value}/>
               </div>
           );
       }

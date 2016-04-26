@@ -48,12 +48,13 @@ define (function (require) {
                 {
                   //authentication
                   login(action.user);
-
+                  break;
                 }
             case constants.Logout:
                 {
 
                   logout();
+                  break;
                 }
             default:
                 {

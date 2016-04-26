@@ -18,7 +18,7 @@ define(function (require) {
       NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
   },
   _onRightButtonClick:function(){
-    LoginActions.logOut();
+      LoginActions.logOut();
   },
 
   _handleChange: function(key){
@@ -82,15 +82,11 @@ define(function (require) {
 
   render:function(){
     var content = this.getContent();
-    var controllerData = {
-      title:"report_injury",
-      content:content,
-      rightButtonName:"Logout"
-    };
-
 
     return(
-      <NavigationController controller={controllerData} />
+      <div className="gclass">
+          {content}
+      </div>
       );
     }
   });

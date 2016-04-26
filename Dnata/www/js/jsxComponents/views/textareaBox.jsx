@@ -4,6 +4,7 @@ var textareaBox = React.createClass({
 
   propTypes: {
     name: React.PropTypes.string.isRequired,
+    isRequired: React.PropTypes.bool.isRequired,
     id: React.PropTypes.string.isRequired,
     defaultvalue: React.PropTypes.string,
     onSave: React.PropTypes.func.isRequired
@@ -26,11 +27,17 @@ var textareaBox = React.createClass({
       var value = this.state.value;
       var name = this.props.name;
       var className = "descfield";
+      var classRequired = "hide";
+      if(this.props.isRequired)
+      {
+        classRequired = "require";
+      }
 
     return (
           <div className="inputBox">
+          <div className={classRequired}>*</div>
           <div className="label">{getString(name)}</div>
-          <textarea name="description" className={className} id={this.props.id} defaultValue={this.props.defaultvalue} onChange={this._handleChange} onBlur={this._save} value={value}/>
+          <textarea name="description" maxLength="255" className={className} id={this.props.id} defaultValue={this.props.defaultvalue} onChange={this._handleChange} onBlur={this._save} value={value}/>
           </div>
           );
       }

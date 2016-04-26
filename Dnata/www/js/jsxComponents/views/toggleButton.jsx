@@ -4,6 +4,7 @@ define(function (require) {
 
       propTypes: {
         name: React.PropTypes.string.isRequired,
+        isRequired: React.PropTypes.bool.isRequired,
         options: React.PropTypes.array,
         id: React.PropTypes.string.isRequired,
         onSave: React.PropTypes.func.isRequired,
@@ -34,6 +35,11 @@ define(function (require) {
 
            var firstButtonClassName = " ";
            var secondButtonClassName = " ";
+           var classRequired = "hide";
+           if(this.props.isRequired)
+           {
+             classRequired = "require";
+           }
            if(this.state.selectedbutton === 1){
               firstButtonClassName = "toggle_first_segment toggleBtn_active";
               secondButtonClassName = "toggle_second_segment";
@@ -44,6 +50,7 @@ define(function (require) {
 
             return (
                 <div className="inputBox">
+                <div className={classRequired}>*</div>
                   <div className="label">{getString(this.props.name)}</div>
                   <div className="toggle_button_container">
                     <button className={firstButtonClassName} onClick={this.onToggleButtonSegmentClick}>{(this.props.options.length >= 2) ? this.props.options[0] : "YES"}</button>

@@ -5,6 +5,7 @@ define(function(require){
   propTypes: {
     name: React.PropTypes.string.isRequired,
     id: React.PropTypes.string.isRequired,
+    isRequired: React.PropTypes.bool.isRequired,
     defaultchecked: React.PropTypes.array,
     options:React.PropTypes.array.isRequired,
     onSave: React.PropTypes.func.isRequired
@@ -47,8 +48,15 @@ define(function(require){
 
   render:function(){
     var name = this.props.name;
+    var classRequired = "hide";
+    if(this.props.isRequired)
+    {
+      classRequired = "require";
+    }
+
     return(
       <div className="inputBox">
+      <div className={classRequired}>*</div>
       <div className="label">{getString(name)}</div>
       {this.getContents()}
       </div>

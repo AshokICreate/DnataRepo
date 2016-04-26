@@ -2,6 +2,11 @@ define(function (require) {
 
   var attach = React.createClass({
 
+  propTypes: {
+    name: React.PropTypes.string.isRequired,
+    isRequired: React.PropTypes.bool.isRequired
+  },
+
     getInitialState: function() {
       return { fadevalue: false, images:[]};
     },
@@ -50,7 +55,14 @@ define(function (require) {
 
   render: function() {
     var classname = "filler hide";
-    if(this.state.fadevalue){
+    var name = this.props.name;
+    var classRequired = "hide";
+    if(this.props.isRequired)
+    {
+      classRequired = "require";
+    }
+    if(this.state.fadevalue)
+    {
       classname = "filler";
     }
 
@@ -62,7 +74,8 @@ define(function (require) {
     }
     return(
     <div className="attachment">
-     <span className="label">Attachments</span>
+     <div className={classRequired}>*</div>
+     <div className="label">{getString(name)}</div>
      <div className="attachmentholder">
         {divsToAttach}
        <div className="attach icon-Add" onClick={this._onAttach}></div>

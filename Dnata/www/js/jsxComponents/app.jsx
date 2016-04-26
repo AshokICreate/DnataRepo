@@ -5,6 +5,9 @@ define(function (require) {
     var Home = require ("controllers/home");
     var Login = require ("controllers/login");
     var Feedback = require("controllers/feedback");
+    var NavigationController = require ("controllers/navigationController");
+    var NavigationActions = require ("actions/navigationActions");
+    var NavigationConstants = require ("constants/navigationConstants");
 
     var app = React.createClass({
         displayName: 'dnata',
@@ -30,7 +33,12 @@ define(function (require) {
     getContents:function () {
         var content;
         if(LoginStore.isUserLoggedIn()){
-          content = <Home />;
+          var controllerData = {
+            title:"report_injury",
+            content: <Home />,
+            rightButtonName:"Logout"
+          };
+          content = <NavigationController controller={controllerData} />
         }
         else {
           content = <Login />;

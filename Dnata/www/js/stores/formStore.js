@@ -64,6 +64,27 @@ define (function (require) {
 
     }
 
+    var keysToMandate = {
+
+      "MS_INC_POTENTIAL_INJ_FORM":[
+                                  "INCIDENT_DESCRIPTION_LKP",
+                                  "INC_DATE_AND_TIME",
+                                  "INC_LOCATION_LKP",
+                                  "INC_SUB_LOCATION_LKP",
+                                  "INC_SUB_LOCATION_LOCALIZED_LKP",
+                                  "INC_EXACT_LOCATION",
+                                  "INC_SHARED_ONLY_HEAD_SAFETY",
+                                ],
+
+       "MS_INC_ACTUAL_INJURY":[
+                                  "INCIDENT_DATE",
+                                  "INC_LOCATION",
+                                  "INC_SUB_LOCATION",
+                                  "EXACT_SUB_LOCATION",
+                                  "INC_EXACT_LOCATION",
+                              ],
+
+    }
     var FormStore = assign ({}, EventEmitter.prototype, {
       getData:function(){
           return formData;
@@ -81,6 +102,16 @@ define (function (require) {
       getKeysToShow:function(id)
       {
         return keysToShow[id];
+      },
+      isFieldRequired: function(id,key)
+      {
+        var array = keysToMandate[id];
+        var isRequired = false;
+        if(array && array.indexOf(key) > -1)
+        {
+          isRequired = true;
+        }
+        return isRequired;
       },
       emitChange: function(eventId) {
         this.emit(eventId);

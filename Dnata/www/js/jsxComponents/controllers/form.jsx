@@ -16,6 +16,7 @@ define(function (require) {
   var appActions = require ("actions/appActions");
   var Feedback = require("controllers/feedback");
   var TextArea = require("views/textareaBox");
+  var Confirm = require("views/confirm");
 
   var Form = React.createClass ({
       getInitialState: function () {
@@ -54,6 +55,7 @@ define(function (require) {
             this.props.onRightButtonClick();
             return;
           }
+
 
           var that = this;
           var onSumbit = function(data)
@@ -126,7 +128,7 @@ define(function (require) {
           if(!element || !content[key])
           {
             //remove this before release
-            alert("filed not found");
+            alert("field not found");
             return;
           }
 
@@ -257,6 +259,8 @@ define(function (require) {
                   }
               }
 
+              var isRequired = Store.isFieldRequired(this.props.id,key);
+
               switch (element.fieldtype) {
                 case constants.Popup:
                 case constants.Dropdown:
@@ -273,14 +277,14 @@ define(function (require) {
 
                         if(options.length==2 && isSingleSelect)
                         {
-                            contentUI.push(<ToggleButton name={element.label} options={options} onSave={this._onComponentSave} defaultvalue={value} id={key} key={key}/>)
+                            contentUI.push(<ToggleButton isRequired={isRequired} name={element.label} options={options} onSave={this._onComponentSave} defaultvalue={value} id={key} key={key}/>)
 
                         }else if (options.length < 5) {
                             if(isSingleSelect)
                             {
-                                contentUI.push(<RadioGroup name={element.label} options={options} onSave={this._onComponentSave} defaultchecked={value} id={key} key={key}/>)
+                                contentUI.push(<RadioGroup name={element.label} isRequired={isRequired} options={options} onSave={this._onComponentSave} defaultchecked={value} id={key} key={key}/>)
                             }else {
-                                contentUI.push(<CheckGroup name={element.label} options={options} onSave={this._onComponentSave} defaultchecked={value} id={key} key={key}/>)
+                                contentUI.push(<CheckGroup name={element.label} isRequired={isRequired} options={options} onSave={this._onComponentSave} defaultchecked={value} id={key} key={key}/>)
                             }
                         }else {
                             var defaultArray;
@@ -292,7 +296,7 @@ define(function (require) {
                                 if(value!=="")
                                   defaultArray.push(value);
                             }
-                            contentUI.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} defaultvalues={defaultArray} id={key} key={key}/>);
+                            contentUI.push(<SelectBox name={element.label} isRequired={isRequired} onSelectBoxClick={this._onSelectBoxClick} defaultvalues={defaultArray} id={key} key={key}/>);
                         }
                     }else {
 
@@ -306,7 +310,7 @@ define(function (require) {
                               defaultArray.push(value);
                         }
 
-                        contentUI.push(<SelectBox name={element.label} onSelectBoxClick={this._onSelectBoxClick} defaultvalues={defaultArray} id={key} key={key}/>);
+                        contentUI.push(<SelectBox name={element.label} isRequired={isRequired} onSelectBoxClick={this._onSelectBoxClick} defaultvalues={defaultArray} id={key} key={key}/>);
                     }
                     break;
                 }
@@ -323,21 +327,21 @@ define(function (require) {
                     time = valArray[1];
                     time = Moment(time, 'HH:mm:ss').format('HH:mm');
                   }
-                  contentUI.push(<Calendar name={element.label} onSave={this._onComponentSave} defaultdate={date} defaulttime={time} id={key} key={key}/>);
+                  contentUI.push(<Calendar name={element.label} isRequired={isRequired} onSave={this._onComponentSave} defaultdate={date} defaulttime={time} id={key} key={key}/>);
                   break;
                 }
 
                 case constants.Attachment:
                 {
-                    contentUI.push(<Attach />);
+                    contentUI.push(<Attach name={element.label} isRequired={isRequired}/>);
                     break;
                 }
                 default:
                 {  if(childId)
                   {
-                    contentUI.push(<TextBox name={element.label} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>);
+                    contentUI.push(<TextBox name={element.label} isRequired={isRequired} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>);
                   }
-                   contentUI.push(<TextArea name={element.label} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>);
+                   contentUI.push(<TextArea name={element.label} isRequired={isRequired} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>);
                 }
               }
           }

@@ -5,6 +5,7 @@ define(function(require){
   propTypes: {
     name: React.PropTypes.string.isRequired,
     id: React.PropTypes.string.isRequired,
+    isRequired: React.PropTypes.bool.isRequired,
     defaultdate:React.PropTypes.string,
     defaulttime:React.PropTypes.string,
     onSave: React.PropTypes.func.isRequired
@@ -32,9 +33,14 @@ define(function(require){
   render: function() {
     var name = this.props.name;
     var className = "cfield image-Calender";
-
+    var classRequired = "hide";
+    if(this.props.isRequired)
+    {
+      classRequired = "require";
+    }
     return(
       <div className="inputBox">
+       <div className={classRequired}>*</div>
         <div className="label">{getString(name)}</div>
           <input type="date" className={className} id="cdate" onChange={this._handleDate} defaultValue={this.props.defaultdate}/>
           <input type="time" className={className+" time"} id="ctime" onChange={this._handleTime} defaultValue={this.props.defaulttime}/>
