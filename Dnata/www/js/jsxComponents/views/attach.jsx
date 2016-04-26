@@ -1,5 +1,5 @@
 define(function (require) {
-
+  var TextLabel = require("views/textLabel");
   var attach = React.createClass({
 
   propTypes: {
@@ -55,12 +55,7 @@ define(function (require) {
 
   render: function() {
     var classname = "filler hide";
-    var name = this.props.name;
-    var classRequired = "hide";
-    if(this.props.isRequired)
-    {
-      classRequired = "require";
-    }
+
     if(this.state.fadevalue)
     {
       classname = "filler";
@@ -74,27 +69,26 @@ define(function (require) {
     }
     return(
     <div className="attachment">
-     <div className={classRequired}>*</div>
-     <div className="label">{getString(name)}</div>
-     <div className="attachmentholder">
-        {divsToAttach}
-       <div className="attach icon-Add" onClick={this._onAttach}></div>
-       <div className={classname}>
-         <div className="attachbox">
-           <div className="cancel" onClick={this._onCancel}>✕</div>
-           <div className="capture" onClick={this._capturePhoto}>
-             <div className="attachicon import-Capture"></div>
-             <div className="attachtext">Capture Document</div>
-           </div>
-           <div className="divider"></div>
-           <div className="capture" onClick={this._uploadPhoto}>
-             <div className="attachicon import-Picture"></div>
-             <div className="attachtext">Upload Picture</div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
+       <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
+       <div className="attachmentholder">
+          {divsToAttach}
+          <div className="attach icon-Add" onClick={this._onAttach}></div>
+          <div className={classname}>
+            <div className="attachbox">
+              <div className="cancel" onClick={this._onCancel}>✕</div>
+              <div className="capture" onClick={this._capturePhoto}>
+                 <div className="attachicon import-Capture"></div>
+                 <div className="attachtext">Capture Document</div>
+              </div>
+              <div className="divider"></div>
+              <div className="capture" onClick={this._uploadPhoto}>
+                 <div className="attachicon import-Picture"></div>
+                 <div className="attachtext">Upload Picture</div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
       );
     }
   });

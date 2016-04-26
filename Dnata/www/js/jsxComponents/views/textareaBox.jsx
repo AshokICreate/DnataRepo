@@ -1,6 +1,6 @@
 define(function (require) {
-
-var textareaBox = React.createClass({
+  var TextLabel = require("views/textLabel");
+  var textareaBox = React.createClass({
 
   propTypes: {
     name: React.PropTypes.string.isRequired,
@@ -25,19 +25,12 @@ var textareaBox = React.createClass({
     },
     render: function() {
       var value = this.state.value;
-      var name = this.props.name;
       var className = "descfield";
-      var classRequired = "hide";
-      if(this.props.isRequired)
-      {
-        classRequired = "require";
-      }
 
     return (
           <div className="inputBox">
-          <div className={classRequired}>*</div>
-          <div className="label">{getString(name)}</div>
-          <textarea name="description" maxLength="255" className={className} id={this.props.id} defaultValue={this.props.defaultvalue} onChange={this._handleChange} onBlur={this._save} value={value}/>
+            <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
+            <textarea name="description" maxLength="255" className={className} id={this.props.id} defaultValue={this.props.defaultvalue} onChange={this._handleChange} onBlur={this._save} value={value}/>
           </div>
           );
       }

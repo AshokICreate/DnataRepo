@@ -1,6 +1,6 @@
 define(function (require) {
-
-    var ToggleButton = React.createClass ({
+  var TextLabel = require("views/textLabel");
+  var ToggleButton = React.createClass ({
 
       propTypes: {
         name: React.PropTypes.string.isRequired,
@@ -40,11 +40,6 @@ define(function (require) {
 
            var firstButtonClassName = " ";
            var secondButtonClassName = " ";
-           var classRequired = "hide";
-           if(this.props.isRequired)
-           {
-             classRequired = "require";
-           }
            if(this.state.selectedbutton === 1){
               firstButtonClassName = "toggle_first_segment toggleBtn_active";
               secondButtonClassName = "toggle_second_segment";
@@ -55,8 +50,7 @@ define(function (require) {
 
             return (
                 <div className="inputBox">
-                <div className={classRequired}>*</div>
-                  <div className="label">{getString(this.props.name)}</div>
+                  <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
                   <div className="toggle_button_container">
                     <button className={firstButtonClassName} onClick={this.onToggleButtonSegmentClick}>{(this.props.options.length >= 2) ? this.props.options[0].value : "YES"}</button>
                     <button className={secondButtonClassName} onClick={this.onToggleButtonSegmentClick}>{(this.props.options.length >= 2) ? this.props.options[1].value : "NO"}</button>
