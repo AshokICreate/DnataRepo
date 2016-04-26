@@ -27,18 +27,16 @@ define(function(require){
 
     for (var i = 0; i < array.length; i++) {
 
-        if(array[i] === this.props.defaultchecked)
+        if(array[i].key === this.props.defaultchecked)
         {
           content.push(
-              <input key={i} className={className} name={this.props.id} type="radio" onChange={this._handleChange}  value={array[i]} checked>{array[i]}</input>
+              <input key={i} className={className} name={this.props.id} type="radio" onChange={this._handleChange}  value={array[i].key} checked>{array[i].value}</input>
           );
         }else {
           content.push(
-              <input key={i} className={className} name={this.props.id} type="radio" onChange={this._handleChange} value={array[i]} >{array[i]}</input>
+              <input key={i} className={className} name={this.props.id} type="radio" onChange={this._handleChange} value={array[i].key} >{array[i].value}</input>
           );
         }
-
-
       }
     return(
       <div className="inputBox">

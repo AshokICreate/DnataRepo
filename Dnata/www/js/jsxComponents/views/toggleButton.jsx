@@ -14,16 +14,21 @@ define(function (require) {
         onToggleButtonSegmentClick: function (event) {
             var toggleButton = (this.state.selectedbutton === 1)?2:1;
             this.setState({selectedbutton: toggleButton});
-            this.props.onSave(this.props.id,this.props.options[toggleButton-1]);
+            this.props.onSave(this.props.id,this.props.options[toggleButton-1].key);
         },
 
         getInitialState: function(){
             var index =1;
             if(this.props.defaultvalue && this.props.defaultvalue !== "" && this.props.options )
             {
-                index = this.props.options.indexOf(this.props.defaultvalue)+1;
-                if(index<1)
-                  index = 1;
+                for(var i=0;i<this.props.options.length;i++)
+                {
+                    if(this.props.defaultvalue === this.props.options[i].key )
+                    {
+                        index = i+1;
+                        break;
+                    }
+                }
             }
             return{
               selectedbutton: index
@@ -53,8 +58,8 @@ define(function (require) {
                 <div className={classRequired}>*</div>
                   <div className="label">{getString(this.props.name)}</div>
                   <div className="toggle_button_container">
-                    <button className={firstButtonClassName} onClick={this.onToggleButtonSegmentClick}>{(this.props.options.length >= 2) ? this.props.options[0] : "YES"}</button>
-                    <button className={secondButtonClassName} onClick={this.onToggleButtonSegmentClick}>{(this.props.options.length >= 2) ? this.props.options[1] : "NO"}</button>
+                    <button className={firstButtonClassName} onClick={this.onToggleButtonSegmentClick}>{(this.props.options.length >= 2) ? this.props.options[0].value : "YES"}</button>
+                    <button className={secondButtonClassName} onClick={this.onToggleButtonSegmentClick}>{(this.props.options.length >= 2) ? this.props.options[1].value : "NO"}</button>
                   </div>
                 </div>
             );

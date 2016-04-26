@@ -34,6 +34,7 @@ define(function (require) {
       componentWillReceiveProps: function(nextProps) {
           this.setState(this.getContent(nextProps.id,nextProps.childId));
       },
+      getResources:{},
       render: function () {
           var content = this.state.content;
           return (
@@ -86,25 +87,38 @@ define(function (require) {
                 alert("file not found");
                 return;
               }
+              RemoveDependentLovs(id,this.props.id,this.props.childId,this.props.rowId,this.getResources);
               if(value instanceof Array)
               {
-                  var arrayObj = []
+                  var arrayObj = [];
+                  var valStr = "";
                   for (var i=0;i<value.length;i++)
                   {
-                      if(value[i] && value[i] !== "")
+                      if(value[i])
                       {
-                          var obj = {value:value[i]};
-                          arrayObj.push(obj);
+                          if(i!=0)
+                            valStr = valStr+";";
+
+                          valStr = valStr+value[i].key
                       }
                   }
+
+                  var obj = {value:valStr};
+                  arrayObj.push(obj);
                   content[id] = arrayObj;
+
+              }else if(value instanceof Object){
+
+                  var obj = {value:value.key};
+                  content[id] = obj;
 
               }else if(value !== "")
               {
                   var obj = {value:value};
                   content[id] = obj;
               }
-          }
+
+            }
 
       },
       _onSelectBoxClick:function(key,options)
@@ -141,20 +155,25 @@ define(function (require) {
           var defaultArray= [];
           if(obj instanceof Array)
           {
-              value = [];
-              for(var index=0;index<obj.length;index++)
+              if(obj.length>0)
               {
-                  if( obj[index].value && obj[index].value!=="")
-                    defaultArray.push( obj[index].value);
+                var splitKeys = obj[0].value.split(";")
+                for(var index=0;index<splitKeys.length;index++)
+                {
+                    if(splitKeys[index] && splitKeys[index]!=="")
+                      defaultArray.push(splitKeys[index]);
+                }
               }
-          }else {
-              if(obj.value && obj.value!=="")
-                defaultArray.push( obj.value)
+
+          }else if(obj.value){
+
+                defaultArray.push( obj.value);
           }
 
           if(element.resource.source==="form")
           {
               var options = getValuesOfResource(resources[element.resource.ref]);
+              defaultArray  = getSelectedLOVS(options,defaultArray);
               content= <Select options={options} isSingleSelect={isSingleSelect} onSave={this._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
               var controllerData = {
                 title:getString("select"),
@@ -167,15 +186,36 @@ define(function (require) {
 
               var parameters = element.resource.parameters;
               var queryParams;
+              var refValue;
+
               for(var i=0;i<parameters.length;i++)
               {
                   var obj = parameters[i];
                   var valueObj = content[obj.ref];
-                  var refValue = obj.value;
-                  if(valueObj.value && valueObj.value!=="")
+                  refValue = obj.value;
+                  if(valueObj)
                   {
-                      refValue = valueObj.value;
+                      if(valueObj instanceof Array)
+                      {
+                          if(valueObj.length>0)
+                            refValue = valueObj[0].value;
+
+                      }else if(valueObj.value && valueObj.value!==""){
+
+                          refValue = valueObj.value;
+
+                      }else if(refValue === "stored_value")
+                      {
+                          alert("select previous lov");
+                          return;
+                      }
+
+                  }else if(refValue === "stored_value")
+                  {
+                      alert("select previous lov");
+                      return;
                   }
+
                   if(i==0)
                   {
                       queryParams=obj.ref+"="+refValue;
@@ -192,6 +232,8 @@ define(function (require) {
               var gotResourceData=function(data)
               {
                   var options = getValuesOfResource(data);
+                  that.getResources[key] = options;
+                  defaultArray  = getSelectedLOVS(options,defaultArray);
                   content= <Select options={options} isSingleSelect={isSingleSelect} onSave={that._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
                   var controllerData = {
                     title:getString("Select"),
@@ -246,11 +288,16 @@ define(function (require) {
               if(obj instanceof Array)
               {
                   value = [];
-                  for(var index=0;index<obj.length;index++)
+                  if(obj.length>0)
                   {
-                      if(obj[index].value && obj[index].value!=="")
-                        value.push(obj[index].value);
+                    var splitKeys = obj[0].value.split(";")
+                    for(var index=0;index<splitKeys.length;index++)
+                    {
+                        if(splitKeys[index] && splitKeys[index]!=="")
+                          value.push(splitKeys[index]);
+                    }
                   }
+
               }else {
                   if(obj.value)
                     value = obj.value;
@@ -271,22 +318,29 @@ define(function (require) {
                         isSingleSelect = false;
                     }
 
+                    var options;
                     if(element.resource.source==="form")
                     {
-                        var options = getValuesOfResource(data.resources[element.resource.ref]);
+                        options = getValuesOfResource(data.resources[element.resource.ref]);
+                    }else {
+                        options = this.getResources[key];
+                    }
 
-                        if(options.length==2 && isSingleSelect)
+                    if(options && options instanceof Array && options.length>0)
+                    {
+                        if(element.resource.source==="form" && isSingleSelect && options.length < 5)
                         {
-                            contentUI.push(<ToggleButton isRequired={isRequired} name={element.label} options={options} onSave={this._onComponentSave} defaultvalue={value} id={key} key={key}/>)
-
-                        }else if (options.length < 5) {
-                            if(isSingleSelect)
+                            if(options.length==2)
                             {
+                                contentUI.push(<ToggleButton name={element.label} isRequired={isRequired} options={options} onSave={this._onComponentSave} defaultvalue={value} id={key} key={key}/>)
+
+                            }else if (options.length < 5) {
+
                                 contentUI.push(<RadioGroup name={element.label} isRequired={isRequired} options={options} onSave={this._onComponentSave} defaultchecked={value} id={key} key={key}/>)
-                            }else {
-                                contentUI.push(<CheckGroup name={element.label} isRequired={isRequired} options={options} onSave={this._onComponentSave} defaultchecked={value} id={key} key={key}/>)
                             }
+
                         }else {
+
                             var defaultArray;
                             if(value instanceof Array)
                             {
@@ -296,20 +350,21 @@ define(function (require) {
                                 if(value!=="")
                                   defaultArray.push(value);
                             }
-                            contentUI.push(<SelectBox name={element.label} isRequired={isRequired} onSelectBoxClick={this._onSelectBoxClick} defaultvalues={defaultArray} id={key} key={key}/>);
+
+                            defaultArray  = getSelectedLOVS(options,defaultArray);
+
+                            if (element.resource.source === "form" && options.length < 5)
+                            {
+                                contentUI.push(<CheckGroup name={element.label} isRequired={isRequired} options={options} onSave={this._onComponentSave} defaultchecked={defaultArray} id={key} key={key}/>)
+
+                            }else {
+
+                              contentUI.push(<SelectBox name={element.label} isRequired={isRequired} onSelectBoxClick={this._onSelectBoxClick} defaultvalues={defaultArray} id={key} key={key}/>);
+                            }
                         }
+
                     }else {
-
-                        var defaultArray;
-                        if(value instanceof Array)
-                        {
-                            defaultArray = value;
-                        }else {
-                            defaultArray = [];
-                            if(value!=="")
-                              defaultArray.push(value);
-                        }
-
+                        var defaultArray=[];
                         contentUI.push(<SelectBox name={element.label} isRequired={isRequired} onSelectBoxClick={this._onSelectBoxClick} defaultvalues={defaultArray} id={key} key={key}/>);
                     }
                     break;
@@ -337,11 +392,14 @@ define(function (require) {
                     break;
                 }
                 default:
-                {  if(childId)
+                {
+                   if(childId)
                   {
                     contentUI.push(<TextBox name={element.label} isRequired={isRequired} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>);
                   }
-                   contentUI.push(<TextArea name={element.label} isRequired={isRequired} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>);
+                   else {
+                    contentUI.push(<TextArea name={element.label} isRequired={isRequired} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>);
+                   }
                 }
               }
           }
@@ -351,14 +409,74 @@ define(function (require) {
   });
   return Form;
 
+  function RemoveDependentLovs(keyToCheck,id,childId,rowId,resources)
+  {
+      var formsData = Store.getData();
+      var structure = formsData[id].data.structure;
+      var content = formsData[id].data.content;
+      if(childId)
+      {
+          content = content[childId][rowId];
+          structure = structure[childId];
+      }
+      var fieldsToCheck = Object.keys(resources);
+
+      for(var index=0;index<fieldsToCheck.length;index++)
+      {
+          var key = fieldsToCheck[index];
+          var element = structure[key];
+          var obj = content[key];
+
+          if(element && element.resource && element.resource.parameters)
+          {
+              var parameters = element.resource.parameters;
+              for(var i=0;i<parameters.length;i++)
+              {
+                  if(parameters[i].ref && parameters[i].value === "stored_value" && parameters[i].ref === keyToCheck)
+                  {
+                      if(obj instanceof Array )
+                      {
+                          content[key] = [];
+
+                      }else if(obj && obj.value ){
+                          obj.value = "";
+                      }
+                      delete resources[key];
+                      RemoveDependentLovs(key,id,childId,rowId,resources);
+                      break;
+                  }
+              }
+          }
+      }
+
+
+  }
   function getValuesOfResource(resourceData) {
       var values= [];
       for (var key in resourceData) {
         var value = resourceData[key].value;
-        values.push(value);
+        values.push({key,value});
       }
 
       return values;
   }
 
+  function getSelectedLOVS(source,filter)
+  {
+      var array=[];
+      for (var i = 0; i < filter.length; i++) {
+
+          for(var j=0;j<source.length;j++)
+          {
+              if(filter[i] == source[j].key)
+              {
+                  array.push(source[j]);
+                  break;
+              }
+          }
+
+      }
+
+      return array;
+  }
 });
