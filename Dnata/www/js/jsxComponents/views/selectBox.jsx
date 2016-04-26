@@ -20,7 +20,7 @@ define(function (require) {
     {
       for(var i = 0; i < dvalue.length; i++){
         content.push(
-        <li className="dlist" key={i}>{dvalue[i]}</li>
+        <li className="dlist" key={i}>{dvalue[i].value}</li>
         );
       }
     }

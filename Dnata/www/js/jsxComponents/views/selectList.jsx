@@ -24,19 +24,17 @@ define(function(require) {
         var flag = false;
         var tempArray = this.state.temp;
         for(var i=0; i<tempArray.length; i++){
-          if(tempArray[i] === this.state.options[key]){
+          if(tempArray[i].key === this.state.options[key].key){
             flag = true;
+            tempArray.splice(i,1);
             break;
           }
         }
-        if(flag)
+        if(!flag)
         {
-          var index = tempArray.indexOf(this.state.options[key]);
-          tempArray.splice(index,1);
+          tempArray.push(this.state.options[key]);
         }
-        else {
-            tempArray.push(this.state.options[key]);
-        }
+
         this.props.onSelected(tempArray);
         this.setState({temp:tempArray});
       }
@@ -46,7 +44,7 @@ define(function(require) {
     var text = $("#searchid").val().toLowerCase();;
     var searcharray = [];
     for(var i=0;i<this.props.options.length;i++){
-      if(this.props.options[i].toLowerCase().indexOf(text)>=0){
+      if(this.props.options[i].value.toLowerCase().indexOf(text)>=0){
           searcharray.push(this.props.options[i]);
       }
     }
@@ -65,7 +63,7 @@ define(function(require) {
       var tempArray = this.state.temp;
       var flag = false;
       for(var j=0; j<tempArray.length; j++){
-        if(tempArray[j] === option[i]){
+        if(tempArray[j].key === option[i].key){
           flag = true;
           break;
         }
@@ -76,7 +74,7 @@ define(function(require) {
       }
       value.push(
         <div className="list" key={i} onClick={this.checkMark.bind(this,i)}>
-          <div className = "listtitle"> {option[i]}</div>
+          <div className = "listtitle"> {option[i].value}</div>
           <div className={className} >&#10003;</div>
         </div>
         );
