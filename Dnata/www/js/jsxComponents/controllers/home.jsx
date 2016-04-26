@@ -5,7 +5,21 @@ define(function (require) {
   var NavigationController = require ("controllers/navigationController");
   var NavigationActions = require ("actions/navigationActions");
   var Feedback = require("controllers/feedback");
+  var NavigationStore = require ("stores/navigationStore");
+  var LoginActions = require ('actions/loginActions');
+  var NavigationConstants = require ("constants/navigationConstants");
   var home = React.createClass({
+
+  componentDidMount: function () {
+      NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+  },
+
+  componentWillUnmount: function () {
+      NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+  },
+  _onRightButtonClick:function(){
+    LoginActions.logOut();
+  },
 
   _handleChange: function(key){
     var content;
@@ -72,7 +86,8 @@ define(function (require) {
       title:"report_injury",
       content:content,
       rightButtonName:"Logout"
-    }; 
+    };
+
 
     return(
       <NavigationController controller={controllerData} />

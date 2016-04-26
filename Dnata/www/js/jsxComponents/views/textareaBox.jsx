@@ -30,7 +30,7 @@ var textareaBox = React.createClass({
     return (
           <div className="inputBox">
           <div className="label">{getString(name)}</div>
-          <textarea name="description" className={className} defaultValue={this.props.defaultvalue} onChange={this._handleChange} onBlur={this._save} value={value}/>
+          <textarea name="description" className={className} id={this.props.id} defaultValue={this.props.defaultvalue} onChange={this._handleChange} onBlur={this._save} value={value}/>
           </div>
           );
       }

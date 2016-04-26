@@ -7,6 +7,11 @@ define (function (require) {
             actionType: constants.Login_Auth,
             user: user
           });
+        },
+        logOut: function () {
+          appDispatcher.dispatch ({
+              actionType: constants.Logout
+          });
         }
     };
     return loginActions;

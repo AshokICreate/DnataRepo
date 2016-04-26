@@ -61,30 +61,32 @@
 }
 
 
-/*[class^="icon"], [class*=" icon"] {*/
+[class^="image-"], [class*=" image-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    /*font-family: 'Icon-3' !important;
+    font-family: 'Icon-3' !important;
     speak: none;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
-    line-height: 1;*/
+    line-height: 1;
 
     /* Better Font Rendering =========== */
-    /*-webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}*/
+}
 
-/*.iconCalender:before {
+.image-Calender:before {
     content: "\e1005";
+    margin-right: 5%;
 }
-.iconClock-01:before {
+.image-Clock-01:before {
     content: "\e1006";
+    margin-right: 5%;
 }
-.iconsearch:before {
+.image-search:before {
     content: "\e1007";
-}*/
+}
 
 .icon-Next:before {
     content: "\e907";
@@ -195,6 +197,28 @@
   background-color: white;
 }
 
+
+.cfield{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+    border-radius: 20px;
+    border: 1px solid #D3D3D3;
+    outline: none;
+    padding: 1em;
+    width: 37%;
+    height: 1.5em;
+    margin-left: 3%;
+    font-family: Roboto;
+    background-color: white;
+}
+
+.cfield.time{
+  width: 37%;
+  margin-right: 3%;
+}
+
+
 .descfield{
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -204,12 +228,16 @@
   outline: none;
   padding: 1em;
   width: 85%;
-  height: 10em;
+  height: 4em;
   margin-right: 3%;
   margin-left: 3%;
   font-family: Roboto;
   background-color: white;
   resize: none;
+}
+
+#fdbk_id{
+  height: 10em;
 }
 
 .selectBox{
@@ -220,7 +248,7 @@
   border-radius: 20px;
   border: 1px solid #D3D3D3;
   outline: none;
-  padding: 1em;
+  padding: 0.7em;
   width: 85%;
   margin-right: 3%;
   margin-left: 3%;
@@ -253,6 +281,7 @@
   position: relative;
   width: 97%;
   margin-left:3%;
+  margin-bottom: 2%;
   height: 2em;
   font-weight: bold;
 }
@@ -262,6 +291,9 @@
   background-color: white;
   position: relative;
   margin-left:5%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor:pointer;
 }
 
 .listContainer
@@ -300,9 +332,6 @@
   visibility: hidden;
 }
 
-.field.time{
-  margin-top: 5%;
-}
 
 .searchclass{
   position: relative;
@@ -314,7 +343,6 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
-  border-radius: 20px;
   border: 1px solid #D3D3D3;
   outline: none;
   padding: 1em;

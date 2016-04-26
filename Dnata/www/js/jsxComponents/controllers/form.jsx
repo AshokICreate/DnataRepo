@@ -15,6 +15,7 @@ define(function (require) {
   var NavigationConstants = require ("constants/navigationConstants");
   var appActions = require ("actions/appActions");
   var Feedback = require("controllers/feedback");
+  var TextArea = require("views/textareaBox");
 
   var Form = React.createClass ({
       getInitialState: function () {
@@ -386,8 +387,11 @@ define(function (require) {
                     break;
                 }
                 default:
-                {
+                {  if(childId)
+                  {
                     contentUI.push(<TextBox name={element.label} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>);
+                  }
+                   contentUI.push(<TextArea name={element.label} onSave={this._onComponentSave} defaultvalue={value} id={key}  key={key}/>);
                 }
               }
           }

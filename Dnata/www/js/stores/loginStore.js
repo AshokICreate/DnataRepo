@@ -25,7 +25,7 @@ define (function (require) {
     function login(user){
       var gotLoginData = function(data)
       {
-        console.log(data);
+        // console.log(data);
         if(data.authenticated === "yes")
         {
           isLoggedin = true;
@@ -36,6 +36,12 @@ define (function (require) {
       serverCall.connectServer("GET","handshake",user,gotLoginData);
     }
 
+    function logout(){
+
+      isLoggedin  = false;
+      //setTimeout(function(){ LoginStore.emitChange(); }, );
+      LoginStore.emitChange();
+    }
     appDispatcher.register (function (action) {
         switch (action.actionType) {
             case constants.Login_Auth:
@@ -43,6 +49,11 @@ define (function (require) {
                   //authentication
                   login(action.user);
 
+                }
+            case constants.Logout:
+                {
+
+                  logout();
                 }
             default:
                 {
