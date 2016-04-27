@@ -22,9 +22,9 @@ define(function (require) {
     },
     reInitiateApp:function()
     {
-        this.setState({content:""});
-        var that = this;
-        setTimeout(function(){ that.onChange(); }, 100);
+        this.onChange();
+        //var that = this;
+        //setTimeout(function(){ that.onChange(); }, 100);
     },
     onChange:function()
     {

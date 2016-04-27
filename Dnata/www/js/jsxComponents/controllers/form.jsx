@@ -21,7 +21,7 @@ define(function (require) {
   var Form = React.createClass ({
       getInitialState: function () {
 
-          return this.getContent(this.props.id,this.props.childId);
+          return this.getContent(this.props.id,this.props.childId,this.props.rowId);
       },
       componentDidMount: function () {
           Store.addChangeListener (constants.Change_Data_Event,this._onChange);
@@ -32,7 +32,7 @@ define(function (require) {
           NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
       },
       componentWillReceiveProps: function(nextProps) {
-          this.setState(this.getContent(nextProps.id,nextProps.childId));
+          this.setState(this.getContent(nextProps.id,nextProps.childId,nextProps.rowId));
       },
       getResources:{},
       render: function () {
@@ -45,7 +45,7 @@ define(function (require) {
       },
       _onChange:function()
       {
-          return this.setState(this.getContent(this.props.id));
+          return this.setState(this.getContent(this.props.id,this.props.childId,this.props.rowId));
       },
       _onRightButtonClick:function()
       {
@@ -57,7 +57,8 @@ define(function (require) {
             return;
           }
 
-
+          NavigationActions.presentPopup(<Confirm />);
+          return;
           var that = this;
           var onSumbit = function(data)
           {
@@ -182,6 +183,7 @@ define(function (require) {
                 rightButtonName:"Submit"
               };
               NavigationActions.pushController(controllerData);
+
           }else {
 
               var parameters = element.resource.parameters;
@@ -233,6 +235,18 @@ define(function (require) {
               {
                   var options = getValuesOfResource(data);
                   that.getResources[key] = options;
+                  if(options.length == 1 )
+                  {
+                      if(isSingleSelect)
+                      {
+                          that._onComponentSave(key,options[0]);
+                      }else {
+                          that._onComponentSave(key,options);
+                      }
+
+                      return that.setState(that.getContent(that.props.id,that.props.childId,that.props.rowId));
+                  }
+
                   defaultArray  = getSelectedLOVS(options,defaultArray);
                   content= <Select options={options} isSingleSelect={isSingleSelect} onSave={that._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
                   var controllerData = {
@@ -247,7 +261,7 @@ define(function (require) {
               Store.getResorceData(url,gotResourceData);
           }
       },
-      getContent:function (id,childId)
+      getContent:function (id,childId,rowId)
       {
           var formsData = Store.getData();
           if(formsData && formsData[id])
@@ -257,9 +271,9 @@ define(function (require) {
 
             if(childId)
             {
-                contentUI = this.renderUI(formsData[id].data,Store.getKeysToShow(childId),childId);
+                contentUI = this.renderUI(formsData[id].data,Store.getKeysToShow(childId),id,childId,rowId);
             }else {
-                contentUI = this.renderUI(formsData[id].data,Store.getKeysToShow(id));
+                contentUI = this.renderUI(formsData[id].data,Store.getKeysToShow(id),id);
             }
 
             return contentUI;
@@ -268,7 +282,7 @@ define(function (require) {
           actions.getFormData(id);
           return {content:"loader"};
       },
-      renderUI:function(data,keys,childId)
+      renderUI:function(data,keys,id,childId,rowId)
       {
           var structure = data.structure;
           var content = data.content;
@@ -276,7 +290,7 @@ define(function (require) {
           if(childId)
           {
               structure = data.structure[childId];
-              content = data.content[childId][this.props.rowId];
+              content = data.content[childId][rowId];
           }
           var contentUI = [];
           for(var i=0;i<keys.length;i++)
@@ -306,7 +320,7 @@ define(function (require) {
                   }
               }
 
-              var isRequired = Store.isFieldRequired(this.props.id,key);
+              var isRequired = Store.isFieldRequired(id,key);
 
               switch (element.fieldtype) {
                 case constants.Popup:
