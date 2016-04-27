@@ -1,5 +1,5 @@
 define(function(require){
-
+  var TextLabel = require("views/textLabel");
   var checkGroup = React.createClass({
 
   propTypes: {
@@ -70,17 +70,10 @@ define(function(require){
 
   render:function(){
     var name = this.props.name;
-    var classRequired = "hide";
-    if(this.props.isRequired)
-    {
-      classRequired = "require";
-    }
-
     return(
       <div className="inputBox">
-      <div className={classRequired}>*</div>
-      <div className="label">{getString(name)}</div>
-      {this.getContents()}
+        <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
+          {this.getContents()}
       </div>
       );
     }

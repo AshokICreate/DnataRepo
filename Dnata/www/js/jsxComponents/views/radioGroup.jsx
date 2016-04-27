@@ -1,5 +1,5 @@
 define(function(require){
-
+  var TextLabel = require("views/textLabel");
   var radioGroup = React.createClass({
 
   propTypes: {
@@ -19,11 +19,6 @@ define(function(require){
     var array = this.props.options;
     var className = "radiogroup";
     var content = [];
-    var classRequired = "hide";
-    if(this.props.isRequired)
-    {
-      classRequired = "require";
-    }
 
     for (var i = 0; i < array.length; i++) {
 
@@ -40,9 +35,8 @@ define(function(require){
       }
     return(
       <div className="inputBox">
-      <div className={classRequired}>*</div>
-      <div className="label">{getString(name)}</div>
-      {content}
+        <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
+        {content}
       </div>
       );
     }

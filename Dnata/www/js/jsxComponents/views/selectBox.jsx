@@ -1,5 +1,5 @@
 define(function (require) {
-
+  var TextLabel = require("views/textLabel");
   var selectBox = React.createClass({
 
   propTypes: {
@@ -17,11 +17,6 @@ define(function (require) {
     var name = this.props.name;
     var dvalue = this.props.defaultvalues;
     var content = [];
-    var classRequired = "hide";
-    if(this.props.isRequired)
-    {
-      classRequired = "require";
-    }
     if(dvalue)
     {
       for(var i = 0; i < dvalue.length; i++){
@@ -32,14 +27,13 @@ define(function (require) {
     }
     return(
       <div className="inputBox">
-      <div className={classRequired}>*</div>
-      <div className="label">{getString(name)}</div>
-      <div className="selectBox" onClick={this._onClick}>
-        <div className="dlistclass">
-          {content}
-        </div>
+        <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
+        <div className="selectBox" onClick={this._onClick}>
+          <div className="dlistclass">
+            {content}
+          </div>
         <span className="icon-Next" id="arrow"></span>
-      </div>
+        </div>
       </div>
     );
   }

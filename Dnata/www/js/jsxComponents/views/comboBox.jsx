@@ -1,5 +1,5 @@
 define(function(require){
-
+  var TextLabel = require("views/textLabel");
   var comboBox = React.createClass({
 
     propTypes: {
@@ -19,11 +19,6 @@ define(function(require){
       var array=this.props.options;
       var className = "field";
       var content = [];
-      var classRequired = "hide";
-      if(this.props.isRequired)
-      {
-        classRequired = "require";
-      }
       for (var i = 0; i < array.length; i++) {
         var obj = array[i];
         content.push(
@@ -32,11 +27,10 @@ define(function(require){
       }
       return(
         <div className="inputBox">
-        <div className={classRequired}>*</div>
-        <div className="label">{getString(label)}</div>
-        <select onChange={this._handleChange} defaultValue={this.props.defaultvalue}>
-        {content}
-        </select>
+          <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
+          <select onChange={this._handleChange} defaultValue={this.props.defaultvalue}>
+            {content}
+          </select>
         </div>
       );
     }

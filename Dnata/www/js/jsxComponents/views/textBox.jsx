@@ -1,5 +1,5 @@
 define(function (require) {
-
+  var TextLabel = require("views/textLabel");
   var textBox = React.createClass({
 
     propTypes: {
@@ -23,18 +23,10 @@ define(function (require) {
       },
       render: function() {
         var value = this.state.value;
-        var name = this.props.name;
         var className = "field";
-        var classRequired = "hide";
-        if(this.props.isRequired)
-        {
-          classRequired = "require";
-        }
-
         return (
               <div className="inputBox">
-                <div className={classRequired}>*</div>
-                <div className="label">{getString(name)}</div>
+                <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
                 <input className={className} maxLength="60" onChange={this._handleChange} onBlur={this._save} defaultValue={this.props.defaultvalue} value={value}/>
               </div>
           );

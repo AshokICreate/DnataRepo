@@ -1,5 +1,5 @@
 define(function(require){
-
+  var TextLabel = require("views/textLabel");
   var  Calendar = React.createClass({
 
   propTypes: {
@@ -32,18 +32,13 @@ define(function(require){
 
   render: function() {
     var name = this.props.name;
-    var className = "cfield image-Calender";
-    var classRequired = "hide";
-    if(this.props.isRequired)
-    {
-      classRequired = "require";
-    }
+    var className = "cfield";
+
     return(
       <div className="inputBox">
-       <div className={classRequired}>*</div>
-        <div className="label">{getString(name)}</div>
-          <input type="date" className={className} id="cdate" onChange={this._handleDate} defaultValue={this.props.defaultdate}/>
-          <input type="time" className={className+" time"} id="ctime" onChange={this._handleTime} defaultValue={this.props.defaulttime}/>
+        <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
+        <input type="date" className={className+" date"+" image-Calender"} id="cdate" onChange={this._handleDate} defaultValue={this.props.defaultdate}/>
+        <input type="time" className={className+" time"+" image-Clock-01"} id="ctime" onChange={this._handleTime} defaultValue={this.props.defaulttime}/>
       </div>
       );
     }
