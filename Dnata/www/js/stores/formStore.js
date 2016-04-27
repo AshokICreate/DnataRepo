@@ -119,6 +119,34 @@ define (function (require) {
                                   "INC_SUB_LOCATION",
                                   "EXACT_SUB_LOCATION",
                               ],
+       "PSD":[
+               "INJURED_PERSON_CAT",
+               "INJURED_PERSON_NAME",
+               "ACTIVITY_DURING_INJURY",
+               "BODY_PART",
+               "INJURIES_SUSTAINED",
+               "MEDICAL_TREATMENT_RECIEVED"
+              ],
+
+      "FLY":[
+              "FLIGHT_NUMBER_AVAIL",
+              "CARRIER_NAME",
+              "AIRCRAFT_TYPE",
+              "REGISTRATION_NUMBER",
+              "DAMAGE_ATTRIBUTABLE",
+              "ARD_DAMAGE_TIME_ACTIVITY",
+              "ARD_AIRCRAFT_DAMAGE",
+              "ARD_DAMAGE_PART",
+              "ARD_DAMAGE_TYPE",
+              "ARD_DELAY_SEVERITY"
+            ],
+
+      "EQD":[
+              "EQD_DAMAGE_EQUIP_TYP",
+              "EQD_TYPE_OF_DAMAGE",
+              "EQD_FLEET_NUMBER",
+              "EQD_MODE_OF_OPN"
+            ]
 
     }
     var FormStore = assign ({}, EventEmitter.prototype, {

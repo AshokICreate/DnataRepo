@@ -149,7 +149,7 @@ define(function (require) {
           }
 
           var that = this;
-          var onSumbit = function(data)
+          var onSubmit = function(data)
           {
               console.log("Submit sucessfull");
               actions.clearFormData(that.props.id);
@@ -162,7 +162,7 @@ define(function (require) {
               formAction = "save";
           }
 
-          Store.submitFormData(this.props.id,onSumbit,formAction);
+          Store.submitFormData(this.props.id,onSubmit,formAction);
           console.log(title);
           this._onCancel();
       },
@@ -198,7 +198,31 @@ define(function (require) {
                     break;
               }
             }
-
+          }
+          if(this.props.childId && isEmpty === false)
+          {
+            var array = Store.getKeysToMandate(this.props.childId);
+            content = content[this.props.childId][this.props.rowId];
+            for(var i=0;i<array.length;i++)
+            {
+              var key = array[i];
+              var object = content[key];
+              if (object instanceof Array)
+              {
+                if(object.length<1 || !object[0].value)
+                {
+                      isEmpty = true;
+                      break;
+                }
+              }
+              else {
+                if(!object.value)
+                {
+                      isEmpty = true;
+                      break;
+                }
+              }
+            }
           }
           if(isEmpty)
           {
@@ -469,8 +493,13 @@ define(function (require) {
                     value = "";
                   }
               }
+              var requiredId = id;
+              if(childId)
+              {
+                requiredId = childId;
+              }
+              var isRequired = Store.isFieldRequired(requiredId,key);
 
-              var isRequired = Store.isFieldRequired(id,key);
 
               switch (element.fieldtype) {
                 case constants.Popup:
