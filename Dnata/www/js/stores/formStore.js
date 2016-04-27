@@ -6,6 +6,38 @@ define (function (require) {
     var serverCall = require ("util/serverCall");
     var JsonParser = require ("util/JSONParsers");
     var formData;
+
+    var actionParams = {
+        "MS_INC_POTENTIAL_INJ_FORM":"INC_ACTION",
+        "MS_INC_ACTUAL_INJURY":"FORM_ACTION"
+    }
+
+    var processCode = {
+        "MS_INC_POTENTIAL_INJ_FORM":"MSI_INC_POTENTIAL_RPTR_WF",
+        "MS_INC_ACTUAL_INJURY":"ACTUAL_INJURY_WF"
+    }
+
+    var currentStage = {
+        "MS_INC_POTENTIAL_INJ_FORM":"CURRENT_STAGE",
+        "MS_INC_ACTUAL_INJURY":"DD_CURRENT_STAGE"
+    }
+
+    var dummyData = {
+        "MS_INC_POTENTIAL_INJ_FORM":{
+            "INC_DUMMY_CHAR3":[
+              "INC_LOCATION_LKP",
+              "INC_SUB_LOCATION_LKP",
+              "INC_SUB_LOCATION_LOCALIZED_LKP",
+              "INC_EXACT_LOCATION"
+            ],
+            "INC_DUMMY_CHAR14":"date",
+            "INC_DUMMY_CHAR14":"year"
+        },
+        "MS_INC_ACTUAL_INJURY":{
+
+        }
+    }
+
     var keysToShow ={
       "MS_INC_POTENTIAL_INJ_FORM":[
                                   "INCIDENT_DESCRIPTION_LKP",
@@ -60,6 +92,12 @@ define (function (require) {
                 "ARD_DAMAGE_PART",
                 "ARD_DAMAGE_TYPE",
                 "ARD_DELAY_SEVERITY"
+              ],
+        "EQD":[
+                "EQD_DAMAGE_EQUIP_TYP",
+                "EQD_TYPE_OF_DAMAGE",
+                "EQD_FLEET_NUMBER",
+                "EQD_MODE_OF_OPN"
               ]
 
     }
@@ -91,11 +129,11 @@ define (function (require) {
       {
           serverCall.connectServer("GET",url,"",callback)
       },
-      submitFormData:function(id,callback)
+      submitFormData:function(id,callback,action)
       {
           var obj = formData[id];
           var data = JSON.stringify(obj.data);
-          serverCall.connectServer("PUT","tasks/"+obj.assignmentId+"/form",data,callback);
+          serverCall.connectServer("PUT","tasks/"+obj.assignmentId+"/form?action="+action,data,callback);
       },
       getKeysToShow:function(id)
       {
@@ -114,6 +152,22 @@ define (function (require) {
           isRequired = true;
         }
         return isRequired;
+      },
+      getActionParam:function(id)
+      {
+        return actionParams[id];
+      },
+      getProcessCode:function(id)
+      {
+        return processCode[id];
+      },
+      getCurrentStageKey:function(id)
+      {
+        return currentStage[id];
+      },
+      getDummyData:function(id)
+      {
+        return dummyData[id];
       },
       emitChange: function(eventId) {
         this.emit(eventId);
@@ -178,24 +232,27 @@ define (function (require) {
             serverCall.connectServer("GET","tasks/"+data.assignmentId+"/form","",gotFormData);
             assignmentId = data.assignmentId;
         }
-        var gotTasks = function(data)
-        {
-            if(data.items)
-            {
-              for(var i=0;i<data.items.length;i++)
-              {
-                  var obj = data.items[i];
-                  if(obj.metricName === id)
-                  {
-                    serverCall.connectServer("GET","tasks/"+obj.assignmentId+"/form","",gotFormData);
-                    assignmentId = obj.assignmentId;
-                    return;
-                  }
-              }
-              serverCall.connectServer("GET","tasks/formname="+Id,"",createdTask);
-            }
-        }
-        serverCall.connectServer("GET","tasks","",gotTasks)
+
+        serverCall.connectServer("POST","tasks?formname="+id,"",createdTask);
+
+        // var gotTasks = function(data)
+        // {
+        //     if(data.items)
+        //     {
+        //       for(var i=0;i<data.items.length;i++)
+        //       {
+        //           var obj = data.items[i];
+        //           if(obj.metricName === id)
+        //           {
+        //             serverCall.connectServer("GET","tasks/"+obj.assignmentId+"/form","",gotFormData);
+        //             assignmentId = obj.assignmentId;
+        //             return;
+        //           }
+        //       }
+        //       serverCall.connectServer("GET","tasks/formname="+Id,"",createdTask);
+        //     }
+        // }
+        // serverCall.connectServer("GET","tasks","",gotTasks)
     }
 
   });

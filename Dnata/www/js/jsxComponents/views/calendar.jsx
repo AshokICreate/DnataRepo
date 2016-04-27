@@ -22,12 +22,16 @@ define(function(require){
 
   _handleDate: function(event){
       this.date = event.target.value;
-      this.props.onSave(this.props.id,this.date+" "+this.time);
+      var date = Moment(this.date,"YYYY-MM-DD").format("M/DD/YYYY");
+      var time = Moment(this.time, 'HH:mm').format('HH:mm:ss');
+      this.props.onSave(this.props.id,date+" "+time);
   },
 
   _handleTime: function(event){
       this.time = event.target.value;
-      this.props.onSave(this.props.id,this.date+" "+this.time);
+      var date = Moment(this.date,"YYYY-MM-DD").format("M/DD/YYYY");
+      var time = Moment(this.time, 'HH:mm').format('HH:mm:ss');
+      this.props.onSave(this.props.id,date+" "+time);
   },
 
   render: function() {

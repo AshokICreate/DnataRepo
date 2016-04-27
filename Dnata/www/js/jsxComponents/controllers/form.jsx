@@ -49,12 +49,126 @@ define(function (require) {
       },
       _onActionClick:function(title)
       {
-        //Actions to be performed
-        console.log(title);
+
+          var formsData = Store.getData();
+          var content = formsData[this.props.id].data.content;
+
+          var actionKey = Store.getActionParam(this.props.id);
+          var obj = content[actionKey];
+          obj.value = "1";
+
+          var currentStageKey = Store.getCurrentStageKey(this.props.id);
+          var obj = content[currentStageKey];
+          obj.value = "1";
+
+          var obj = content["PREVIOUS_STAGE"];
+          obj.value = "0";
+
+          var processCode = Store.getProcessCode(this.props.id);
+          var obj = content["DD_PROCESS_CODE"];
+          obj.value = processCode;
+
+
+          var meta = formsData[this.props.id].data.meta;
+          var pid = meta.pid;
+          var obj = content["FORM_PID"];
+          obj.value = pid;
+          content["EVENT_TYPE"]= {"value":getString(this.props.id)};
+
+          if(this.props.id === "MS_INC_POTENTIAL_INJ_FORM")
+          {
+
+              var array = [
+                "INC_LOCATION_LKP",
+                "INC_SUB_LOCATION_LKP",
+                "INC_SUB_LOCATION_LOCALIZED_LKP",
+                "INC_EXACT_LOCATION"
+              ]
+
+              var value = getAppendedValuesFromContent(array,content);
+              content["INC_DUMMY_CHAR4"] = {"value":value};
+              content["INC_DUMMY_CHAR14"] = {"value":Moment().format("DD-MM-YYYY HH:mm")};
+              content["INC_DUMMY_CHAR15"] = {"value":Moment().format("YYYY")};
+               var obj = content["INC_DATE_AND_TIME"];
+               var modified = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("M/DD/YYYY HH:mm")
+               content["MS_INC_ATTRIBUTE1"] = {"value":modified};
+
+               var titleArray = [
+                 "INC_POTENTIAL_INJURY_COUNTRY",
+                 "REPORTERS_DEPARTMENT",
+                 "EVENT_TYPE",
+                 "MS_INC_ATTRIBUTE1"
+               ]
+               var titleValue = getAppendedValuesFromContent(titleArray,content);
+               content["POTENTIAL_INJURY_NAME"] = {"value":titleValue};
+
+          }else {
+              content["DUMMY_CHAR2"] = {"value":this.props.childId};
+              var location = content["INC_LOCATION"];
+              content["DUMMY_CHAR3"] = {"value":location.value};
+              content["DUMMY_CHAR4"] = {"value":"Actual Injury or Damage Reporting"};
+
+              var array = [
+                "INC_LOCATION",
+                "INC_SUB_LOCATION",
+                "EXACT_SUB_LOCATION",
+                "INC_EXACT_LOCATION"
+              ]
+              var value = getAppendedValuesFromContent(array,content);
+              content["DUMMY_CHAR5"] = {"value":value};
+
+              var titleArray = [
+                "COUNTRY",
+                "REPORTERS_DEPT"
+              ]
+              var titleValue = getAppendedValuesFromContent(titleArray,content);
+              titleValue = titleValue + "-" + getString(this.props.childId);
+              var obj = content["INCIDENT_DATE"];
+              var modified = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm")
+              titleValue = titleValue + "-" + modified;
+
+              content["INCIDENT_NAME"] = {"value":titleValue};
+
+              var selectValue = 0;
+              if(this.props.childId === "PSD")
+              {
+                  selectValue = 1;
+
+              }else if(this.props.childId === "FLY"){
+
+                  selectValue = 2;
+
+              }else if(this.props.childId === "EQD"){
+
+                  selectValue = 6;
+
+              }
+              content["SELECTED_TABS_ID"] = {value:selectValue}
+              content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
+              content["INC_STATUS"] = {value:"Reporting"}
+          }
+
+          var that = this;
+          var onSumbit = function(data)
+          {
+              console.log("Submit sucessfull");
+              actions.clearFormData(that.props.id);
+              appActions.reInitiateApp();
+          }
+
+          var formAction = "submit";
+          if(title==="Save this as Draft")
+          {
+              formAction = "save";
+          }
+
+          Store.submitFormData(this.props.id,onSumbit,formAction);
+          console.log(title);
+          this._onCancel();
       },
       _onCancel:function()
       {
-        //On cancel of confirmation box
+        NavigationActions.removePopup();
         console.log("On cancel of confirmation");
       },
       _onRightButtonClick:function()
@@ -105,17 +219,6 @@ define(function (require) {
                               }
                        ]
           NavigationActions.presentPopup(<Confirm buttons={buttonArray} onAction={this._onActionClick} onCancel={this._onCancel} />);
-          return;
-          var that = this;
-          var onSumbit = function(data)
-          {
-              console.log("Submit sucessfull");
-              actions.clearFormData(that.props.id);
-              appActions.reInitiateApp();
-
-          }
-          Store.submitFormData(this.props.id,onSumbit);
-          console.log("Submit")
       },
       _onComponentSave:function(id,value)
       {
@@ -436,7 +539,7 @@ define(function (require) {
                   var date = Moment().format('YYYY-MM-DD');
                   if(valArray !== ""){
                     var date = valArray[0];
-                    date = Moment(date).format('YYYY-MM-DD');
+                    date = Moment(date,'M/DD/YYYY').format('YYYY-MM-DD');
                   }
                   var time = Moment().format('HH:mm');
                   if(valArray.length === 2){
@@ -539,5 +642,35 @@ define(function (require) {
       }
 
       return array;
+  }
+
+  function getAppendedValuesFromContent(array,content)
+  {
+      var value = "";
+      for(var index = 0; index < array.length;index++)
+      {
+          var contentKey =  array[index];
+          var valObj = content[contentKey];
+
+          var currentValue;
+          if(valObj instanceof Array && valObj.length===1)
+          {
+              currentValue = valObj[0].value;
+          }else if(valObj)
+          {
+              currentValue = valObj.value;
+          }
+
+          if(currentValue)
+          {
+              if(index===0)
+                value = value+currentValue;
+              else {
+                value = value+"-"+currentValue;
+              }
+          }
+      }
+
+      return value;
   }
 });
