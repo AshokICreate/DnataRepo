@@ -72,7 +72,6 @@ define (function (require) {
                                   "INC_LOCATION_LKP",
                                   "INC_SUB_LOCATION_LKP",
                                   "INC_SUB_LOCATION_LOCALIZED_LKP",
-                                  "INC_EXACT_LOCATION",
                                   "INC_SHARED_ONLY_HEAD_SAFETY",
                                 ],
 
@@ -81,7 +80,6 @@ define (function (require) {
                                   "INC_LOCATION",
                                   "INC_SUB_LOCATION",
                                   "EXACT_SUB_LOCATION",
-                                  "INC_EXACT_LOCATION",
                               ],
 
     }
@@ -102,6 +100,10 @@ define (function (require) {
       getKeysToShow:function(id)
       {
         return keysToShow[id];
+      },
+      getKeysToMandate: function(id)
+      {
+        return keysToMandate[id];
       },
       isFieldRequired: function(id,key)
       {

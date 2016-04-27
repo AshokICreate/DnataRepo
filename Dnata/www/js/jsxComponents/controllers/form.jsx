@@ -51,6 +51,36 @@ define(function (require) {
       {
           /*do validations */
 
+          var formsData = Store.getData();
+          var content = formsData[this.props.id].data.content;
+          var array = Store.getKeysToMandate(this.props.id);
+          var isEmpty = false;
+          for(var i=0;i<array.length;i++)
+          {
+            var key = array[i];
+            var object = content[key];
+            if (object instanceof Array)
+            {
+              if(object.length<1 || !(object[0].value))
+              {
+                    isEmpty = true;
+                    break;
+              }
+            }
+            else {
+              if(!object.value)
+              {
+                    isEmpty = true;
+                    break;
+              }
+            }
+
+          }
+          if(isEmpty)
+          {
+            alert("Please enter all mandatory fields");
+            return;
+          }
           if(this.props.onRightButtonClick)
           {
             this.props.onRightButtonClick();
