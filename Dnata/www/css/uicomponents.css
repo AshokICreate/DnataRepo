@@ -309,8 +309,6 @@
   background-color: white;
   position: relative;
   margin-left:3%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   cursor:pointer;
 }
 
@@ -520,7 +518,7 @@
 }
 
 .attachimg{
-  height: 75%;
+  height: 80%;
   width: 20%;
   float: left;
   margin-top: 2.5%;
