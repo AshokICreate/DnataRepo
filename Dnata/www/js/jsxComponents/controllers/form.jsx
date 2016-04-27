@@ -49,71 +49,6 @@ define(function (require) {
       },
       _onActionClick:function(title)
       {
-        //Actions to be performed
-        console.log(title);
-      },
-      _onCancel:function()
-      {
-        //On cancel of confirmation box
-        console.log("On cancel of confirmation");
-      },
-      _onRightButtonClick:function()
-      {
-          /*do validations */
-
-          var formsData = Store.getData();
-          var content = formsData[this.props.id].data.content;
-          var array = Store.getKeysToMandate(this.props.id);
-          var isEmpty = false;
-          for(var i=0;i<array.length;i++)
-          {
-            var key = array[i];
-            var object = content[key];
-            if (object instanceof Array)
-            {
-              if(object.length<1 || !object[0].value)
-              {
-                    isEmpty = true;
-                    break;
-              }
-            }
-            else {
-              if(!object.value)
-              {
-                    isEmpty = true;
-                    break;
-              }
-            }
-
-          }
-          if(isEmpty)
-          {
-            alert("Please enter all mandatory fields");
-            return;
-          }
-          if(this.props.onRightButtonClick)
-          {
-            this.props.onRightButtonClick();
-            return;
-          }
-          var buttonArray = [
-                              {
-                                "title":"Save this as Draft",
-                              },
-                              {
-                                "title":"Submit the incident",
-                              }
-                       ]
-          NavigationActions.presentPopup(<Confirm buttons={buttonArray} onAction={this._onActionClick} onCancel={this._onCancel} />);
-          return;
-          var that = this;
-          var onSumbit = function(data)
-          {
-              console.log("Submit sucessfull");
-              actions.clearFormData(that.props.id);
-              appActions.reInitiateApp();
-
-          }
 
           var formsData = Store.getData();
           var content = formsData[this.props.id].data.content;
@@ -209,10 +144,81 @@ define(function (require) {
 
               }
               content["SELECTED_TABS_ID"] = {value:selectValue}
+              content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
+              content["INC_STATUS"] = {value:"Reporting"}
           }
 
-          Store.submitFormData(this.props.id,onSumbit,"submit");
-          console.log("Submit")
+          var that = this;
+          var onSumbit = function(data)
+          {
+              console.log("Submit sucessfull");
+              actions.clearFormData(that.props.id);
+              appActions.reInitiateApp();
+          }
+
+          var formAction = "submit";
+          if(title==="Save this as Draft")
+          {
+              formAction = "save";
+          }
+
+          Store.submitFormData(this.props.id,onSumbit,formAction);
+          console.log(title);
+          this._onCancel();
+      },
+      _onCancel:function()
+      {
+        NavigationActions.removePopup();
+        console.log("On cancel of confirmation");
+      },
+      _onRightButtonClick:function()
+      {
+          /*do validations */
+
+          var formsData = Store.getData();
+          var content = formsData[this.props.id].data.content;
+          var array = Store.getKeysToMandate(this.props.id);
+          var isEmpty = false;
+          for(var i=0;i<array.length;i++)
+          {
+            var key = array[i];
+            var object = content[key];
+            if (object instanceof Array)
+            {
+              if(object.length<1 || !object[0].value)
+              {
+                    isEmpty = true;
+                    break;
+              }
+            }
+            else {
+              if(!object.value)
+              {
+                    isEmpty = true;
+                    break;
+              }
+            }
+
+          }
+          if(isEmpty)
+          {
+            alert("Please enter all mandatory fields");
+            return;
+          }
+          if(this.props.onRightButtonClick)
+          {
+            this.props.onRightButtonClick();
+            return;
+          }
+          var buttonArray = [
+                              {
+                                "title":"Save this as Draft",
+                              },
+                              {
+                                "title":"Submit the incident",
+                              }
+                       ]
+          NavigationActions.presentPopup(<Confirm buttons={buttonArray} onAction={this._onActionClick} onCancel={this._onCancel} />);
       },
       _onComponentSave:function(id,value)
       {

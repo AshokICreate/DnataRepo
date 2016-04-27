@@ -69,6 +69,7 @@ define (function (require) {
               }
             case constants.Navigation_RemovePopup:
               {
+                    popUpView = undefined;
                     navigationStore.emitChange(constants.Change_Event);
                     break;
               }
