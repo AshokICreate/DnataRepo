@@ -7,6 +7,11 @@ define(function(require){
     onCancel: React.PropTypes.func.isRequired
   },
 
+  _onAction: function(i){
+    var title =  this.props.buttons[i].title;
+    return this.props.onAction(title);
+  },
+
   render: function () {
     var content = [];
     var button = this.props.buttons;
@@ -18,7 +23,7 @@ define(function(require){
         buttonClass = buttonClass+" highlight";
       }
       content.push(
-        <div className={buttonClass} onClick={button[i].action}>{button[i].title}</div>
+        <div className={buttonClass} onClick={this._onAction.bind(this,i)}>{button[i].title}</div>
       );
     }
     return(

@@ -73,7 +73,7 @@ define(function (require) {
        content.push(
             <div key={i} className={className} onClick={this._handleChange.bind(this, eachItem)}>
               <div className={iconClass}> </div>
-              <div className="sectionName" >{getString(eachItem)}</div>
+              <div className="sectionName" >{getString(eachItem).toUpperCase()}</div>
             </div>
        );
      }
