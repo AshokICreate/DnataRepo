@@ -72,8 +72,8 @@ define(function (require) {
           var meta = formsData[this.props.id].data.meta;
           var pid = meta.pid;
           var obj = content["FORM_PID"];
-          obj.value = pid;
-          content["EVENT_TYPE"]= {"value":getString(this.props.id)};
+          obj.value = pid.toString();
+
 
           if(this.props.id === "MS_INC_POTENTIAL_INJ_FORM")
           {
@@ -101,7 +101,7 @@ define(function (require) {
                ]
                var titleValue = getAppendedValuesFromContent(titleArray,content);
                content["POTENTIAL_INJURY_NAME"] = {"value":titleValue};
-
+               content["EVENT_TYPE"]= {"value":getString(this.props.id)};
           }else {
               content["DUMMY_CHAR2"] = {"value":this.props.childId};
               var location = content["INC_LOCATION"];
@@ -127,25 +127,28 @@ define(function (require) {
               var modified = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm")
               titleValue = titleValue + "-" + modified;
 
+              obj.value = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("MM/DD/YYYY HH:mm:ss")
+
               content["INCIDENT_NAME"] = {"value":titleValue};
 
-              var selectValue = 0;
+              var selectValue = "0";
               if(this.props.childId === "PSD")
               {
-                  selectValue = 1;
+                  selectValue = "1";
 
               }else if(this.props.childId === "FLY"){
 
-                  selectValue = 2;
+                  selectValue = "2";
 
               }else if(this.props.childId === "EQD"){
 
-                  selectValue = 6;
+                  selectValue = "6";
 
               }
               content["SELECTED_TABS_ID"] = {value:selectValue}
               content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
               content["INC_STATUS"] = {value:"Reporting"}
+
           }
 
           var that = this;
