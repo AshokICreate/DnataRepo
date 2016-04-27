@@ -47,18 +47,76 @@ define(function (require) {
       {
           return this.setState(this.getContent(this.props.id,this.props.childId,this.props.rowId));
       },
+      _onCancel:function()
+      {
+        //On cancel of confirmation box
+        console.log("On cancel of confirmation");
+      },
       _onRightButtonClick:function()
       {
           /*do validations */
 
+          var formsData = Store.getData();
+          var content = formsData[this.props.id].data.content;
+          var array = Store.getKeysToMandate(this.props.id);
+          var isEmpty = false;
+          for(var i=0;i<array.length;i++)
+          {
+            var key = array[i];
+            var object = content[key];
+            if (object instanceof Array)
+            {
+              if(object.length<1 || !object[0].value)
+              {
+                    isEmpty = true;
+                    break;
+              }
+            }
+            else {
+              if(!object.value)
+              {
+                    isEmpty = true;
+                    break;
+              }
+            }
+
+          }
+          if(isEmpty)
+          {
+            alert("Please enter all mandatory fields");
+            return;
+          }
           if(this.props.onRightButtonClick)
           {
             this.props.onRightButtonClick();
             return;
           }
-
-          // NavigationActions.presentPopup(<Confirm />);
-          // return;
+          var onSaveDraft = function()
+          {
+            //On click of Save as Draft
+            console.log("Saved as draft");
+          }
+          var onSubmitIncident = function()
+          {
+            //On click of Submit the incident
+            console.log("Incident submitted");
+          }
+          var buttonArray = [
+                              {
+                                "title":"Save this as Draft",
+                                "action":onSaveDraft
+                              },
+                              {
+                                "title":"Submit the incident",
+                                "action":onSubmitIncident
+                              },
+                              {
+                                "title":"OK",
+                                "action":onSaveDraft
+                              }
+                       ]
+          NavigationActions.presentPopup(<Confirm buttons={buttonArray} onCancel={this._onCancel} />);
+          return;
           var that = this;
           var onSumbit = function(data)
           {
