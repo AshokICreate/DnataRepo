@@ -29,7 +29,11 @@ define(function (require) {
                         break;
                     }
                 }
+            }else
+            {
+              this.props.onSave(this.props.id,this.props.options[0].key);
             }
+
             return{
               selectedbutton: index
 
