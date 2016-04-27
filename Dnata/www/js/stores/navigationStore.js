@@ -5,9 +5,14 @@ define (function (require) {
     var constants = require ("constants/navigationConstants");
 
     var controllerStack =[];
+    var popUpView;
 
     var navigationStore = assign ({}, EventEmitter.prototype, {
 
+      getPresentationLayer:function()
+      {
+        return popUpView;
+      },
       getController:function()
       {
         var controller;
@@ -53,6 +58,17 @@ define (function (require) {
               {
                     controllerStack =[];
                     controllerStack.push(action.controller);
+                    navigationStore.emitChange(constants.Change_Event);
+                    break;
+              }
+            case constants.Navigation_PresentPopup:
+              {
+                    popUpView = action.presentationLayer
+                    navigationStore.emitChange(constants.Change_Event);
+                    break;
+              }
+            case constants.Navigation_RemovePopup:
+              {
                     navigationStore.emitChange(constants.Change_Event);
                     break;
               }

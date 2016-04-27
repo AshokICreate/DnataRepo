@@ -7,7 +7,8 @@ define(function (require) {
 
   function getState () {
       return {
-          controller: NavigationStore.getController()
+          controller: NavigationStore.getController(),
+          presentationLayer: NavigationStore.getPresentationLayer()
       };
   }
 
@@ -41,6 +42,7 @@ define(function (require) {
     {
 
       var controller;
+      var presentationLayer;
 
       if(this.state.controller)
       {
@@ -77,9 +79,18 @@ define(function (require) {
                     </div>;
       }
 
+      if(this.state.presentationLayer)
+      {
+            presentationLayer = <div className="presentationLayer">
+                                    <div className="filler"/>
+                                    {this.state.presentationLayer}
+                                </div>
+      }
+
       return(
         <div className="container">
           {controller}
+          {presentationLayer}
         </div>
       );
 

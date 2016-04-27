@@ -24,6 +24,19 @@ define (function (require) {
             appDispatcher.dispatch ({
                 actionType: constants.Navigation_Clear
             });
+        },
+        presentPopup:function(view)
+        {
+            appDispatcher.dispatch ({
+                actionType: constants.Navigation_PresentPopup,
+                presentationLayer: view
+            });
+        },
+        removePopup:function()
+        {
+            appDispatcher.dispatch ({
+                actionType: constants.Navigation_RemovePopup
+            });
         }
     };
     return navigationActions;
