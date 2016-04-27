@@ -154,12 +154,6 @@ body {
     cursor: pointer;
 }
 
-.highlight
-{
-  background-color: #6abd45;
-  border-color: #6abd45;
-  color:white;
-}
 
 .buttonContainer {
     position: relative;
@@ -405,3 +399,10 @@ label{
    top: 7%;
    cursor: pointer;
  }
+
+/*.presentationLayer{
+  position: fixed;
+  z-index: 90;
+  width:100%;
+  height:100%;
+}*/

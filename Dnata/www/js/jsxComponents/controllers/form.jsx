@@ -47,6 +47,11 @@ define(function (require) {
       {
           return this.setState(this.getContent(this.props.id,this.props.childId,this.props.rowId));
       },
+      _onCancel:function()
+      {
+        //On cancel of confirmation box
+        console.log("On cancel of confirmation");
+      },
       _onRightButtonClick:function()
       {
           /*do validations */
@@ -61,7 +66,7 @@ define(function (require) {
             var object = content[key];
             if (object instanceof Array)
             {
-              if(object.length<1 || !(object[0].value))
+              if(object.length<1 || !object[0].value)
               {
                     isEmpty = true;
                     break;
@@ -86,8 +91,31 @@ define(function (require) {
             this.props.onRightButtonClick();
             return;
           }
-
-          NavigationActions.presentPopup(<Confirm />);
+          var onSaveDraft = function()
+          {
+            //On click of Save as Draft
+            console.log("Saved as draft");
+          }
+          var onSubmitIncident = function()
+          {
+            //On click of Submit the incident
+            console.log("Incident submitted");
+          }
+          var buttonArray = [
+                              {
+                                "title":"Save this as Draft",
+                                "action":onSaveDraft
+                              },
+                              {
+                                "title":"Submit the incident",
+                                "action":onSubmitIncident
+                              },
+                              {
+                                "title":"OK",
+                                "action":onSaveDraft
+                              }
+                       ]
+          NavigationActions.presentPopup(<Confirm buttons={buttonArray} onCancel={this._onCancel} />);
           return;
           var that = this;
           var onSumbit = function(data)
