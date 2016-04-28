@@ -1,13 +1,26 @@
 define(function(require){
   var Form = require ("controllers/form");
   var Store = require ("stores/formStore");
+  var tag = "Injury ";
 
   var MultiRow = React.createClass({
 
-
     getInitialState: function(){
+      var formsData = Store.getData();
+      var content = formsData[this.props.id].data.content;
 
-      return { activeTab:0,tabsArray:["Row1"]};
+      var array = [tag+1];
+
+      if(this.props.childId)
+      {
+          var obj = content[this.props.childId];
+
+          for(var i=1;i<obj.length;i++)
+          {
+              array.push(tag+(i+1));
+          }
+      }
+      return { activeTab:0,tabsArray:array};
     },
 
     _onButtonSelect: function (index) {
@@ -28,7 +41,7 @@ define(function(require){
       }
 
       var noofTabsinScreen = this.state.tabsArray.length+1;
-      var row = "Row "+noofTabsinScreen
+      var row = tag+noofTabsinScreen
 
       var array = this.state.tabsArray;
       array.push(row);

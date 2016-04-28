@@ -9,11 +9,14 @@ define(function (require) {
     defaultvalue: React.PropTypes.string,
     onSave: React.PropTypes.func.isRequired
   },
+  
     getInitialState: function() {
       var val = this.props.defaultvalue;
       return { value: val};
     },
-
+    componentWillReceiveProps:function(nextProps) {
+        this.setState({value:nextProps.defaultvalue});
+    },
     _handleChange: function(event) {
       this.setState({value: event.target.value});
     },
@@ -22,9 +25,6 @@ define(function (require) {
         if(event.target.value !== "")
           this.props.onSave(this.props.id, event.target.value);
 
-    },
-    componentWillReceiveProps:function(nextProps) {
-        this.setState({value:nextProps.defaultvalue});
     },
     render: function() {
       var value = this.state.value;

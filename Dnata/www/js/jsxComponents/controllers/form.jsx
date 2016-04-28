@@ -40,8 +40,14 @@ define(function (require) {
       getResources:{},
       render: function () {
           var content = this.state.content;
+          var id = "form";
+          if(this.props.childId)
+          {
+              id=this.props.id;
+          }
+
           return (
-              <div className="gclass form" id={this.props.id}>
+              <div className="gclass form" id={id}>
                 {content}
               </div>
           );

@@ -17,6 +17,13 @@ define(function(require){
       }
       return { selected:mArray};
   },
+  componentWillReceiveProps:function(nextProps) {
+      var mArray = this.props.defaultvalue;
+      if(!mArray){
+        mArray = [];
+      }
+      this.setState({ selected:mArray});;
+  },
   _handleChange: function(key,event) {
       var tempArray = this.state.selected;
       var index = parseInt(key);
