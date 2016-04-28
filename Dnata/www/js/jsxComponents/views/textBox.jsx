@@ -11,8 +11,11 @@ define(function (require) {
     },
 
       getInitialState: function() {
-        var val = this.props.value;
+        var val = this.props.defaultvalue;
         return { value: val};
+      },
+      componentWillReceiveProps:function(nextProps) {
+          this.setState({value:nextProps.defaultvalue});
       },
       _handleChange: function(event) {
         this.setState({value: event.target.value});
@@ -27,7 +30,7 @@ define(function (require) {
         return (
               <div className="inputBox">
                 <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
-                <input className={className} maxLength="60" onChange={this._handleChange} onBlur={this._save} defaultValue={this.props.defaultvalue} value={value}/>
+                <input className={className} maxLength="60" onChange={this._handleChange} onBlur={this._save} value={value}/>
               </div>
           );
       }

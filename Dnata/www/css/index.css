@@ -58,6 +58,12 @@ body {
   overflow-y: scroll;
 }
 
+#MS_INC_ACTUAL_INJURY
+{
+    height: 93%;
+}
+
+
 .navigationBar {
     position: relative;
     width: 100%;

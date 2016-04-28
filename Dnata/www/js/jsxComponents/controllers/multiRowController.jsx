@@ -16,29 +16,28 @@ define(function(require){
 
     addNewTab:function(e){
       e.stopPropagation();
+
+      var formsData = Store.getData();
+      var content = formsData[this.props.id].data.content;
+      var childContents = formsData[this.props.id].childContents;
+
+      if(this.props.childId)
+      {
+          var obj = childContents[this.props.childId];
+          content[this.props.childId].push(obj);
+      }
+
       var noofTabsinScreen = this.state.tabsArray.length+1;
       var row = "Row "+noofTabsinScreen
 
       var array = this.state.tabsArray;
       array.push(row);
+
       this.setState({ activeTab:this.state.activeTab,tabsArray:array});
-
-      var formsData = Store.getData();
-      var content = formsData[this.props.id].data.content;
-
-      if(this.props.childId)
-      {
-          var obj = content[this.props.childId][0];
-          content[this.props.childId].push(obj);
-      }
     },
 
     onCancelButton:function(index,e){
       e.stopPropagation();
-      var array = this.state.tabsArray;
-      array.splice(index,1);
-      this.setState({ activeTab:this.state.activeTab,tabsArray:array});
-
       var formsData = Store.getData();
       var content = formsData[this.props.id].data.content;
 
@@ -47,6 +46,16 @@ define(function(require){
           var obj = content[this.props.childId];
           obj.splice(index,1);
       }
+
+      var array = this.state.tabsArray;
+      array.splice(index,1);
+
+      var activeTab = this.state.activeTab
+      if(this.state.activeTab==index)
+      {
+          activeTab = 0;
+      }
+      this.setState({ activeTab:activeTab,tabsArray:array});
 
     },
 

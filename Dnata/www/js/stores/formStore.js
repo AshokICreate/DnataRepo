@@ -246,8 +246,25 @@ define (function (require) {
             formData = {};
           }
 
+          if(id==="MS_INC_ACTUAL_INJURY")
+          {
+              var content = obj.data.content;
+              var array =  ["PSD","FLY","EQD"]
+
+              var childContents = {};
+              for(var i=0;i<array.length;i++)
+              {
+                var childCon = content[array[i]][0];
+                var copied = jQuery.extend(true, {}, childCon);
+                childContents[array[i]] = copied;
+              }
+
+              obj["childContents"] = childContents;
+          }
           formData[id] = obj;
           FormStore.emitChange(constants.Change_Data_Event);
+
+
 
           // if(data)
           // {
