@@ -2,6 +2,7 @@ define(function(require){
   var NavigationActions = require ("actions/navigationActions");
   var NavigationStore = require ("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
+  var appActions = require ("actions/appActions");
 
   var TextArea = require("views/textareaBox");
   var ToggleButton =  require ("views/toggleButton");
@@ -51,12 +52,13 @@ define(function(require){
       return;
     }
 
-    var localObject = feedbackObj.primary_location;
-    feedbackObj.primary_location = localObject.key;
+    // var localObject = feedbackObj.primary_location;
+    // feedbackObj.primary_location = localObject.key;
 
     var success = function()
     {
-        NavigationActions.popController();
+        appActions.reInitiateApp();
+
     }
 
     var error = function()
