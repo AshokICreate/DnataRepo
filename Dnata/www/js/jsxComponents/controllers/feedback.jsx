@@ -38,6 +38,39 @@ define(function(require){
   _onCancel:function() {
     NavigationActions.removePopup();
   },
+  _onSuccess:function()
+  {
+      appActions.reInitiateApp();
+  },
+  _onError:function()
+  {
+
+  },
+  _sendToServer:function()
+  {
+      var localObject = feedbackObj.primary_location;
+      feedbackObj.primary_location = localObject.key;
+
+      var varData = JSON.stringify(feedbackObj);
+
+      $.ajax({
+        type            : "POST", //GET or POST or PUT or DELETE verb
+        url             : "http://172.27.138.47/metricstream/feedbak", // Location of the service
+        data            : varData, //Data sent to server
+        contentType     : "application/json", // content type sent to server
+        dataType        : "JSON",
+        success         : this._onSuccess,
+        error						: this._onError,
+      })
+
+      feedbackObj = {
+        feedback_title:"",
+        primary_location:"",
+        receive_update:""
+      }
+
+      appActions.reInitiateApp();
+  },
   _onSubmit:function()
   {
     console.log("Feedback submitted");
@@ -50,33 +83,9 @@ define(function(require){
     {
       NavigationActions.presentPopup(<Msg msgLabel={"Please enter all mandatory fields"} onOK={this._onCancel}/>);
       return;
+    }else {
+      this._sendToServer();
     }
-
-    // var localObject = feedbackObj.primary_location;
-    // feedbackObj.primary_location = localObject.key;
-
-    var success = function()
-    {
-        appActions.reInitiateApp();
-
-    }
-
-    var error = function()
-    {
-
-    }
-
-    var varData = JSON.stringify(feedbackObj);
-
-    $.ajax({
-      type            : "POST", //GET or POST or PUT or DELETE verb
-      url             : "http://172.27.138.47/metricstream/feedbak", // Location of the service
-      data            : varData, //Data sent to server
-      contentType     : "application/json", // content type sent to server
-      dataType        : "JSON",
-      success         : success,
-      error						: error,
-    })
 
   },
   _onSave: function(id,value) {
@@ -100,9 +109,9 @@ define(function(require){
   render: function () {
     return(
       <div className="form">
-        <TextArea name={"What feedback would you like to provide"} isRequired={"true"} onSave={this._onSave} id={"feedback_title"} defaultvalue={feedbackObj["feedback_title"]}/>
-        <SelectBox name={"Where are you providing feedback for"} isRequired={"true"} onSelectBoxClick={this._onSelect} id={"primary_location"} defaultvalues={[feedbackObj["primary_location"]]}/>
-        <ToggleButton name={"Send feedback anonymously"} isRequired={"true"} options={[{"key":"1","value":"Yes"},{"key":"2","value":"No"}]} id={"receive_update"} onSave={this._onSave} defaultvalue={feedbackObj["receive_update"]} />
+        <TextArea name={"What feedback would you like to provide"} isRequired={true} onSave={this._onSave} id={"feedback_title"} defaultvalue={feedbackObj["feedback_title"]}/>
+        <SelectBox name={"Where are you providing feedback for"} isRequired={true} onSelectBoxClick={this._onSelect} id={"primary_location"} defaultvalues={[feedbackObj["primary_location"]]}/>
+        <ToggleButton name={"Send feedback anonymously"} isRequired={true} options={[{"key":"1","value":"Yes"},{"key":"2","value":"No"}]} id={"receive_update"} onSave={this._onSave} defaultvalue={feedbackObj["receive_update"]} />
       </div>
         );
       }
