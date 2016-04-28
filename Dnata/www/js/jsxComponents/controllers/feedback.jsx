@@ -13,6 +13,18 @@ define(function(require){
     primary_location:"",
     receive_update:""
   }
+
+  var countries = [
+                    {"key":"AUS", "value":"Australia"},
+                    {"key":"EBL", "value":"Iraq"},
+                    {"key":"MNL", "value":"Philippines"},
+                    {"key":"SIN", "value":"Singapore"},
+                    {"key":"GVA", "value":"Switzerland Geneva"},
+                    {"key":"ZRH", "value":"Switzerland Zurich"},
+                    {"key":"UAE", "value":"United Arab Emirates"},
+                    {"key":"UK", "value":"United Kingdom"},
+
+                  ]
   var feedback = React.createClass({
 
   componentDidMount: function () {
@@ -25,7 +37,7 @@ define(function(require){
   {
     console.log("Feedback submitted");
     var isEmpty = false;
-    if(feedbackObj.feedback_title === "" || feedbackObj.primary_location === "" || feedbackObj.receive_update === "")
+    if(!feedbackObj.feedback_title || !feedbackObj.primary_location || !feedbackObj.receive_update )
     {
       isEmpty = true;
     }
@@ -34,6 +46,10 @@ define(function(require){
       alert("Please enter all mandatory fields");
       return;
     }
+
+    var localObject = feedbackObj.primary_location;
+    feedbackObj.primary_location = localObject.key;
+
     var success = function()
     {
         NavigationActions.popController();
@@ -48,7 +64,7 @@ define(function(require){
 
     $.ajax({
       type            : "POST", //GET or POST or PUT or DELETE verb
-      url             : "http://172.27.138.47/metricstream", // Location of the service
+      url             : "http://172.27.138.47/metricstream/feedbak", // Location of the service
       data            : varData, //Data sent to server
       contentType     : "application/json", // content type sent to server
       dataType        : "JSON",
@@ -63,8 +79,8 @@ define(function(require){
   },
 
   _onSelect: function() {
-    var isSingleSelect = false;
-    var content= <Select options={[{"key":"1", "value":"DXB"},{"key":"2", "value":"ZUR"},{"key":"3", "value":"NZ"}]} isSingleSelect={isSingleSelect} onSave={this._onSave} id={"primary_location"} />
+    var isSingleSelect = true;
+    var content= <Select options={countries} isSingleSelect={isSingleSelect} onSave={this._onSave} id={"primary_location"} />
     var controllerData = {
       title:getString("select"),
       content:content,
