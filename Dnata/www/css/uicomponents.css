@@ -526,10 +526,10 @@
 }
 
 .attachimg{
-  height: 80%;
+  height: 77%;
   width: 20%;
   float: left;
-  margin-top: 2.5%;
+  margin-top: 2%;
   margin-left: 3%;
   border-radius: 0.25em;
 }
@@ -733,6 +733,53 @@
   color:white;
 }
 
+.msgBox{
+  position: absolute;
+  top: 35%;
+  height: auto;
+  width: 80%;
+  z-index: 91;
+  left: 10%;
+  background-color: white;
+  border-radius: 20px;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  cursor: pointer;
+}
+
+.msgClass{
+  height: auto;
+  width: 90%;
+  margin-top: 2%;
+  margin-left: 6%;
+  margin-right: 6%;
+}
+
+.msgLabel{
+  color: #0f88ca;
+  font-size: 1.2em;
+  position: relative;
+  word-spacing: 0.02em;
+  width: 100%;
+  margin-left: 3%;
+}
+
+.msgBtn{
+  background-color: #0f88ca;
+  border-radius: 50px;
+  border: 1px solid #0f88ca;
+  width: 50%;
+  position: relative;
+  height: 20%;
+  text-align: center;
+  color: white;
+  font-size: 1em;
+  padding: 3%;
+  margin-left: 20%;
+  margin-top: 7%;
+  margin-bottom: 3%;
+  cursor: pointer;
+}
 
 .loader {
   margin: 50% auto 0;

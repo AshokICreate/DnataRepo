@@ -23,8 +23,8 @@ define(function (require) {
   _capturePhoto: function() {
     // Take picture using device camera and retrieve image as base64-encoded string
      navigator.camera.getPicture(this.onSuccess, this.onFail, { quality: 50,
-       destinationType: navigator.camera.DestinationType.FILE_URI,
-       cameraDirection:navigator.camera.Direction.BACK});
+       destinationType: navigator.camera.DestinationType.FILE_URI,encodingType: Camera.EncodingType.JPEG,
+       targetWidth: 720,cameraDirection:navigator.camera.Direction.BACK});
   },
 
   onSuccess: function(imgData) {

@@ -7,6 +7,7 @@ define(function(require){
   var ToggleButton =  require ("views/toggleButton");
   var SelectBox = require ("views/selectBox");
   var Select = require("controllers/select");
+  var Msg = require("views/msgBox");
 
   var feedbackObj = {
     feedback_title:"",
@@ -21,6 +22,9 @@ define(function(require){
   componentWillUnmount: function () {
       NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onSubmit);
   },
+  _onCancel:function() {
+    NavigationActions.removePopup();
+  },
   _onSubmit:function()
   {
     console.log("Feedback submitted");
@@ -31,7 +35,7 @@ define(function(require){
     }
     if(isEmpty)
     {
-      alert("Please enter all mandatory fields");
+      NavigationActions.presentPopup(<Msg msgLabel={"Please enter all mandatory fields"} onOK={this._onCancel}/>);
       return;
     }
     var success = function()
