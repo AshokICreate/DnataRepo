@@ -17,6 +17,7 @@ define(function (require) {
   var Feedback = require("controllers/feedback");
   var TextArea = require("views/textareaBox");
   var Confirm = require("views/confirm");
+  var Loader = require("views/loader");
 
   var Form = React.createClass ({
       getInitialState: function () {
@@ -165,9 +166,10 @@ define(function (require) {
               formAction = "save";
           }
 
+          this._onCancel();
           Store.submitFormData(this.props.id,onSumbit,formAction);
           console.log(title);
-          this._onCancel();
+
       },
       _onCancel:function()
       {
@@ -433,7 +435,7 @@ define(function (require) {
           }
 
           actions.getFormData(id);
-          return {content:"loader"};
+          return {content:<Loader />};
       },
       renderUI:function(data,keys,id,childId,rowId)
       {

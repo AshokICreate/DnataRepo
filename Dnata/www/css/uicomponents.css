@@ -724,3 +724,51 @@
   border-color: #6abd45;
   color:white;
 }
+
+
+.loader {
+  margin: 50% auto 0;
+  width: 20%;
+  text-align: center;
+}
+
+.loader > div {
+  width: 1em;
+  height: 1em;
+  background-color: #0f88ca;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: loaderdelay 1.5s infinite ease-in-out both;
+  animation: loaderdelay 1.5s infinite ease-in-out both;
+}
+
+.loader .circle1 {
+  -webkit-animation-delay: -0.48s;
+  animation-delay: -0.48s;
+}
+
+.loader .circle2 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.loader .circle3 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes loaderdelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes loaderdelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
