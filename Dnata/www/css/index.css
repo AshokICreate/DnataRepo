@@ -56,19 +56,17 @@ body {
 .form{
   color:black;
   overflow-y: scroll;
-  top:-2.5%;
 }
 
 .navigationBar {
     position: relative;
     width: 100%;
     color: black;
-    font-size: 2.5vh;
+    font-size: 125%;
     height: 6%;
-    margin-bottom: 3%;
-    border-style: solid;
+    border-style: groove;
     border-width: 1px 0px;
-    border-color: #f7f7f7;
+    border-color: #fff;
 }
 
 .headerContainer {
@@ -115,11 +113,16 @@ body {
   float: right;
 }
 
+#logout
+{
+    background-color: white;
+    color: #0f88ca;
+}
 .controller
 {
   position: relative;
   width: 100%;
-  height: 90%;
+  height: 94%;
 }
 
 
