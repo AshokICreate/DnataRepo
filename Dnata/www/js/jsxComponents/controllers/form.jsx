@@ -28,6 +28,7 @@ define(function (require) {
       componentDidMount: function () {
           Store.addChangeListener (constants.Change_Data_Event,this._onChange);
           NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+
       },
       componentWillUnmount: function () {
           Store.removeChangeListener (constants.Change_Data_Event,this._onChange);
@@ -40,7 +41,7 @@ define(function (require) {
       render: function () {
           var content = this.state.content;
           return (
-              <div className="gclass form">
+              <div className="gclass form" id={this.props.id}>
                 {content}
               </div>
           );

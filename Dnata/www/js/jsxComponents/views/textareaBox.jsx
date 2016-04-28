@@ -10,7 +10,7 @@ define(function (require) {
     onSave: React.PropTypes.func.isRequired
   },
     getInitialState: function() {
-      var val = this.props.value;
+      var val = this.props.defaultvalue;
       return { value: val};
     },
 
@@ -23,6 +23,9 @@ define(function (require) {
           this.props.onSave(this.props.id, event.target.value);
 
     },
+    componentWillReceiveProps:function(nextProps) {
+        this.setState({value:nextProps.defaultvalue});
+    },
     render: function() {
       var value = this.state.value;
       var className = "descfield";
@@ -30,7 +33,7 @@ define(function (require) {
     return (
           <div className="inputBox">
             <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
-            <textarea name="description" maxLength="255" className={className} id={this.props.id} defaultValue={this.props.defaultvalue} onChange={this._handleChange} onBlur={this._save} value={value}/>
+            <textarea name="description" maxLength="255" className={className} id={this.props.id} onChange={this._handleChange} onBlur={this._save} value={value}/>
           </div>
           );
       }
