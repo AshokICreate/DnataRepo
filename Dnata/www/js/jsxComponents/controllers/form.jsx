@@ -16,7 +16,8 @@ define(function (require) {
   var appActions = require ("actions/appActions");
   var Feedback = require("controllers/feedback");
   var TextArea = require("views/textareaBox");
-  var Confirm = require("views/confirm");
+  var Confirm = require("views/confirmBox");
+  var Msg = require("views/msgBox");
   var Loader = require("views/loader");
 
   var Form = React.createClass ({
@@ -232,7 +233,8 @@ define(function (require) {
           }
           if(isEmpty)
           {
-            alert("Please enter all mandatory fields");
+            // alert("Please enter all mandatory fields");
+            NavigationActions.presentPopup(<Msg msgLabel={"Please enter all mandatory fields"} onOK={this._onCancel}/>);
             return;
           }
           if(this.props.onRightButtonClick)
