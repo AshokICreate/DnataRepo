@@ -191,7 +191,6 @@ body {
   margin-top: 10%;
   position: relative;
   font-family: Roboto;
-  font-size: 3vh;
 }
 
 #userinfo{
@@ -217,7 +216,6 @@ body {
   margin-top: 10%;
   position: relative;
   font-family: Roboto;
-  font-size: 3vh;
 }
 
 
@@ -239,7 +237,7 @@ body {
 
 /*for the dnataid and password labels*/
 
-label{
+.loginlabel{
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -248,7 +246,7 @@ label{
   font-family: Roboto;
   font-weight: 300;
   font-style: italic;
-  font-size: 3vh;
+  font-size: 1.3em;
   height: 5%;
 }
 
@@ -276,7 +274,7 @@ label{
   color:#6abd45;
   font-family: Roboto;
   font-weight: 500;
-  font-size: 3.2vh;
+  font-size: 1.3em;
   outline:none;
   width: 91%;
   position:relative;

@@ -23,7 +23,17 @@ define(function(require){
   },
   _onSubmit:function()
   {
-
+    console.log("Feedback submitted");
+    var isEmpty = false;
+    if(feedbackObj.feedback_title === "" || feedbackObj.primary_location === "" || feedbackObj.receive_update === "")
+    {
+      isEmpty = true;
+    }
+    if(isEmpty)
+    {
+      alert("Please enter all mandatory fields");
+      return;
+    }
     var success = function()
     {
         NavigationActions.popController();
@@ -54,7 +64,7 @@ define(function(require){
 
   _onSelect: function() {
     var isSingleSelect = false;
-    var content= <Select options={["DXB","ZUR","NZ"]} isSingleSelect={isSingleSelect} onSave={this._onSave} id={"primary_location"} />
+    var content= <Select options={[{"key":"1", "value":"DXB"},{"key":"2", "value":"ZUR"},{"key":"3", "value":"NZ"}]} isSingleSelect={isSingleSelect} onSave={this._onSave} id={"primary_location"} />
     var controllerData = {
       title:getString("select"),
       content:content,
@@ -68,9 +78,9 @@ define(function(require){
   render: function () {
     return(
       <div className="form">
-        <TextArea name={"What feedback would you like to provide"} onSave={this._onSave} id={"feedback_title"} defaultvalue={feedbackObj["feedback_title"]}/>
-        <SelectBox name={"Where are you providing feedback for"} onSelectBoxClick={this._onSelect} id={"primary_location"} defaultvalues={[feedbackObj["primary_location"]]}/>
-        <ToggleButton name={"Send feedback anonymously"} options={["YES","NO"]} id={"receive_update"} onSave={this._onSave} defaultvalue={feedbackObj["receive_update"]} />
+        <TextArea name={"What feedback would you like to provide"} isRequired={"true"} onSave={this._onSave} id={"feedback_title"} defaultvalue={feedbackObj["feedback_title"]}/>
+        <SelectBox name={"Where are you providing feedback for"} isRequired={"true"} onSelectBoxClick={this._onSelect} id={"primary_location"} defaultvalues={[feedbackObj["primary_location"]]}/>
+        <ToggleButton name={"Send feedback anonymously"} isRequired={"true"} options={[{"key":"1","value":"Yes"},{"key":"2","value":"No"}]} id={"receive_update"} onSave={this._onSave} defaultvalue={feedbackObj["receive_update"]} />
       </div>
         );
       }

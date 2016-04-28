@@ -83,11 +83,10 @@ define(function(require) {
     },
 
   render: function () {
+    var className = "searchbox";
     return(
       <div className="gclass listContainer">
-        <div className="searchclass">
-          <input className="searchbox" id="searchid" type="search" placeholder="Search" onChange={this.searchText}></input>
-        </div>
+        <input className={className} id="searchid" type="search" placeholder="Search" onChange={this.searchText}/>
       {this.getContents()}
       </div>
       );
