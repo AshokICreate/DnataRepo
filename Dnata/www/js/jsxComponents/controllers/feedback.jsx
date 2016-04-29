@@ -14,7 +14,7 @@ define(function(require){
   var feedbackObj = {
     feedback_title:"",
     primary_location:"",
-    receive_update:""
+    receive_update:"2"
   }
 
   var countries = [
