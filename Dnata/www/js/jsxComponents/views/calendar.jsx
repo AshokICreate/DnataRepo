@@ -18,6 +18,9 @@ define(function(require){
 
     this.date = this.props.defaultdate;
     this.time = this.props.defaulttime;
+    var date = Moment(this.date,"YYYY-MM-DD").format("M/DD/YYYY");
+    var time = Moment(this.time, 'HH:mm').format('HH:mm:ss');
+    this.props.onSave(this.props.id,date+" "+time);
   },
 
   _handleDate: function(event){
