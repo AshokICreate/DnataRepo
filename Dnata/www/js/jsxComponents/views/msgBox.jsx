@@ -4,18 +4,31 @@ define(function(require){
 
   propTypes: {
     msgLabel: React.PropTypes.string.isRequired,
-    onCancel: React.PropTypes.func.isRequired,
-    onOK: React.PropTypes.func.isRequired
+    buttons:  React.PropTypes.array.isRequired,
+    onMsgClick: React.PropTypes.func.isRequired
+  },
+
+  _onAction: function(i){
+    var title =  this.props.buttons[i].title;
+    return this.props.onMsgClick(title);
   },
 
   render: function () {
     var content = [];
-
+    var msgButton = this.props.buttons;
+    var msgLabel = this.props.msgLabel;
+    for (var i=0; i<msgButton.length;i++)
+    {
+      content.push
+      (
+        <div className="msgBtn" onClick={this._onAction.bind(this,i)}>{getString(msgButton[i].title)}</div>
+      );
+    }
     return(
           <div className="msgBox">
             <div className="msgClass">
-              <div className="msgLabel">{this.props.msgLabel}</div>
-              <div className="msgBtn" onClick={this.props.onOK}>OK</div>
+              <div className="msgLabel"><center>{getString(msgLabel)}</center></div>
+              {content}
             </div>
           </div>
         );

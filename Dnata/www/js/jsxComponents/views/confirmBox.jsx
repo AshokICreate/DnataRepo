@@ -4,7 +4,8 @@ define(function(require){
 
   propTypes: {
     buttons:  React.PropTypes.array.isRequired,
-    onCancel: React.PropTypes.func.isRequired
+    onCancel: React.PropTypes.func.isRequired,
+    onAction: React.PropTypes.func.isRequired
   },
 
   _onAction: function(i){
@@ -23,7 +24,7 @@ define(function(require){
         buttonClass = buttonClass+" highlight";
       }
       content.push(
-        <div className={buttonClass} onClick={this._onAction.bind(this,i)}>{button[i].title}</div>
+        <div className={buttonClass} onClick={this._onAction.bind(this,i)}>{getString(button[i].title)}</div>
       );
     }
     return(

@@ -9,6 +9,7 @@ define(function(require){
   var SelectBox = require ("views/selectBox");
   var Select = require("controllers/select");
   var Msg = require("views/msgBox");
+  var msgButtonsArray = [{"title":"ok"}];
 
   var feedbackObj = {
     feedback_title:"",
@@ -66,7 +67,7 @@ define(function(require){
       feedbackObj = {
         feedback_title:"",
         primary_location:"",
-        receive_update:""
+        receive_update:"2"
       }
 
       appActions.reInitiateApp();
@@ -81,7 +82,7 @@ define(function(require){
     }
     if(isEmpty)
     {
-      NavigationActions.presentPopup(<Msg msgLabel={"Please enter all mandatory fields"} onOK={this._onCancel}/>);
+      NavigationActions.presentPopup(<Msg msgLabel={"mandatory_field"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
       return;
     }else {
       this._sendToServer();
@@ -111,7 +112,7 @@ define(function(require){
       <div className="form">
         <TextArea name={"What feedback would you like to provide"} isRequired={true} onSave={this._onSave} id={"feedback_title"} defaultvalue={feedbackObj["feedback_title"]}/>
         <SelectBox name={"Where are you providing feedback for"} isRequired={true} onSelectBoxClick={this._onSelect} id={"primary_location"} defaultvalues={[feedbackObj["primary_location"]]}/>
-        <ToggleButton name={"Send feedback anonymously"} isRequired={true} options={[{"key":"1","value":"Yes"},{"key":"2","value":"No"}]} id={"receive_update"} onSave={this._onSave} defaultvalue={feedbackObj["receive_update"]} />
+        <ToggleButton name={"Would you like to receive a response to your feedback?"} isRequired={true} options={[{"key":"1","value":"Yes"},{"key":"2","value":"No"}]} id={"receive_update"} onSave={this._onSave} defaultvalue={feedbackObj["receive_update"]} />
       </div>
         );
       }

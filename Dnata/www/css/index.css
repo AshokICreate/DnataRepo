@@ -8,7 +8,6 @@ body {
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:white;
     font-family:'Roboto';
-    font-size: 14px;
     width: 100%;
     height: 100%;
     padding:0px;
@@ -17,6 +16,18 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+textarea
+{
+  font-size: small;
+}
+input[type="text"]
+{
+  font-size: small;
+}
+input[type="search"]
+{
+  font-size: small;
+}
 #mainContainer
 {
   position: fixed;
@@ -255,7 +266,7 @@ body {
   font-family: Roboto;
   font-weight: 300;
   font-style: italic;
-  font-size: 1.3em;
+  font-size: 1.2em;
   height: 5%;
 }
 

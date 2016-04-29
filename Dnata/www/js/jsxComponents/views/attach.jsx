@@ -50,7 +50,9 @@ define(function (require) {
 
 
   onFail: function(msg) {
+
     console.log("Failed because: " + msg);
+
   },
 
   render: function() {
@@ -78,12 +80,12 @@ define(function (require) {
               <div className="cancel" onClick={this._onCancel}>✕</div>
               <div className="capture" onClick={this._capturePhoto}>
                  <div className="attachicon import-Capture"></div>
-                 <div className="attachtext">Capture Document</div>
+                 <div className="attachtext">Capture</div>
               </div>
               <div className="divider"></div>
               <div className="capture" onClick={this._uploadPhoto}>
                  <div className="attachicon import-Picture"></div>
-                 <div className="attachtext">Upload Picture</div>
+                 <div className="attachtext">Upload</div>
               </div>
             </div>
           </div>

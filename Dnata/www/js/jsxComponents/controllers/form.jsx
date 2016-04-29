@@ -19,6 +19,7 @@ define(function (require) {
   var Confirm = require("views/confirmBox");
   var Msg = require("views/msgBox");
   var Loader = require("views/loader");
+  var msgButtonsArray = [{"title":"ok"}];
 
   var Form = React.createClass ({
       getInitialState: function () {
@@ -157,13 +158,13 @@ define(function (require) {
           var that = this;
           var onSubmit = function(data)
           {
-              console.log("Submit sucessfull");
+              //console.log("Submit sucessfull");
               actions.clearFormData(that.props.id);
               appActions.reInitiateApp();
           }
 
           var formAction = "submit";
-          if(title==="Save this as Draft")
+          if(title==="save_as_draft")
           {
               formAction = "save";
           }
@@ -176,7 +177,7 @@ define(function (require) {
       _onCancel:function()
       {
         NavigationActions.removePopup();
-        console.log("On cancel of confirmation");
+        //console.log("On cancel of confirmation");
       },
       _onRightButtonClick:function()
       {
@@ -234,7 +235,7 @@ define(function (require) {
           if(isEmpty)
           {
             // alert("Please enter all mandatory fields");
-            NavigationActions.presentPopup(<Msg msgLabel={"Please enter all mandatory fields"} onOK={this._onCancel}/>);
+            NavigationActions.presentPopup(<Msg msgLabel={"mandatory_field"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
             return;
           }
           if(this.props.onRightButtonClick)
@@ -243,13 +244,9 @@ define(function (require) {
             return;
           }
           var buttonArray = [
-                              {
-                                "title":"Save this as Draft",
-                              },
-                              {
-                                "title":"Submit the incident",
-                              }
-                       ]
+                              {"title":"save_as_draft"},
+                              {"title":"submit_incident"}
+                            ]
           NavigationActions.presentPopup(<Confirm buttons={buttonArray} onAction={this._onActionClick} onCancel={this._onCancel} />);
       },
       _onComponentSave:function(id,value)
@@ -267,7 +264,8 @@ define(function (require) {
               if(!content[id])
               {
                 //remove this before release
-                alert("file not found");
+                //alert("file not found");
+              NavigationActions.presentPopup(<Msg msgLabel={"internal_error"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
                 return;
               }
               RemoveDependentLovs(id,this.props.id,this.props.childId,this.props.rowId,this.getResources);
@@ -325,7 +323,8 @@ define(function (require) {
           if(!element || !content[key])
           {
             //remove this before release
-            alert("field not found");
+          //  alert("field not found");
+            NavigationActions.presentPopup(<Msg msgLabel={"field_not_found"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
             return;
           }
 
@@ -390,13 +389,15 @@ define(function (require) {
 
                       }else if(refValue === "stored_value")
                       {
-                          alert("select previous lov");
-                          return;
+                          //alert("select previous lov");
+                        NavigationActions.presentPopup(<Msg msgLabel={"select_prev_lov"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
+                        return;
                       }
 
                   }else if(refValue === "stored_value")
                   {
-                      alert("select previous lov");
+                      //alert("select previous lov");
+                      NavigationActions.presentPopup(<Msg msgLabel={"select_prev_lov"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
                       return;
                   }
 

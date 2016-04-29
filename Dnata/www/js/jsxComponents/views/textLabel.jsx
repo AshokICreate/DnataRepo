@@ -17,8 +17,9 @@ define(function(require){
 
       return(
             <div className="lclass">
-              <div className="label">{getString(name)}</div>
-              <div className={classRequired}>*</div>
+              <div className="label">{getString(name)}
+                <span className={classRequired}>*</span>
+              </div>
             </div>
           );
       }

@@ -15,3 +15,13 @@
 <EQD "GSE damage">
 <PRD "Property damage">
 <PAE "Plant and equipment damage">
+<internal_error "Internal Error occurred.Please restart the application">
+<save_as_draft "Save this as Draft">
+<submit_incident "Submit the incident">
+<mandatory_field "Please enter all mandatory fields">
+<field_not_found "Field not found">
+<select_prev_lov "Select Previous LOV">
+<confirm_logout "Are you sure you want to Logout?">
+<yes "YES">
+<no "NO">
+<ok "OK">

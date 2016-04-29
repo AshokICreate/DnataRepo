@@ -258,6 +258,7 @@
 
 .dlist{
   list-style-type: none;
+  font-size: small;
 }
 
 .dlistclass{
@@ -292,13 +293,13 @@
   margin-left: 3%;
   margin-bottom: 4%;
   height: 1em;
+  font-size:105%;
   font-weight: bold;
   display: inline-block;
 }
 
 .require{
   color: red;
-  margin-left: 1.5%;
   position: relative;
   margin-top: -1.2%;
   display: inline-block;
@@ -757,11 +758,11 @@
 
 .msgLabel{
   color: #0f88ca;
-  font-size: 1.2em;
+  font-size: 105%;
   position: relative;
   word-spacing: 0.02em;
   width: 100%;
-  margin-left: 2%;
+  /*margin-left: 2%;*/
 }
 
 .msgBtn{
