@@ -78,7 +78,7 @@ define(function (require) {
               }else {
                   msg = JSON.parse(error).message;
               }
-              NavigationActions.presentPopup(<Msg msgLabel={msg} onOK={this._onCancel}/>);
+              NavigationActions.presentPopup(<Msg msgLabel={msg} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
           }
       },
       _onChange:function()
@@ -621,7 +621,7 @@ define(function (require) {
                 {
                   var valArray = value.split(" ");
                   var date = Moment().format('YYYY-MM-DD');
-                  if(valArray !== ""){
+                  if(valArray[0] !== ""){
                     var date = valArray[0];
                     date = Moment(date,'M/DD/YYYY').format('YYYY-MM-DD');
                   }
