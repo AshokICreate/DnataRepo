@@ -1,8 +1,9 @@
+<network_failed "Failed to connect to server. Please check your network."">
 <appName "Dnata">
 <report_injury "Report Injury">
 <MS_INC_ACTUAL_INJURY "Actual Injury">
 <MS_INC_POTENTIAL_INJ_FORM "Potential Injury">
-<feedback "FEEDBACK">
+<feedback "Feedback">
 <observation "Observation">
 <safety_contact "Safety Contact">
 <settings "Settings">

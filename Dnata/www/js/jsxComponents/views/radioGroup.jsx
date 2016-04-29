@@ -13,7 +13,13 @@ define(function(require){
   _handleChange: function(event) {
     this.props.onSave(this.props.id, event.target.value);
   },
-
+  getInitialState: function() {
+    var val = this.props.defaultchecked;
+    return { value: val};
+  },
+  componentWillReceiveProps:function(nextProps) {
+      this.setState({value:nextProps.defaultchecked});
+  },
   render:function(){
     var name = this.props.name;
     var array = this.props.options;
@@ -22,14 +28,20 @@ define(function(require){
 
     for (var i = 0; i < array.length; i++) {
 
-        if(array[i].key === this.props.defaultchecked)
+        if(array[i].key === this.state.value)
         {
           content.push(
-              <input key={i} className={className} name={this.props.id} type="radio" onChange={this._handleChange}  value={array[i].key} checked>{array[i].value}</input>
+              <label key={i}>
+                <input  className={className} name={this.props.id} type="radio" onChange={this._handleChange}  value={array[i].key} checked />
+                {array[i].value}
+              </label>
           );
         }else {
           content.push(
-              <input key={i} className={className} name={this.props.id} type="radio" onChange={this._handleChange} value={array[i].key} >{array[i].value}</input>
+              <label key={i}>
+                <input key={i} className={className} name={this.props.id} type="radio" onChange={this._handleChange} value={array[i].key} />
+                {array[i].value}
+              </label>
           );
         }
       }

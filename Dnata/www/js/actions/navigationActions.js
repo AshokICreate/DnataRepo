@@ -2,10 +2,11 @@ define (function (require) {
     var appDispatcher = require ("util/appDispatcher");
     var constants = require ("constants/navigationConstants");
     var navigationActions = {
-        pushController: function (controller) {
+        pushController: function (controller,state) {
             appDispatcher.dispatch ({
                 actionType: constants.Navigation_PUSH,
-                controller: controller
+                controller: controller,
+                state:state
             });
         },
         popController: function () {
