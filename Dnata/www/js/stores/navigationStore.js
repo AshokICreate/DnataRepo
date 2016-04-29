@@ -5,6 +5,7 @@ define (function (require) {
     var constants = require ("constants/navigationConstants");
 
     var controllerStack =[];
+    var controllerState = {};
     var popUpView;
 
     var navigationStore = assign ({}, EventEmitter.prototype, {
@@ -23,6 +24,17 @@ define (function (require) {
 
         return controller;
       },
+      getControllerState:function()
+      {
+          var state;
+
+          if(controllerStack.length>0)
+          {
+              state =  controllerState[controllerStack.length-1];
+          }
+
+          return state;
+      },
       emitChange: function(eventId) {
         this.emit(eventId);
       },
@@ -38,12 +50,25 @@ define (function (require) {
         switch (action.actionType) {
             case constants.Navigation_PUSH:
                 {
+                    var currentIndex = controllerStack.length-1;
+                    if(action.state)
+                    {
+                        controllerState[currentIndex] = action.state;
+                    }
+
                     controllerStack.push(action.controller);
                     navigationStore.emitChange(constants.Change_Event);
                     break;
                 }
             case constants.Navigation_POP:
                 {
+                    var currentIndex = controllerStack.length-1;
+
+                    if(controllerState[currentIndex])
+                    {
+                        delete controllerState[currentIndex];
+                    }
+
                     controllerStack.pop();
                     navigationStore.emitChange(constants.Change_Event);
                     break;

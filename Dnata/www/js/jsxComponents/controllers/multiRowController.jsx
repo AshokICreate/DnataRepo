@@ -1,6 +1,8 @@
 define(function(require){
   var Form = require ("controllers/form");
   var Store = require ("stores/formStore");
+  var NavigationStore = require ("stores/navigationStore");
+
   var tag = "Injury ";
 
   var MultiRow = React.createClass({
@@ -8,7 +10,6 @@ define(function(require){
     getInitialState: function(){
       var formsData = Store.getData();
       var content = formsData[this.props.id].data.content;
-
       var array = [tag+1];
 
       if(this.props.childId)
@@ -20,7 +21,16 @@ define(function(require){
               array.push(tag+(i+1));
           }
       }
-      return { activeTab:0,tabsArray:array};
+
+      var state = NavigationStore.getControllerState();
+      var activeTab = 0;
+
+      if(state && state.activeTab)
+      {
+          activeTab = state.activeTab
+      }
+
+      return { activeTab:activeTab,tabsArray:array};
     },
 
     _onButtonSelect: function (index) {
@@ -37,7 +47,8 @@ define(function(require){
       if(this.props.childId)
       {
           var obj = childContents[this.props.childId];
-          content[this.props.childId].push(obj);
+          var copied = jQuery.extend(true, {}, obj);
+          content[this.props.childId].push(copied);
       }
 
       var noofTabsinScreen = this.state.tabsArray.length+1;
@@ -46,7 +57,7 @@ define(function(require){
       var array = this.state.tabsArray;
       array.push(row);
 
-      this.setState({ activeTab:this.state.activeTab,tabsArray:array});
+      this.setState({ activeTab:array.length-1,tabsArray:array});
     },
 
     onCancelButton:function(index,e){

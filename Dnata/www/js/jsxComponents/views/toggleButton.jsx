@@ -39,7 +39,26 @@ define(function (require) {
 
             }
         },
+        componentWillReceiveProps:function(nextProps) {
+            var index =1;
+            if(nextProps.defaultvalue && nextProps.defaultvalue !== "" && nextProps.options )
+            {
+                for(var i=0;i<nextProps.options.length;i++)
+                {
+                    if(nextProps.defaultvalue === nextProps.options[i].key )
+                    {
+                        index = i+1;
+                        break;
+                    }
+                }
+            }else
+            {
+              this.props.onSave(nextProps.id,nextProps.options[0].key);
+            }
 
+            this.setState({selectedbutton:index});
+
+        },
         render: function () {
 
            var firstButtonClassName = " ";

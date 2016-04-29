@@ -19,7 +19,14 @@ define (function (require) {
 
 	var servercall_error = function(msg)
 	{
-			alert("Failed to connect to server. Please check your network.")
+			var data;
+			if(404 === msg.status)
+			{
+				server.callBackSuccess(data,msg.responseText);
+			}else {
+				server.callBackSuccess(data,"network_failed");
+			}
+
 	};
 
 	var cancel =  function()

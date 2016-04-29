@@ -6,6 +6,7 @@ define (function (require) {
     var serverCall = require ("util/serverCall");
     var JsonParser = require ("util/JSONParsers");
     var formData;
+    var errorMsg;
 
     var actionParams = {
         "MS_INC_POTENTIAL_INJ_FORM":"INC_ACTION",
@@ -150,18 +151,45 @@ define (function (require) {
 
     }
     var FormStore = assign ({}, EventEmitter.prototype, {
+
+      getError:function()
+      {
+          return errorMsg;
+      },
       getData:function(){
           return formData;
       },
       getResorceData:function(url,callback)
       {
-          serverCall.connectServer("GET",url,"",callback)
+          var onResponse =  function(data,error)
+          {
+              if(error)
+              {
+                  errorMsg = error;
+                  FormStore.emitChange(constants.On_Error);
+              }else {
+                  callback(data);
+              }
+          }
+
+          serverCall.connectServer("GET",url,"",onResponse)
       },
       submitFormData:function(id,callback,action)
       {
+          var onResponse =  function(data,error)
+          {
+              if(error)
+              {
+                  errorMsg = error;
+                  FormStore.emitChange(constants.On_Error);
+              }else {
+                  callback(data);
+              }
+          }
+
           var obj = formData[id];
           var data = JSON.stringify(obj.data);
-          serverCall.connectServer("PUT","tasks/"+obj.assignmentId+"/form?action="+action,data,callback);
+          serverCall.connectServer("PUT","tasks/"+obj.assignmentId+"/form?action="+action,data,onResponse);
       },
       getKeysToShow:function(id)
       {
@@ -227,6 +255,7 @@ define (function (require) {
         }
       }
 
+      //check why this is required - phani
       FormStore.emitChange(constants.NO_Change);
     });
 
@@ -235,34 +264,39 @@ define (function (require) {
     function getFormData(id)
     {
         var assignmentId = "";
-        var gotFormData = function(data)
+        var gotFormData = function(data,error)
         {
-          var obj = {
-                      assignmentId:assignmentId,
-                      data:data
-                    }
-          if(!formData)
-          {
-            formData = {};
-          }
+            if(error)
+            {
+                errorMsg = error;
+                FormStore.emitChange(constants.On_Error);
+            }
+            var obj = {
+                        assignmentId:assignmentId,
+                        data:data
+                      }
+            if(!formData)
+            {
+              formData = {};
+            }
 
-          if(id==="MS_INC_ACTUAL_INJURY")
-          {
-              var content = obj.data.content;
-              var array =  ["PSD","FLY","EQD"]
+            if(id==="MS_INC_ACTUAL_INJURY")
+            {
+                var content = obj.data.content;
+                var array =  ["PSD","FLY","EQD"]
 
-              var childContents = {};
-              for(var i=0;i<array.length;i++)
-              {
-                var childCon = content[array[i]][0];
-                var copied = jQuery.extend(true, {}, childCon);
-                childContents[array[i]] = copied;
-              }
+                var childContents = {};
+                for(var i=0;i<array.length;i++)
+                {
+                  var childCon = content[array[i]][0];
+                  var copied = jQuery.extend(true, {}, childCon);
+                  childContents[array[i]] = copied;
+                }
 
-              obj["childContents"] = childContents;
-          }
-          formData[id] = obj;
-          FormStore.emitChange(constants.Change_Data_Event);
+                obj["childContents"] = childContents;
+            }
+            formData[id] = obj;
+            FormStore.emitChange(constants.Change_Data_Event);
 
 
 
@@ -272,32 +306,20 @@ define (function (require) {
           // }
 
         }
-        var createdTask = function(data)
+        var createdTask = function(data,error)
         {
+            if(error)
+            {
+                errorMsg = error;
+                FormStore.emitChange(constants.On_Error);
+            }
+
             serverCall.connectServer("GET","tasks/"+data.assignmentId+"/form","",gotFormData);
             assignmentId = data.assignmentId;
         }
 
         serverCall.connectServer("POST","tasks?formname="+id,"",createdTask);
 
-        // var gotTasks = function(data)
-        // {
-        //     if(data.items)
-        //     {
-        //       for(var i=0;i<data.items.length;i++)
-        //       {
-        //           var obj = data.items[i];
-        //           if(obj.metricName === id)
-        //           {
-        //             serverCall.connectServer("GET","tasks/"+obj.assignmentId+"/form","",gotFormData);
-        //             assignmentId = obj.assignmentId;
-        //             return;
-        //           }
-        //       }
-        //       serverCall.connectServer("GET","tasks/formname="+Id,"",createdTask);
-        //     }
-        // }
-        // serverCall.connectServer("GET","tasks","",gotTasks)
     }
 
   });

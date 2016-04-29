@@ -27,11 +27,22 @@ define(function (require) {
       },
       componentDidMount: function () {
           Store.addChangeListener (constants.Change_Data_Event,this._onChange);
+          Store.addChangeListener (constants.On_Error,this.showError);
           NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+
+          var state = NavigationStore.getControllerState();
+
+          if(state && state.scrollTop)
+          {
+              var node = this.getDOMNode();
+              node.scrollTop = state.scrollTop;
+          }
+
 
       },
       componentWillUnmount: function () {
           Store.removeChangeListener (constants.Change_Data_Event,this._onChange);
+          Store.removeChangeListener (constants.On_Error,this.showError);
           NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
       },
       componentWillReceiveProps: function(nextProps) {
@@ -40,6 +51,7 @@ define(function (require) {
       getResources:{},
       render: function () {
           var content = this.state.content;
+
           var id = "form";
           if(this.props.childId)
           {
@@ -51,6 +63,22 @@ define(function (require) {
                 {content}
               </div>
           );
+      },
+
+      showError:function()
+      {
+          var error = Store.getError();
+          if(error)
+          {
+              var msg;
+              if(error == "network_failed")
+              {
+                  msg = error;
+              }else {
+                  msg = JSON.parse(error).message;
+              }
+              NavigationActions.presentPopup(<Msg msgLabel={msg} onOK={this._onCancel}/>);
+          }
       },
       _onChange:function()
       {
@@ -359,6 +387,17 @@ define(function (require) {
                 defaultArray.push( obj.value);
           }
 
+          //fix to retain scroll position from previous state
+          var node = this.getDOMNode();
+          var state  = {
+              "scrollTop": node.scrollTop
+          }
+
+          if(this.props.childId)
+          {
+              state["activeTab"]=this.props.rowId
+          }
+
           if(element.resource.source==="form")
           {
               var options = getValuesOfResource(resources[element.resource.ref]);
@@ -370,7 +409,7 @@ define(function (require) {
                 leftButtonName:"Back",
                 rightButtonName:"Submit"
               };
-              NavigationActions.pushController(controllerData);
+              NavigationActions.pushController(controllerData,state);
 
           }else {
 
@@ -419,8 +458,9 @@ define(function (require) {
               var url  = "tasks/"+formsData[this.props.id].assignmentId+"/form/resources/"+element.resource.ref+"?"+queryParams;
 
               var that = this;
-              var gotResourceData=function(data)
+              var gotResourceData=function(data,error)
               {
+
                   var options = getValuesOfResource(data);
                   that.getResources[key] = options;
                   if(options.length == 1 )
@@ -443,7 +483,7 @@ define(function (require) {
                     leftButtonName:"Back",
                     rightButtonName:"Submit"
                   };
-                  NavigationActions.pushController(controllerData);
+                  NavigationActions.pushController(controllerData,state);
               }
 
               Store.getResorceData(url,gotResourceData);
