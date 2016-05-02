@@ -192,7 +192,7 @@ define(function (require) {
           var that = this;
           var onSubmit = function(data)
           {
-              //console.log("Submit sucessfull");
+              console.log("Submit sucessfull");
               actions.clearFormData(that.props.id);
               appActions.reInitiateApp();
           }
@@ -277,11 +277,18 @@ define(function (require) {
             this.props.onRightButtonClick();
             return;
           }
-          var buttonArray = [
-                              {"title":"save_as_draft"},
-                              {"title":"submit_incident"}
-                            ]
-          NavigationActions.presentPopup(<Confirm buttons={buttonArray} onAction={this._onActionClick} onCancel={this._onCancel} />);
+          if(this.props.id === "MS_INC_POTENTIAL_INJ_FORM")
+          {
+            this._onActionClick("submit_incident");
+          }
+          else
+          {
+            var buttonArray = [
+                                {"title":"save_as_draft"},
+                                {"title":"submit_incident"}
+                              ]
+            NavigationActions.presentPopup(<Confirm buttons={buttonArray} onAction={this._onActionClick} onCancel={this._onCancel} />);
+        }
       },
       _onComponentSave:function(id,value)
       {

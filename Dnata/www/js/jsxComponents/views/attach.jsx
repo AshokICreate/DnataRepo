@@ -52,6 +52,7 @@ define(function (require) {
   onFail: function(msg) {
 
     console.log("Failed because: " + msg);
+    
 
   },
 
