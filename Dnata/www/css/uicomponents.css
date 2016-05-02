@@ -776,7 +776,7 @@
     display: inline-block;
     height: 100%;
     width: 100%;
-}   
+}
 .msgBtn{
   background-color: #0f88ca;
   border-radius: 50px;
@@ -793,6 +793,13 @@
   cursor: pointer;
   display: inline-block;
 }
+
+.feedbackUserDetails{
+  width:auto;
+  height:auto;
+  position: relative;
+}
+
 
 .loader {
   margin: 50% auto 0;

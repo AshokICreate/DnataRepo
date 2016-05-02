@@ -192,9 +192,15 @@ define(function (require) {
           var that = this;
           var onSubmit = function(data)
           {
-              console.log("Submit sucessfull");
-              actions.clearFormData(that.props.id);
-              appActions.reInitiateApp();
+              //console.log("Submit sucessfull");
+              if(title === "submit_incident")
+              {
+                NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
+              }
+              else if(title === "save_as_draft")
+              {
+                NavigationActions.presentPopup(<Msg msgLabel={"save_draft_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
+              }
           }
 
           var formAction = "submit";
@@ -202,11 +208,15 @@ define(function (require) {
           {
               formAction = "save";
           }
-
           this._onCancel();
           Store.submitFormData(this.props.id,onSubmit,formAction);
           console.log(title);
-
+        },
+      _onSubmitSuccess: function()
+      {
+        NavigationActions.removePopup();
+        actions.clearFormData(that.props.id);
+        appActions.reInitiateApp();
       },
       _onCancel:function()
       {
@@ -292,7 +302,7 @@ define(function (require) {
       },
       _onComponentSave:function(id,value)
       {
-          if(value)
+          if(value !== undefined)
           {
               var formsData = Store.getData();
               var content = formsData[this.props.id].data.content;

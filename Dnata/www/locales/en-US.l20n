@@ -20,6 +20,10 @@
 <save_as_draft "Save this as Draft">
 <submit_incident "Submit the incident">
 <mandatory_field "Please enter all mandatory fields">
+<submission_success "Form submitted successfully">
+<save_draft_success "Form saved as draft successfully">
+<invalid_email "Enter valid Email ID">
+<invalid_contact "Enter valid Contact Number">
 <field_not_found "Field not found">
 <select_prev_lov "Select Previous LOV">
 <confirm_logout "Are you sure you want to Logout?">
