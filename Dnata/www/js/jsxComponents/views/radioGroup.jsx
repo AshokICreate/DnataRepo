@@ -12,6 +12,7 @@ define(function(require){
   },
   _handleChange: function(event) {
     this.props.onSave(this.props.id, event.target.value);
+    this.setState({ value: event.target.value})
   },
   getInitialState: function() {
     var val = this.props.defaultchecked;

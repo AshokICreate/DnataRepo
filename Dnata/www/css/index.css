@@ -84,6 +84,7 @@ input[type="search"]
     border-style: groove;
     border-width: 1px 0px;
     border-color: #fff;
+    min-height: 1.85em;
 }
 
 .headerContainer {
