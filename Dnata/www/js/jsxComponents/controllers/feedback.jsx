@@ -90,7 +90,7 @@ define(function(require){
         email_address:"",
         contact_number:""
       }
-      NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
+      NavigationActions.presentPopup(<Msg msgLabel={"feedback_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
 
   },
   _onSubmitSuccess: function() {

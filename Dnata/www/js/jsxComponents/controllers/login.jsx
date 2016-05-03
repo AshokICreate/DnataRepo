@@ -43,8 +43,10 @@ define(function (require) {
           </div>
           <div className="errorMsg">{this.state.msg}</div>
           <button className="loginbtn" onClick={this.loginButtonClicked}>LOGIN</button>
-          <div className="msfooter">Powered by <span id="msbold">MetricStream</span></div>
-          <div className="vfooter">Version 1.01.02</div>
+          <div className="footer">
+            <div className="msfooter">Powered by <span id="msbold">MetricStream</span></div>
+            <div className="vfooter">Version 1.01.02</div>
+          </div>
         </div>
       </div>
     );

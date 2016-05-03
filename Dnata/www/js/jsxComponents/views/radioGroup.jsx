@@ -24,7 +24,7 @@ define(function(require){
   render:function(){
     var name = this.props.name;
     var array = this.props.options;
-    var className = "radiogroup";
+    var className = "radioClass";
     var content = [];
 
     for (var i = 0; i < array.length; i++) {
@@ -32,24 +32,30 @@ define(function(require){
         if(array[i].key === this.state.value)
         {
           content.push(
-              <label key={i}>
-                <input  className={className} name={this.props.id} type="radio" onChange={this._handleChange}  value={array[i].key} checked />
-                {array[i].value}
-              </label>
+              <div className={className}>
+                <label key={i}>
+                  <input name={this.props.id} type="radio" onChange={this._handleChange}  value={array[i].key} checked />
+                  {array[i].value}
+                </label>
+              </div>
           );
         }else {
           content.push(
-              <label key={i}>
-                <input key={i} className={className} name={this.props.id} type="radio" onChange={this._handleChange} value={array[i].key} />
-                {array[i].value}
-              </label>
+              <div className={className}>
+                <label key={i}>
+                  <input key={i} name={this.props.id} type="radio" onChange={this._handleChange} value={array[i].key} />
+                  {array[i].value}
+                </label>
+              </div>
           );
         }
       }
     return(
       <div className="inputBox">
         <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
-        {content}
+        <div className="radioGroup">
+          {content}
+        </div>
       </div>
       );
     }

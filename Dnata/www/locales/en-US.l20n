@@ -1,8 +1,8 @@
 <network_failed "Failed to connect to server. Please check your network.">
 <appName "Dnata">
-<report_injury "Report Injury">
-<MS_INC_ACTUAL_INJURY "Actual Injury">
-<MS_INC_POTENTIAL_INJ_FORM "Potential Injury">
+<report_injury "Report Incident">
+<MS_INC_ACTUAL_INJURY "Actual Injury or Damage">
+<MS_INC_POTENTIAL_INJ_FORM "Potential Injury or Damage">
 <feedback "Feedback">
 <observation "Observation">
 <safety_contact "Safety Contact">
@@ -22,6 +22,7 @@
 <mandatory_field "Please enter all mandatory fields">
 <submission_success "Form submitted successfully">
 <save_draft_success "Form saved as draft successfully">
+<feedback_success "Thank you for your feedback!">
 <invalid_email "Enter valid Email ID">
 <invalid_contact "Enter valid Contact Number">
 <field_not_found "Field not found">
