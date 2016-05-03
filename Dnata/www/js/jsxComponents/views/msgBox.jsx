@@ -28,7 +28,9 @@ define(function(require){
           <div className="msgBox">
             <div className="msgClass">
               <div className="msgLabel"><center>{getString(msgLabel)}</center></div>
-              {content}
+              <div className="msgBtnClass">
+                <center className="centerBox">{content}</center>
+              </div>
             </div>
           </div>
         );

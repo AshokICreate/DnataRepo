@@ -193,8 +193,14 @@ define(function (require) {
           var onSubmit = function(data)
           {
               //console.log("Submit sucessfull");
-              actions.clearFormData(that.props.id);
-              appActions.reInitiateApp();
+              if(title === "submit_incident")
+              {
+                NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
+              }
+              else if(title === "save_as_draft")
+              {
+                NavigationActions.presentPopup(<Msg msgLabel={"save_draft_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
+              }
           }
 
           var formAction = "submit";
@@ -202,11 +208,15 @@ define(function (require) {
           {
               formAction = "save";
           }
-
           this._onCancel();
           Store.submitFormData(this.props.id,onSubmit,formAction);
           console.log(title);
-
+        },
+      _onSubmitSuccess: function()
+      {
+        NavigationActions.removePopup();
+        actions.clearFormData(that.props.id);
+        appActions.reInitiateApp();
       },
       _onCancel:function()
       {
@@ -277,15 +287,22 @@ define(function (require) {
             this.props.onRightButtonClick();
             return;
           }
-          var buttonArray = [
-                              {"title":"save_as_draft"},
-                              {"title":"submit_incident"}
-                            ]
-          NavigationActions.presentPopup(<Confirm buttons={buttonArray} onAction={this._onActionClick} onCancel={this._onCancel} />);
+          if(this.props.id === "MS_INC_POTENTIAL_INJ_FORM")
+          {
+            this._onActionClick("submit_incident");
+          }
+          else
+          {
+            var buttonArray = [
+                                {"title":"save_as_draft"},
+                                {"title":"submit_incident"}
+                              ]
+            NavigationActions.presentPopup(<Confirm buttons={buttonArray} onAction={this._onActionClick} onCancel={this._onCancel} />);
+        }
       },
       _onComponentSave:function(id,value)
       {
-          if(value)
+          if(value !== undefined)
           {
               var formsData = Store.getData();
               var content = formsData[this.props.id].data.content;
