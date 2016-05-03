@@ -4,12 +4,17 @@ define(function (require) {
   var Form = require ("controllers/form");
   var NavigationStore = require ("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
-  
+
   var grid = React.createClass({
 
     getInitialState:function()
     {
-      return {itemsSelected:[]};
+        var state = NavigationStore.getControllerState();
+
+        if(!state)
+          state = [];
+
+        return {itemsSelected:state};
     },
     componentDidMount: function () {
         NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onNext);
@@ -19,7 +24,24 @@ define(function (require) {
     },
     _onNext:function()
     {
-        var content =  <Form id={this.props.id} />;
+        var state = this.state.itemsSelected;
+        var selectedValue = "";
+        for(var i = 0;i<state.length;i++)
+        {
+            var index = this.props.items.indexOf(state[i])+1;
+            //manipulation as server values for lov are from 1 - 7 and 10
+            if(index === 8 )
+            {
+              index = 10;
+            }
+            if(i===0)
+              selectedValue = selectedValue + index;
+            else {
+              selectedValue = selectedValue +";"+index;
+            }
+        }
+
+        var content =  <Form id={this.props.id} potentialLov={selectedValue}/>;
         var rightButtonName = "Submit";
         var leftButtonName = "Back";
 
@@ -30,7 +52,8 @@ define(function (require) {
           leftButtonName:"Back"
         };
 
-        NavigationActions.pushController(controllerData);
+
+        NavigationActions.pushController(controllerData,state);
     },
     _onClick: function (key) {
 

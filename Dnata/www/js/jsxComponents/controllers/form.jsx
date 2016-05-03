@@ -39,7 +39,6 @@ define(function (require) {
               node.scrollTop = state.scrollTop;
           }
 
-
       },
       componentWillUnmount: function () {
           Store.removeChangeListener (constants.Change_Data_Event,this._onChange);
@@ -140,6 +139,8 @@ define(function (require) {
                var titleValue = getAppendedValuesFromContent(titleArray,content);
                content["POTENTIAL_INJURY_NAME"] = {"value":titleValue};
                content["EVENT_TYPE"]= {"value":getString(this.props.id)};
+               content["INCIDENT_DESCRIPTION_LKP"] = [{"value":this.props.potentialLov}];
+
           }else {
               content["DUMMY_CHAR2"] = {"value":this.props.childId};
               var location = content["INC_LOCATION"];
