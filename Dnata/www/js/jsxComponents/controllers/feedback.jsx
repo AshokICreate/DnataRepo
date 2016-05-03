@@ -69,12 +69,12 @@ define(function(require){
       var localObject = feedbackObj.primary_location;
       feedbackObj.primary_location = localObject.key;
 
-      var varData = JSON.stringify(feedbackObj);
+      var qParams = getQueryParams(feedbackObj);
 
       $.ajax({
         type            : "POST", //GET or POST or PUT or DELETE verb
-        url             : "http://172.27.138.47/metricstream/feedbak", // Location of the service
-        data            : varData, //Data sent to server
+        url             : "http://172.27.138.47/metricstream/feedbak?"+qParams, // Location of the service
+        data            : "", //Data sent to server
         contentType     : "application/json", // content type sent to server
         dataType        : "JSON",
         success         : this._onSuccess,
@@ -195,4 +195,23 @@ define(function(require){
       }
   });
   return feedback;
+
+  function getQueryParams(object)
+  {
+      var queryString="";
+      for (var key in object)
+      {
+          if(object[key])
+          {
+            if(queryString)
+            {
+                queryString = queryString + "&";
+            }
+            queryString = queryString + key + "=" +object[key];
+          }
+      }
+
+      return encodeURI(queryString);
+  }
+
 });
