@@ -282,7 +282,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
-  width: 95%;
+  width: 96%;
   height:auto;
 }
 
@@ -307,7 +307,6 @@
 
 .radiogroup{
   position: relative;
-  margin-left:1%;
   cursor:pointer;
 }
 
