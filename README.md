@@ -16,3 +16,4 @@ Setup:
 Add Plugins:
 
 cordova-plugin-camera : To enable camera
+cordova plugin add cordova-plugin-keyboard :for keyboard
