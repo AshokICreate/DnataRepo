@@ -23,25 +23,8 @@ define (function (require) {
         "MS_INC_ACTUAL_INJURY":"DD_CURRENT_STAGE"
     }
 
-    var dummyData = {
-        "MS_INC_POTENTIAL_INJ_FORM":{
-            "INC_DUMMY_CHAR3":[
-              "INC_LOCATION_LKP",
-              "INC_SUB_LOCATION_LKP",
-              "INC_SUB_LOCATION_LOCALIZED_LKP",
-              "INC_EXACT_LOCATION"
-            ],
-            "INC_DUMMY_CHAR14":"date",
-            "INC_DUMMY_CHAR14":"year"
-        },
-        "MS_INC_ACTUAL_INJURY":{
-
-        }
-    }
-
     var keysToShow ={
       "MS_INC_POTENTIAL_INJ_FORM":[
-                                  "INCIDENT_DESCRIPTION_LKP",
                                   "INC_DATE_AND_TIME",
                                   "INC_WHILE",
                                   "INC_WAS",
@@ -105,7 +88,6 @@ define (function (require) {
     var keysToMandate = {
 
       "MS_INC_POTENTIAL_INJ_FORM":[
-                                  "INCIDENT_DESCRIPTION_LKP",
                                   "INC_DATE_AND_TIME",
                                   "INC_LOCATION_LKP",
                                   "INC_SUB_LOCATION_LKP",
@@ -219,10 +201,6 @@ define (function (require) {
       getCurrentStageKey:function(id)
       {
         return currentStage[id];
-      },
-      getDummyData:function(id)
-      {
-        return dummyData[id];
       },
       emitChange: function(eventId) {
         this.emit(eventId);

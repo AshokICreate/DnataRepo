@@ -13,8 +13,9 @@ requirejs.config({
         controllers:"../js/components/controllers"
     }
 });
-requirejs(["jquery-2.2.1.min", "react", "flux", "l20n.min", "moment.min"], function (jquery, react, flux, l20n, moment) {
+requirejs(["jquery-2.2.1.min", "react", "flux", "l20n.min", "moment.min","react-with-addons"], function (jquery, react, flux, l20n, moment,reactaddons) {
     window.React = react;
+    window.Reactaddons = reactaddons;
     window.Moment = moment;
     window.l20n = L20n.getContext ();
     window.getString = function (key) {
