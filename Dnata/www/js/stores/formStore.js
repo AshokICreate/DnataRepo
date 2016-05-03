@@ -64,7 +64,6 @@ define (function (require) {
                                   "INC_SUB_LOCATION",
                                   "EXACT_SUB_LOCATION",
                                   "INC_EXACT_LOCATION",
-                                  "WITNESSES",
                                   "ADN_SUPPORTING_DOC"
                                 ],
         "PSD":[

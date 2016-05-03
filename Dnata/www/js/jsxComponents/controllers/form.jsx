@@ -186,7 +186,7 @@ define(function (require) {
               content["SELECTED_TABS_ID"] = {value:selectValue}
               content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
               content["INC_STATUS"] = {value:"Reporting"}
-
+              content["WITNESSES"] = {"value":"2"}
           }
 
           var that = this;
@@ -195,11 +195,11 @@ define(function (require) {
               //console.log("Submit sucessfull");
               if(title === "submit_incident")
               {
-                NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
+                NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={that._onSubmitSuccess}/>);
               }
               else if(title === "save_as_draft")
               {
-                NavigationActions.presentPopup(<Msg msgLabel={"save_draft_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
+                NavigationActions.presentPopup(<Msg msgLabel={"save_draft_success"} buttons={msgButtonsArray} onMsgClick={that._onSubmitSuccess}/>);
               }
           }
 
@@ -208,14 +208,13 @@ define(function (require) {
           {
               formAction = "save";
           }
-          this._onCancel();
           Store.submitFormData(this.props.id,onSubmit,formAction);
           console.log(title);
         },
       _onSubmitSuccess: function()
       {
         NavigationActions.removePopup();
-        actions.clearFormData(that.props.id);
+        actions.clearFormData(this.props.id);
         appActions.reInitiateApp();
       },
       _onCancel:function()
