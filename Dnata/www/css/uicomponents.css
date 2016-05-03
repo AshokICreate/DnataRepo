@@ -633,6 +633,7 @@
   height: 7%;
   margin: 2% 0;
   text-align: center;
+  min-height: 2.55em;
 }
 
 
