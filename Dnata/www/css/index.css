@@ -7,7 +7,8 @@ body {
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:white;
-    font-family:'Roboto';
+    font-family: 'Roboto';
+    font-size: 100%;
     width: 100%;
     height: 100%;
     padding:0px;
@@ -18,15 +19,15 @@ body {
 
 textarea
 {
-  font-size: small;
+  font-size: 80%;
 }
 input[type="text"]
 {
-  font-size: small;
+  font-size: 80%;
 }
 input[type="search"]
 {
-  font-size: small;
+  font-size: 80%;
 }
 #mainContainer
 {
@@ -288,7 +289,8 @@ input[type="search"]
   -moz-appearance: none;
   display: table;
   margin: 0 auto;
-  margin-top: 12%;
+  margin-top: 7%;
+  margin-bottom: 7%;
   border-radius: 50px;
   border: 1px solid white;
   background-color: white;
@@ -312,16 +314,19 @@ input[type="search"]
   width:83%;
 }
 
+.footer{
+  margin-bottom: 15%;
+}
+
 .msfooter{
   font-family: Roboto;
   font-weight: 300;
-  font-size: small;
+  /*font-size: small;*/
   position: relative;
   color: white;
   height: 1.5em;
   width: 100%;
   text-align: center;
-  margin-top: 13%;
 }
 
 #msbold{
@@ -377,7 +382,7 @@ input[type="search"]
   height:40%;
   text-align: center;
   font-family: Roboto;
-  font-size: 1.6em;
+  font-size: 1.3em;
   cursor: pointer;
  }
 

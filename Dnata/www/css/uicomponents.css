@@ -209,6 +209,7 @@
     margin-left: 3%;
     font-family: Roboto;
     background-color: white;
+    font-size: 80%;
 }
 
 .cfield.time:before{
@@ -304,10 +305,23 @@
   display: inline-block;
 }
 
+.radioGroup{
+  position: relative;
+  height: auto;
+  width: 95%;
+  margin-left: 5%;
+  display:inline-block;
+}
 
-.radiogroup{
+.radioClass{
   position: relative;
   cursor:pointer;
+  display:inline-block;
+  margin-bottom: 0.5%;
+}
+
+.radioId{
+    margin-left: 4%;
 }
 
 .listContainer
@@ -316,7 +330,6 @@
     overflow-y: scroll
 }
 .list{
-    -webkit-appearance: none;
     -moz-appearance: none;
     position: relative;
     width: 100%;
@@ -516,18 +529,14 @@
   position: relative;
   border-radius: 0.15em;
   padding: 5%;
-  margin-top: 2%;
   float: left;
   height: 80%;
-  width: 11%;
-
 }
 
 .attachimg{
-  height: 77%;
-  width: 20%;
+  height: 80%;
+  width: 22%;
   float: left;
-  margin-top: 2%;
   margin-left: 3%;
   border-radius: 0.25em;
 }
@@ -642,13 +651,13 @@
   display: inline-block;
   max-width: 50%;
   min-width: 15%;
-  height: 60%;
+  height: 59%;
   width: 25%;
   border-style: solid;
   border-width: 1px;
   border-color: #0f88ca;
   text-align: center;
-  padding-top: 1%;
+  padding-top: 1.2%;
   cursor: pointer;
 }
 
