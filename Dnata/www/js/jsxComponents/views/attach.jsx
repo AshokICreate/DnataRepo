@@ -1,5 +1,8 @@
 define(function (require) {
+  var NavigationActions = require ("actions/navigationActions");
   var TextLabel = require("views/textLabel");
+  var Msg = require("views/msgBox");
+  var msgButtonsArray;
   var attach = React.createClass({
 
   propTypes: {
@@ -28,8 +31,6 @@ define(function (require) {
   },
 
   onSuccess: function(imgData) {
-    //onSuccess
-     console.log("Photo captured successfully");
      var array = this.state.images;
      array.push(imgData);
      this.setState({fadevalue:false,images:array});
@@ -39,7 +40,6 @@ define(function (require) {
      navigator.camera.getPicture(this.onPhotoURISuccess, this.onFail, { quality: 50,
         destinationType: navigator.camera.DestinationType.FILE_URI,
         sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY});
-    console.log("upload photo is clicked");
   },
 
   onPhotoURISuccess: function(imgURI) {
@@ -48,12 +48,26 @@ define(function (require) {
     this.setState({fadevalue:false, images: array});
   },
 
+  _onDelete: function(){
+    msgButtonsArray = [{"title":"yes"},{"title":"no"}];
+    NavigationActions.presentPopup(<Msg msgLabel={"delete_attachment"} buttons={msgButtonsArray} onMsgClick={this._onDeleteAttachment} />);
+  },
 
   onFail: function(msg) {
+    msgButtonsArray = [{"title":"ok"}];
+    NavigationActions.presentPopup(<Msg msgLabel={"failed_attachment"} buttons={msgButtonsArray} onMsgClick={this._onDeleteAttachment} />);
+  },
 
-    console.log("Failed because: " + msg);
-    
-
+  _onDeleteAttachment: function(title){
+      if(title==="yes"){
+          NavigationActions.removePopup();
+          var array = this.state.images;
+          array.pop();
+          this.setState({fadevalue:false, images:array});
+      }
+      else if(title==="no" || title==="ok"){
+          NavigationActions.removePopup();
+      }
   },
 
   render: function() {
@@ -68,7 +82,9 @@ define(function (require) {
     for(var i=0;i<this.state.images.length;i++)
     {
       var srctoimage = this.state.images[i];
-      divsToAttach.push(<img className="attachimg" key={i} id="uploadimg" src={srctoimage}/>);
+      divsToAttach.push(
+          <img className="attachimg" key={i} id="uploadimg" src={srctoimage} onClick={this._onDelete}/>
+      );
     }
     return(
     <div className="attachment">

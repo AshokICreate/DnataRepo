@@ -221,7 +221,6 @@ define(function (require) {
       _onCancel:function()
       {
         NavigationActions.removePopup();
-        //console.log("On cancel of confirmation");
       },
       _onRightButtonClick:function()
       {
@@ -653,7 +652,7 @@ define(function (require) {
 
                 case constants.Attachment:
                 {
-                    contentUI.push(<Attach name={element.label} isRequired={isRequired}/>);
+                    contentUI.push(<Attach name={element.label} isRequired={isRequired} />);
                     break;
                 }
                 default:
