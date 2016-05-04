@@ -25,7 +25,7 @@
 <invalid_email "Enter valid Email ID">
 <invalid_contact "Enter valid Contact Number">
 <field_not_found "Field not found">
-<select_prev_lov "Select Previous LOV">
+<select_prev_lov "This field needs the input of : \"{0}\" ">
 <confirm_logout "Are you sure you want to Logout?">
 <yes "YES">
 <no "NO">

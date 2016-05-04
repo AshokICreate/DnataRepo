@@ -1,5 +1,6 @@
 define(function (require) {
   var TextLabel = require("views/textLabel");
+  var serverCall = require ("util/serverCall");
   var attach = React.createClass({
 
   propTypes: {
@@ -23,36 +24,30 @@ define(function (require) {
   _capturePhoto: function() {
     // Take picture using device camera and retrieve image as base64-encoded string
      navigator.camera.getPicture(this.onSuccess, this.onFail, { quality: 50,
-       destinationType: navigator.camera.DestinationType.FILE_URI,encodingType: Camera.EncodingType.JPEG,
+       destinationType: navigator.camera.DestinationType.DATA_URL,encodingType: Camera.EncodingType.JPEG,
        targetWidth: 720,cameraDirection:navigator.camera.Direction.BACK});
   },
 
-  onSuccess: function(imgData) {
+  onSuccess: function(imgURI) {
     //onSuccess
+    uplaod(imgURI);
      console.log("Photo captured successfully");
      var array = this.state.images;
-     array.push(imgData);
+     array.push(imgURI);
      this.setState({fadevalue:false,images:array});
   },
 
   _uploadPhoto: function() {
-     navigator.camera.getPicture(this.onPhotoURISuccess, this.onFail, { quality: 50,
-        destinationType: navigator.camera.DestinationType.FILE_URI,
+     navigator.camera.getPicture(this.onSuccess, this.onFail, { quality: 50,
+        destinationType: navigator.camera.DestinationType.DATA_URL,
         sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY});
     console.log("upload photo is clicked");
   },
 
-  onPhotoURISuccess: function(imgURI) {
-    var array = this.state.images;
-    array.push(imgURI);
-    this.setState({fadevalue:false, images: array});
-  },
-
-
   onFail: function(msg) {
 
     console.log("Failed because: " + msg);
-    
+
 
   },
 
@@ -67,7 +62,7 @@ define(function (require) {
     var divsToAttach=[];
     for(var i=0;i<this.state.images.length;i++)
     {
-      var srctoimage = this.state.images[i];
+      var srctoimage = "data:image/jpeg;base64," +this.state.images[i];
       divsToAttach.push(<img className="attachimg" key={i} id="uploadimg" src={srctoimage}/>);
     }
     return(
@@ -96,4 +91,22 @@ define(function (require) {
     }
   });
   return attach;
+
+  function createdTask(file)
+  {
+      console.log(file);
+  }
+  function uplaod(fileData)
+  {
+
+      var obj ={
+        "filename": "attach.jpg",
+        "description": "sample",
+        "content": fileData,
+        "mimetype": "39"
+      }
+      var data = JSON.stringify(obj);
+      serverCall.connectServer("POST","documents",data,createdTask);
+
+  }
 });

@@ -139,6 +139,7 @@ define(function (require) {
                var titleValue = getAppendedValuesFromContent(titleArray,content);
                content["POTENTIAL_INJURY_NAME"] = {"value":titleValue};
                content["EVENT_TYPE"]= {"value":getString(this.props.id)};
+
                content["INCIDENT_DESCRIPTION_LKP"] = [{"value":this.props.potentialLov}];
 
           }else {
@@ -187,7 +188,7 @@ define(function (require) {
               content["SELECTED_TABS_ID"] = {value:selectValue}
               content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
               content["INC_STATUS"] = {value:"Reporting"}
-              content["WITNESSES"] = {"value":"2"}
+
           }
 
           var that = this;
@@ -196,11 +197,11 @@ define(function (require) {
               //console.log("Submit sucessfull");
               if(title === "submit_incident")
               {
-                NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={that._onSubmitSuccess}/>);
+                NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
               }
               else if(title === "save_as_draft")
               {
-                NavigationActions.presentPopup(<Msg msgLabel={"save_draft_success"} buttons={msgButtonsArray} onMsgClick={that._onSubmitSuccess}/>);
+                NavigationActions.presentPopup(<Msg msgLabel={"save_draft_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
               }
           }
 
@@ -209,13 +210,14 @@ define(function (require) {
           {
               formAction = "save";
           }
+          this._onCancel();
           Store.submitFormData(this.props.id,onSubmit,formAction);
           console.log(title);
         },
       _onSubmitSuccess: function()
       {
         NavigationActions.removePopup();
-        actions.clearFormData(this.props.id);
+        actions.clearFormData(that.props.id);
         appActions.reInitiateApp();
       },
       _onCancel:function()
@@ -437,6 +439,7 @@ define(function (require) {
               {
                   var obj = parameters[i];
                   var valueObj = content[obj.ref];
+                  var structLabel = structure[obj.ref].label;
                   refValue = obj.value;
                   if(valueObj)
                   {
@@ -451,15 +454,17 @@ define(function (require) {
 
                       }else if(refValue === "stored_value")
                       {
-                          //alert("select previous lov");
-                        NavigationActions.presentPopup(<Msg msgLabel={"select_prev_lov"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
+                        var message = getString("select_prev_lov")
+                        message = String.format(message,structLabel);
+                        NavigationActions.presentPopup(<Msg msgLabel={message} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
                         return;
                       }
 
                   }else if(refValue === "stored_value")
                   {
-                      //alert("select previous lov");
-                      NavigationActions.presentPopup(<Msg msgLabel={"select_prev_lov"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
+                      var message = getString("select_prev_lov")
+                      message = String.format(message,structLabel);
+                      NavigationActions.presentPopup(<Msg msgLabel={message} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
                       return;
                   }
 
