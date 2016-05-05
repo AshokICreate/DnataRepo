@@ -32,7 +32,6 @@ define(function (require) {
     _onBackButtonClick:function(event)
     {
         NavigationStore.emitChange(constants.Back_Click_Event);
-        NavigationActions.popController();
     },
     _onRightButtonClick:function(event)
     {

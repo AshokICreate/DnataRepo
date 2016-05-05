@@ -1,9 +1,11 @@
 define(function (require) {
 
+  var Store = require ("stores/formStore");
   var NavigationActions = require ("actions/navigationActions");
   var Form = require ("controllers/form");
   var NavigationStore = require ("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
+  var Msg = require("views/msgBox");
 
   var grid = React.createClass({
 
@@ -18,9 +20,11 @@ define(function (require) {
     },
     componentDidMount: function () {
         NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onNext);
+        NavigationStore.addChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
     },
     componentWillUnmount: function () {
         NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onNext);
+        NavigationStore.removeChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
     },
     _onNext:function()
     {
@@ -40,20 +44,39 @@ define(function (require) {
               selectedValue = selectedValue +";"+index;
             }
         }
+        if(!selectedValue)
+        {
+          var msgButton = [{"title":"ok"}];
+          NavigationActions.presentPopup(<Msg msgLabel={"category_not_selected"} buttons={msgButton} onMsgClick={this._clearData}/>);
+        }
+        else
+        {
+          var content =  <Form id={this.props.id} potentialLov={selectedValue}/>;
+          var rightButtonName = "Submit";
+          var leftButtonName = "Back";
 
-        var content =  <Form id={this.props.id} potentialLov={selectedValue}/>;
-        var rightButtonName = "Submit";
-        var leftButtonName = "Back";
+          var controllerData = {
+            title:this.props.id,
+            content:content,
+            rightButtonName:"Submit",
+            leftButtonName:"Back"
+          };
 
-        var controllerData = {
-          title:this.props.id,
-          content:content,
-          rightButtonName:"Submit",
-          leftButtonName:"Back"
-        };
+          NavigationActions.pushController(controllerData,state);
+        }
+    },
 
-
-        NavigationActions.pushController(controllerData,state);
+    _onBackButtonClick:function(){
+      var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
+      NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtonsArray} onMsgClick={this._clearData}/>);
+    },
+    _clearData:function(title){
+      NavigationActions.removePopup();
+      if(title === "yes")
+      {
+        Store.clearFormData();
+        NavigationActions.popController();
+      }
     },
     _onClick: function (key) {
 

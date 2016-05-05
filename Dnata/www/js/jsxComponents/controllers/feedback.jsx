@@ -49,9 +49,23 @@ define(function(require){
   },
   componentDidMount: function () {
       NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onSubmit);
+      NavigationStore.addChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
   },
   componentWillUnmount: function () {
       NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onSubmit);
+      NavigationStore.removeChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
+  },
+  _onBackButtonClick:function(){
+    var msgButtons = [{"title":"yes"},{"title":"no"}];
+    NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtons} onMsgClick={this._clearData}/>);
+  },
+  _clearData:function(title){
+    NavigationActions.removePopup();
+    if(title === "yes")
+    {
+      Store.clearFormData();
+      NavigationActions.popController();  
+    }
   },
   _onCancel:function() {
     NavigationActions.removePopup();
@@ -99,7 +113,6 @@ define(function(require){
   },
   _onSubmit:function()
   {
-    // console.log("Feedback submitted");
     var isEmpty = false;
     if(!feedbackObj.feedback_title || !feedbackObj.primary_location || !feedbackObj.receive_update )
     {
@@ -123,7 +136,6 @@ define(function(require){
 
   },
   _onSave: function(id,value) {
-    console.log("id and value are "+id,value);
     feedbackObj[id] = value;
     if(id === "receive_update" )
     {

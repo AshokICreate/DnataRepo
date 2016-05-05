@@ -2,7 +2,6 @@ define(function (require) {
   var NavigationActions = require ("actions/navigationActions");
   var TextLabel = require("views/textLabel");
   var Msg = require("views/msgBox");
-  var msgButtonsArray;
   var attach = React.createClass({
 
   propTypes: {
@@ -48,26 +47,25 @@ define(function (require) {
     this.setState({fadevalue:false, images: array});
   },
 
-  _onDelete: function(){
-    msgButtonsArray = [{"title":"yes"},{"title":"no"}];
-    NavigationActions.presentPopup(<Msg msgLabel={"delete_attachment"} buttons={msgButtonsArray} onMsgClick={this._onDeleteAttachment} />);
+  _onDelete: function(key){
+    var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
+    var that = this;
+    var onDeleteAttachment = function(title)
+    {
+        NavigationActions.removePopup();
+        if(title==="yes")
+        {
+            var array = that.state.images;
+            array.splice(key,1);
+            that.setState({fadevalue:false, images:array});
+        }
+    }
+    NavigationActions.presentPopup(<Msg msgLabel={"delete_attachment"} buttons={msgButtonsArray} onMsgClick={onDeleteAttachment} />);
   },
 
   onFail: function(msg) {
-    msgButtonsArray = [{"title":"ok"}];
+    var msgButtonsArray = [{"title":"ok"}];
     NavigationActions.presentPopup(<Msg msgLabel={"failed_attachment"} buttons={msgButtonsArray} onMsgClick={this._onDeleteAttachment} />);
-  },
-
-  _onDeleteAttachment: function(title){
-      if(title==="yes"){
-          NavigationActions.removePopup();
-          var array = this.state.images;
-          array.pop();
-          this.setState({fadevalue:false, images:array});
-      }
-      else if(title==="no" || title==="ok"){
-          NavigationActions.removePopup();
-      }
   },
 
   render: function() {
@@ -83,7 +81,7 @@ define(function (require) {
     {
       var srctoimage = this.state.images[i];
       divsToAttach.push(
-          <img className="attachimg" key={i} id="uploadimg" src={srctoimage} onClick={this._onDelete}/>
+          <img className="attachimg" key={i} id="uploadimg" src={srctoimage} onClick={this._onDelete.bind(this,i)}/>
       );
     }
     return(

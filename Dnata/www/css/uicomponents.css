@@ -735,12 +735,6 @@
     margin-top: 5%;
     cursor:pointer;
 }
-.highlight
-{
-  background-color: #6abd45;
-  border-color: #6abd45;
-  color:white;
-}
 
 .msgBox{
   position: absolute;
@@ -807,6 +801,13 @@
   width:auto;
   height:auto;
   position: relative;
+}
+
+.highlight
+{
+  background-color: #6abd45;
+  border-color: #6abd45;
+  color:white;
 }
 
 
