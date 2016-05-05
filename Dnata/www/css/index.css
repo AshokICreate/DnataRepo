@@ -99,6 +99,7 @@ input[type="search"]
 .headerContainer > div.title {
   text-align: center;
   font-weight: bold;
+  font-size: 98%;
   margin: 0.5em 0 0.5em 0;
 }
 
@@ -289,7 +290,7 @@ input[type="search"]
   -moz-appearance: none;
   display: table;
   margin: 0 auto;
-  margin-top: 7%;
+  margin-top: 12%;
   margin-bottom: 7%;
   border-radius: 50px;
   border: 1px solid white;
@@ -302,6 +303,7 @@ input[type="search"]
   width: 91%;
   position:relative;
   height: 10%;
+  padding: 2%;
 }
 
 .errorMsg {
@@ -315,7 +317,8 @@ input[type="search"]
 }
 
 .footer{
-  margin-bottom: 15%;
+  margin-top: 7%;
+  margin-bottom: 7%;
 }
 
 .msfooter{

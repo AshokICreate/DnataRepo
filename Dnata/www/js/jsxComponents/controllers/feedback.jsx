@@ -181,7 +181,7 @@ define(function(require){
     }
     return(
       <div className="gclass form">
-        <TextArea name={"What feedback would you like to provide"} isRequired={true} onSave={this._onSave} id={"feedback_title"} defaultvalue={feedbackObj["feedback_title"]}/>
+        <TextArea name={"What feedback would you like to provide"} isRequired={true} limit={2000} onSave={this._onSave} id={"feedback_title"} defaultvalue={feedbackObj["feedback_title"]}/>
         <SelectBox name={"Where are you providing feedback for"} isRequired={true} onSelectBoxClick={this._onSelect} id={"primary_location"} defaultvalues={[feedbackObj["primary_location"]]}/>
         <ToggleButton name={"Would you like to receive a response to your feedback?"} isRequired={true} options={[{"key":"1","value":"Yes"},{"key":"2","value":"No"}]} id={"receive_update"} onSave={this._onSave} defaultvalue={feedbackObj["receive_update"]}/>
         <div className={className}>

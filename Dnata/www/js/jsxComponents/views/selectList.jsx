@@ -41,7 +41,7 @@ define(function(require) {
   },
 
   searchText: function () {
-    var text = $("#searchid").val().toLowerCase();;
+    var text = $("#searchid").val().toLowerCase();
     var searcharray = [];
     for(var i=0;i<this.props.options.length;i++){
       if(this.props.options[i].value.toLowerCase().indexOf(text)>=0){

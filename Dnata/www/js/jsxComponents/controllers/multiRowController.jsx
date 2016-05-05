@@ -2,12 +2,23 @@ define(function(require){
   var Form = require ("controllers/form");
   var Store = require ("stores/formStore");
   var NavigationStore = require ("stores/navigationStore");
+  var Msg = require("views/msgBox");
+  var NavigationActions = require ("actions/navigationActions");
+  var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
 
   var tag = "Injury ";
 
   var MultiRow = React.createClass({
 
     getInitialState: function(){
+      if(this.props.childId !== "PSD")
+      {
+          tag = "Damage ";
+      }
+      else
+      {
+          tag = "Injury "
+      }
       var formsData = Store.getData();
       var content = formsData[this.props.id].data.content;
       var array = [tag+1];
@@ -64,23 +75,33 @@ define(function(require){
       e.stopPropagation();
       var formsData = Store.getData();
       var content = formsData[this.props.id].data.content;
+      var that = this;
+      var onDeleteRow = function(title){
+        if(title === "yes")
+        {
+          NavigationActions.removePopup();
+          if(that.props.childId)
+          {
+              var obj = content[that.props.childId];
+              obj.splice(index,1);
+          }
 
-      if(this.props.childId)
-      {
-          var obj = content[this.props.childId];
-          obj.splice(index,1);
+          var array = that.state.tabsArray;
+          array.splice(index,1);
+
+          var activeTab = that.state.activeTab
+          if(that.state.activeTab==index)
+          {
+              activeTab = 0;
+          }
+          that.setState({ activeTab:activeTab,tabsArray:array});
+        }
+        else if(title === "no")
+        {
+          NavigationActions.removePopup();
+        }
       }
-
-      var array = this.state.tabsArray;
-      array.splice(index,1);
-
-      var activeTab = this.state.activeTab
-      if(this.state.activeTab==index)
-      {
-          activeTab = 0;
-      }
-      this.setState({ activeTab:activeTab,tabsArray:array});
-
+      NavigationActions.presentPopup(<Msg msgLabel={"delete_multirow"} buttons={msgButtonsArray} onMsgClick={onDeleteRow}/>);
     },
 
     render: function(){
