@@ -155,6 +155,48 @@ define (function (require) {
 
           serverCall.connectServer("GET",url,"",onResponse)
       },
+      submitAttachments:function(files,callback)
+      {
+          var array=[];
+          var successUploads=[];
+          var sendBack =  function(fileUrl,obj)
+          {
+              var index = files.indexOf(fileUrl);
+              successUploads[index] = true;
+              array.push(obj);
+
+              var allFilesUploadDone = true;
+              for(var i=0;i<successUploads.length;i++)
+              {
+                  if(!successUploads[i])
+                  {
+                      allFilesUploadDone = false;
+                  }
+              }
+
+              if(allFilesUploadDone)
+              {
+                  callback(array);
+              }
+          }
+          var onSuccess = function(fileUrl,obj,error)
+          {
+              if(error)
+              {
+                  errorMsg = error;
+                  FormStore.emitChange(constants.On_Error);
+
+              }else {
+                  sendBack(fileUrl,obj);
+              }
+          }
+          for(var i=0;i<files.length;i++)
+          {
+              successUploads.push(false);
+              uploadToServer(files[i],onSuccess)
+          }
+
+      },
       submitFormData:function(id,callback,action)
       {
           var onResponse =  function(data,error)
@@ -237,6 +279,49 @@ define (function (require) {
     });
 
     return FormStore;
+
+    function uploadToServer(fileURL,callback)
+    {
+        var success = function (data,error) {
+          if(error)
+          {
+            callback(fileURL,'',error);
+          }
+          callback(fileURL,data);
+        }
+
+        var fail = function (error) {
+          console.log("An error has occurred: Code = " + error);
+          console.log("upload error source " + error.source);
+          console.log("upload error target " + error.target);
+          callback(fileURL,'',error);
+        }
+
+        window.resolveLocalFileSystemURL(fileURL, function(fileEntry) {
+            fileEntry.file(function(file) {
+                var reader = new FileReader();
+                var name =  file.name;
+
+                if(name.indexOf(".") == -1)
+                {
+                    name = name + ".jpeg"
+                }
+
+                reader.onloadend = function(evt) {
+                    var params ={
+                      "filename": name,
+                      "description": "attachment",
+                      "content":evt.target.result,
+                      "mimetype": "39"
+                    }
+                    var data = JSON.stringify(params);
+                    serverCall.connectServer("POST","documents",data,success);
+                }
+                reader.readAsText(file);
+            },fail);
+          }, fail);
+
+    }
 
     function getFormData(id)
     {

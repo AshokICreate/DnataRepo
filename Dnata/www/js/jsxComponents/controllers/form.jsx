@@ -111,7 +111,7 @@ define(function (require) {
           var obj = content["FORM_PID"];
           obj.value = pid.toString();
 
-
+          var attachments;
           if(this.props.id === "MS_INC_POTENTIAL_INJ_FORM")
           {
 
@@ -141,7 +141,7 @@ define(function (require) {
                content["EVENT_TYPE"]= {"value":getString(this.props.id)};
 
                content["INCIDENT_DESCRIPTION_LKP"] = [{"value":this.props.potentialLov}];
-
+               attachments = content["INC_ATTACHMENT"];
           }else {
               content["DUMMY_CHAR2"] = {"value":this.props.childId};
               var location = content["INC_LOCATION"];
@@ -188,36 +188,73 @@ define(function (require) {
               content["SELECTED_TABS_ID"] = {value:selectValue}
               content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
               content["INC_STATUS"] = {value:"Reporting"}
-
+              attachments = content["ADN_SUPPORTING_DOC"];
           }
 
-          var that = this;
-          var onSubmit = function(data)
-          {
-              //console.log("Submit sucessfull");
-              if(title === "submit_incident")
-              {
-                NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
-              }
-              else if(title === "save_as_draft")
-              {
-                NavigationActions.presentPopup(<Msg msgLabel={"save_draft_success"} buttons={msgButtonsArray} onMsgClick={this._onSubmitSuccess}/>);
-              }
-          }
+
 
           var formAction = "submit";
           if(title==="save_as_draft")
           {
               formAction = "save";
           }
+
           this._onCancel();
+
+          //attachments
+          if(attachments && attachments.length ==1)
+          {
+              var that = this;
+              var onAttachmentSuccess = function(array,error)
+              {
+                  var attachIds = "";
+                  for(var i=0;i<array.length;i++)
+                  {
+                      if(i!=0)
+                      {
+                         attachIds = attachIds+";"
+                      }
+                      attachIds = attachIds+array[i].id;
+                  }
+                  attachments[0].value = attachIds;
+                  that._submitFormData(formAction,title);
+              }
+              var attachObj = attachments[0];
+              var files = attachObj.value.split(";");
+
+              if(files && attachments.length > 0)
+              {
+                  Store.submitAttachments(files,onAttachmentSuccess);
+              }
+
+          }else {
+              this._submitFormData(formAction,title);
+          }
+
+      },
+      _submitFormData: function(formAction,title)
+      {
+          var that = this;
+          var onSubmit = function(data)
+          {
+              //console.log("Submit sucessfull");
+              if(title === "submit_incident")
+              {
+                NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={that._onSubmitSuccess}/>);
+              }
+              else if(title === "save_as_draft")
+              {
+                NavigationActions.presentPopup(<Msg msgLabel={"save_draft_success"} buttons={msgButtonsArray} onMsgClick={that._onSubmitSuccess}/>);
+              }
+          }
+
           Store.submitFormData(this.props.id,onSubmit,formAction);
-          console.log(title);
-        },
+
+      },
       _onSubmitSuccess: function()
       {
         NavigationActions.removePopup();
-        actions.clearFormData(that.props.id);
+        actions.clearFormData(this.props.id);
         appActions.reInitiateApp();
       },
       _onCancel:function()
@@ -315,10 +352,8 @@ define(function (require) {
 
               if(!content[id])
               {
-                //remove this before release
-                //alert("file not found");
-              NavigationActions.presentPopup(<Msg msgLabel={"internal_error"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
-                return;
+                  NavigationActions.presentPopup(<Msg msgLabel={"internal_error"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
+                  return;
               }
               RemoveDependentLovs(id,this.props.id,this.props.childId,this.props.rowId,this.getResources);
               if(value instanceof Array)
@@ -657,7 +692,7 @@ define(function (require) {
 
                 case constants.Attachment:
                 {
-                    contentUI.push(<Attach name={element.label} isRequired={isRequired} />);
+                    contentUI.push(<Attach name={element.label} isRequired={isRequired} onSave={this._onComponentSave} id={key} key={key}/>);
                     break;
                 }
                 default:

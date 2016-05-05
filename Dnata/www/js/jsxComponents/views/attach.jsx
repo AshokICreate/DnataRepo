@@ -8,7 +8,9 @@ define(function (require) {
 
     propTypes: {
       name: React.PropTypes.string.isRequired,
-      isRequired: React.PropTypes.bool.isRequired
+      isRequired: React.PropTypes.bool.isRequired,
+      id: React.PropTypes.string.isRequired,
+      onSave: React.PropTypes.func.isRequired
     },
 
     getInitialState: function() {
@@ -31,20 +33,24 @@ define(function (require) {
     _capturePhoto: function() {
       // Take picture using device camera and retrieve image as base64-encoded string
        navigator.camera.getPicture(this.onSuccess, this.onFail, { quality: 50,
-         destinationType: navigator.camera.DestinationType.DATA_URL,encodingType: Camera.EncodingType.JPEG,
+         destinationType: navigator.camera.DestinationType.FILE_URI,encodingType: Camera.EncodingType.JPEG,
          targetWidth: 720,cameraDirection:navigator.camera.Direction.BACK});
     },
     _uploadPhoto: function() {
        navigator.camera.getPicture(this.onSuccess, this.onFail, { quality: 50,
-          destinationType: navigator.camera.DestinationType.DATA_URL,
+          destinationType: navigator.camera.DestinationType.FILE_URI,
           sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY});
     },
     onSuccess: function(imgURI) {
-      //onSuccess
-      uplaod(imgURI);
-       console.log("Photo captured successfully");
+
        var array = this.state.images;
-       array.push(imgURI);
+       array.push({"key":imgURI});
+
+       if(this.props.onSave)
+       {
+         this.props.onSave(this.props.id,array);
+       }
+
        this.setState({fadevalue:false,images:array});
     },
     onFail: function(msg) {
@@ -76,7 +82,7 @@ define(function (require) {
       for(var i=0;i<this.state.images.length;i++)
       {
 
-        var srctoimage = "data:image/jpeg;base64," +this.state.images[i];
+        var srctoimage = this.state.images[i].key;
         divsToAttach.push(
             <img className="attachimg" key={i} id="uploadimg" src={srctoimage} onClick={this._onDelete}/>
         );
@@ -106,24 +112,6 @@ define(function (require) {
         );
       }
     });
-    
+
   return attach;
-
-  function createdTask(file)
-  {
-      console.log(file);
-  }
-  function uplaod(fileData)
-  {
-
-      var obj ={
-        "filename": "attach.jpg",
-        "description": "sample",
-        "content": fileData,
-        "mimetype": "39"
-      }
-      var data = JSON.stringify(obj);
-      serverCall.connectServer("POST","documents",data,createdTask);
-
-  }
 });
