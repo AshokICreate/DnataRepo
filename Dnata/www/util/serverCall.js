@@ -29,18 +29,7 @@ define (function (require) {
 
 	};
 
-	var cancel =  function()
-	{
-	};
-
-	var call_backed_service = function()
-	{
-		serverCall.connectServer(server.reqType,server.requestURL,server.reqdata,server.callBackSuccess);
-	};
-
-
 	var serverCall = {
-
 		connectServer:function (reqType,reqURL,reqdata,successFunction)
 		{
 			try
