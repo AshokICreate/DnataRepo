@@ -4,7 +4,6 @@ define(function(require){
   var NavigationStore = require ("stores/navigationStore");
   var Msg = require("views/msgBox");
   var NavigationActions = require ("actions/navigationActions");
-  var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
 
   var tag = "Injury ";
 
@@ -101,12 +100,12 @@ define(function(require){
           NavigationActions.removePopup();
         }
       }
+      var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
       NavigationActions.presentPopup(<Msg msgLabel={"delete_multirow"} buttons={msgButtonsArray} onMsgClick={onDeleteRow}/>);
     },
 
     render: function(){
       var divsToArrange = [];
-      //That means to be not deleted
       var length = this.state.tabsArray.length;
       for(var i=0;i<length;i++){
           var cssName = "tab unselected";

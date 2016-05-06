@@ -5,7 +5,6 @@ define(function (require) {
   var Msg = require("views/msgBox");
 
   var attach = React.createClass({
-
     propTypes: {
       name: React.PropTypes.string.isRequired,
       isRequired: React.PropTypes.bool.isRequired,
@@ -25,11 +24,6 @@ define(function (require) {
       this.setState({fadevalue: false,images:this.state.images});
     },
 
-    _onDelete: function(){
-      var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
-      NavigationActions.presentPopup(<Msg msgLabel={"delete_attachment"} buttons={msgButtonsArray} onMsgClick={this._onDeleteAttachment} />);
-    },
-
     _capturePhoto: function() {
       // Take picture using device camera and retrieve image as base64-encoded string
        navigator.camera.getPicture(this.onSuccess, this.onFail, { quality: 50,
@@ -42,7 +36,6 @@ define(function (require) {
           sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY});
     },
     onSuccess: function(imgURI) {
-
        var array = this.state.images;
        array.push({"key":imgURI});
 
@@ -53,21 +46,24 @@ define(function (require) {
 
        this.setState({fadevalue:false,images:array});
     },
+    _onDelete: function(key){
+      var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
+      var that = this;
+      var onDeleteAttachment = function(title)
+      {
+          NavigationActions.removePopup();
+          if(title==="yes")
+          {
+              var array = that.state.images;
+              array.splice(key,1);
+              that.setState({fadevalue:false, images:array});
+          }
+      }
+      NavigationActions.presentPopup(<Msg msgLabel={"delete_attachment"} buttons={msgButtonsArray} onMsgClick={onDeleteAttachment} />);
+    },
     onFail: function(msg) {
       var msgButtonsArray = [{"title":"ok"}];
       NavigationActions.presentPopup(<Msg msgLabel={"failed_attachment"} buttons={msgButtonsArray} onMsgClick={this._onDeleteAttachment} />);
-    },
-
-    _onDeleteAttachment: function(title){
-        if(title==="yes"){
-            NavigationActions.removePopup();
-            var array = this.state.images;
-            array.pop();
-            this.setState({fadevalue:false, images:array});
-        }
-        else if(title==="no" || title==="ok"){
-            NavigationActions.removePopup();
-        }
     },
 
     render: function() {
@@ -81,16 +77,15 @@ define(function (require) {
       var divsToAttach=[];
       for(var i=0;i<this.state.images.length;i++)
       {
-
         var srctoimage = this.state.images[i].key;
         divsToAttach.push(
-            <img className="attachimg" key={i} id="uploadimg" src={srctoimage} onClick={this._onDelete}/>
+            <img className="attachimg" key={i} id="uploadimg" src={srctoimage} onClick={this._onDelete.bind(this,i)}/>
         );
       }
       return(
-      <div className="attachment">
-         <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
-         <div className="attachmentholder">
+         <div className="attachment">
+          <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
+          <div className="attachmentholder">
             {divsToAttach}
             <div className="attach icon-Add" onClick={this._onAttach}></div>
             <div className={classname}>
@@ -112,6 +107,5 @@ define(function (require) {
         );
       }
     });
-
   return attach;
 });

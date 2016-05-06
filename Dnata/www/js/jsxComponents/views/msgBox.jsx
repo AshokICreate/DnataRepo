@@ -19,9 +19,13 @@ define(function(require){
     var msgLabel = this.props.msgLabel;
     for (var i=0; i<msgButton.length;i++)
     {
-      content.push
-      (
-        <div className="msgBtn" onClick={this._onAction.bind(this,i)}>{getString(msgButton[i].title)}</div>
+      var className = "msgBtn";
+      if(i%2 !== 0)
+      {
+        className = className+" highlight";
+      }
+      content.push(
+        <div className={className} onClick={this._onAction.bind(this,i)}>{getString(msgButton[i].title)}</div>
       );
     }
     return(

@@ -85,7 +85,7 @@ input[type="search"]
     border-style: groove;
     border-width: 1px 0px;
     border-color: #fff;
-    min-height: 1.85em;
+    min-height: 1.82em;
 }
 
 .headerContainer {
@@ -99,7 +99,7 @@ input[type="search"]
 .headerContainer > div.title {
   text-align: center;
   font-weight: bold;
-  font-size: 98%;
+  font-size: 96%;
   margin: 0.5em 0 0.5em 0;
 }
 
@@ -290,7 +290,7 @@ input[type="search"]
   -moz-appearance: none;
   display: table;
   margin: 0 auto;
-  margin-top: 12%;
+  margin-top: 10%;
   margin-bottom: 7%;
   border-radius: 50px;
   border: 1px solid white;
@@ -317,8 +317,10 @@ input[type="search"]
 }
 
 .footer{
-  margin-top: 7%;
-  margin-bottom: 7%;
+  bottom:0;
+  position:fixed;
+  left:0;
+  right:0;
 }
 
 .msfooter{
@@ -343,7 +345,7 @@ input[type="search"]
   position: relative;
   color: white;
   height: 1.5em;
-  width: 90%;
+  width: 100%;
   text-align: center;
   margin-top: 2%;
 }

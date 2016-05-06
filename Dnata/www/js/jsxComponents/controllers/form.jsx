@@ -30,6 +30,7 @@ define(function (require) {
           Store.addChangeListener (constants.Change_Data_Event,this._onChange);
           Store.addChangeListener (constants.On_Error,this.showError);
           NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+          NavigationStore.addChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
 
           var state = NavigationStore.getControllerState();
 
@@ -44,6 +45,7 @@ define(function (require) {
           Store.removeChangeListener (constants.Change_Data_Event,this._onChange);
           Store.removeChangeListener (constants.On_Error,this.showError);
           NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+          NavigationStore.removeChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
       },
       componentWillReceiveProps: function(nextProps) {
           this.setState(this.getContent(nextProps.id,nextProps.childId,nextProps.rowId));
@@ -238,7 +240,6 @@ define(function (require) {
           var that = this;
           var onSubmit = function(data)
           {
-              //console.log("Submit sucessfull");
               if(title === "submit_incident")
               {
                 NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={that._onSubmitSuccess}/>);
@@ -250,7 +251,6 @@ define(function (require) {
           }
 
           Store.submitFormData(this.props.id,onSubmit,formAction);
-
       },
       _onSubmitSuccess: function()
       {
@@ -261,6 +261,10 @@ define(function (require) {
       _onCancel:function()
       {
         NavigationActions.removePopup();
+      },
+      _onBackButtonClick:function()
+      {
+        NavigationActions.popController();
       },
       _onRightButtonClick:function()
       {
@@ -317,7 +321,7 @@ define(function (require) {
           }
           if(isEmpty)
           {
-            // alert("Please enter all mandatory fields");
+
             NavigationActions.presentPopup(<Msg msgLabel={"mandatory_field"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
             return;
           }
@@ -410,8 +414,6 @@ define(function (require) {
 
           if(!element || !content[key])
           {
-            //remove this before release
-          //  alert("field not found");
             NavigationActions.presentPopup(<Msg msgLabel={"field_not_found"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
             return;
           }

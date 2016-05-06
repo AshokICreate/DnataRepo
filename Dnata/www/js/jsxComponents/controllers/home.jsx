@@ -9,7 +9,6 @@ define(function (require) {
   var LoginActions = require ('actions/loginActions');
   var NavigationConstants = require ("constants/navigationConstants");
   var Msg = require("views/msgBox");
-  var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
   var home = React.createClass({
 
   componentDidMount: function () {
@@ -20,7 +19,7 @@ define(function (require) {
       NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
   },
   _onRightButtonClick:function(){
-    //  alert("Are you sure you want to Logout?");
+    var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
     NavigationActions.presentPopup(<Msg msgLabel={"confirm_logout"} buttons={msgButtonsArray} onMsgClick={this._onMsgClick}/>);
   },
   _onMsgClick:function(title){

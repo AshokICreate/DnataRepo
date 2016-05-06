@@ -247,6 +247,9 @@ define (function (require) {
       },
       removeChangeListener: function(eventId,callback) {
         this.removeListener(eventId, callback);
+      },
+      clearFormData: function(){
+        formData = undefined;
       }
     });
 
@@ -264,12 +267,10 @@ define (function (require) {
         }
         default:
         {
-            console.log ("No Registered action");
             return true;
         }
       }
 
-      //check why this is required - phani
       FormStore.emitChange(constants.NO_Change);
     });
 
