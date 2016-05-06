@@ -111,6 +111,8 @@ define(function (require) {
           var obj = content["FORM_PID"];
           obj.value = pid.toString();
 
+          content["WITNESSES"] = {value:"2"}
+          
           var attachments;
           if(this.props.id === "MS_INC_POTENTIAL_INJ_FORM")
           {
@@ -189,9 +191,8 @@ define(function (require) {
               content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
               content["INC_STATUS"] = {value:"Reporting"}
               attachments = content["ADN_SUPPORTING_DOC"];
+              content["REPORTED_BY"] = content["DD_CURRENT_USER_NAME"];
           }
-
-
 
           var formAction = "submit";
           if(title==="save_as_draft")
@@ -473,7 +474,11 @@ define(function (require) {
               {
                   var obj = parameters[i];
                   var valueObj = content[obj.ref];
-                  var structLabel = structure[obj.ref].label;
+
+                  var structLabel = "";
+                  if(structure[obj.ref])
+                    structLabel = structure[obj.ref].label;
+
                   refValue = obj.value;
                   if(valueObj)
                   {
