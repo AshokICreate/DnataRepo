@@ -63,8 +63,16 @@ define(function(require){
     NavigationActions.removePopup();
     if(title === "yes")
     {
-      Store.clearFormData();
-      NavigationActions.popController();  
+      feedbackObj = {
+        feedback_title:"",
+        primary_location:"",
+        receive_update:"2",
+        feedback_name:"",
+        company_name:"",
+        email_address:"",
+        contact_number:""
+      }
+      NavigationActions.popController();
     }
   },
   _onCancel:function() {
