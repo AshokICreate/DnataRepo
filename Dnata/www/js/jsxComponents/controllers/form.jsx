@@ -694,7 +694,12 @@ define(function (require) {
 
                 case constants.Attachment:
                 {
-                    contentUI.push(<Attach name={element.label} isRequired={isRequired} onSave={this._onComponentSave} id={key} key={key}/>);
+                    var defaultvalues = [];
+                    for(var i=0;i<value.length;i++)
+                    {
+                      defaultvalues.push({"key":value[i]});
+                    }
+                    contentUI.push(<Attach name={element.label} isRequired={isRequired} onSave={this._onComponentSave} defaultvalue={defaultvalues} id={key} key={key}/>);
                     break;
                 }
                 default:

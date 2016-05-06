@@ -3,6 +3,7 @@ define(function(require){
   var Store = require ("stores/formStore");
   var Form = require ("controllers/form");
   var NavigationActions = require ("actions/navigationActions");
+  var NavigationStore = require("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
   var MultiRowController = require ("controllers/multiRowController");
   var Msg = require("views/msgBox");
@@ -28,7 +29,7 @@ define(function(require){
       if(title === "yes")
       {
         Store.clearFormData();
-        NavigationActions.popController();  
+        NavigationActions.popController();
       }
     },
     _onNext:function()

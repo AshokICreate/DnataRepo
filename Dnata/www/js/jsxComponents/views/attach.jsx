@@ -9,11 +9,17 @@ define(function (require) {
       name: React.PropTypes.string.isRequired,
       isRequired: React.PropTypes.bool.isRequired,
       id: React.PropTypes.string.isRequired,
+      defaultvalue:React.PropTypes.array,
       onSave: React.PropTypes.func.isRequired
     },
 
     getInitialState: function() {
-      return { fadevalue: false, images:[]};
+      var defaultAttachment = [];
+      if(this.props.defaultvalue)
+      {
+        defaultAttachment = this.props.defaultvalue;
+      }
+      return { fadevalue: false, images:defaultAttachment };
     },
 
     _onAttach: function() {
@@ -56,6 +62,11 @@ define(function (require) {
           {
               var array = that.state.images;
               array.splice(key,1);
+              if(this.props.onSave)
+              {
+                this.props.onSave(this.props.id,array);
+              }
+
               that.setState({fadevalue:false, images:array});
           }
       }

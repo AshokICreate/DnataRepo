@@ -18,14 +18,20 @@ define(function(require) {
     },
     componentDidMount: function () {
         NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+        NavigationStore.addChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
     },
     componentWillUnmount: function () {
         NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+        NavigationStore.removeChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
     },
     _onRightButtonClick:function()
     {
         this.props.onSave(this.props.id,selectedArray);
         NavigationActions.popController();
+    },
+    _onBackButtonClick:function()
+    {
+      NavigationActions.popController();
     },
     selectedValue: function(selvalue){
         if(this.props.isSingleSelect)
