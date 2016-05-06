@@ -85,7 +85,7 @@ input[type="search"]
     border-style: groove;
     border-width: 1px 0px;
     border-color: #fff;
-    min-height: 1.85em;
+    min-height: 1.82em;
 }
 
 .headerContainer {
@@ -99,7 +99,7 @@ input[type="search"]
 .headerContainer > div.title {
   text-align: center;
   font-weight: bold;
-  font-size: 98%;
+  font-size: 96%;
   margin: 0.5em 0 0.5em 0;
 }
 

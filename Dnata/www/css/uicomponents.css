@@ -333,7 +333,7 @@
 .list{
     -moz-appearance: none;
     position: relative;
-    width: 100%;
+    width: 94%;
     border-bottom: 1px solid #ddd;
     padding: 3%;
     cursor: pointer;
