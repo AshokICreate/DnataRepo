@@ -26,7 +26,7 @@
 <invalid_email "Enter valid Email ID">
 <invalid_contact "Enter valid Contact Number">
 <field_not_found "Field not found">
-<select_prev_lov "Select Previous LOV">
+<select_prev_lov "This field needs the input of : \"{0}\" ">
 <delete_attachment "Are you sure you want to remove the attachment?">
 <delete_multirow "Are you sure you want to delete row?">
 <clear_data "All the data you entered will be cleared! Are you sure you want to proceed?">
