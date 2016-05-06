@@ -157,28 +157,8 @@ define (function (require) {
       },
       submitAttachments:function(files,callback)
       {
-          var array=[];
+          var attachedServerObjects=[];
           var successUploads=[];
-          var sendBack =  function(fileUrl,obj)
-          {
-              var index = files.indexOf(fileUrl);
-              successUploads[index] = true;
-              array.push(obj);
-
-              var allFilesUploadDone = true;
-              for(var i=0;i<successUploads.length;i++)
-              {
-                  if(!successUploads[i])
-                  {
-                      allFilesUploadDone = false;
-                  }
-              }
-
-              if(allFilesUploadDone)
-              {
-                  callback(array);
-              }
-          }
           var onSuccess = function(fileUrl,obj,error)
           {
               if(error)
@@ -187,13 +167,28 @@ define (function (require) {
                   FormStore.emitChange(constants.On_Error);
 
               }else {
-                  sendBack(fileUrl,obj);
+                  var index = files.indexOf(fileUrl);
+                  successUploads[index] = true;
+                  attachedServerObjects.push(obj);
+
+                  for(var i=0;i<successUploads.length;i++)
+                  {
+                      if(!successUploads[i])
+                      {
+                          uploadToServer(files[i],onSuccess);
+                          return;
+                      }
+                  }
+                  callback(attachedServerObjects);
               }
           }
           for(var i=0;i<files.length;i++)
           {
               successUploads.push(false);
-              uploadToServer(files[i],onSuccess)
+              if(i==0)
+              {
+                  uploadToServer(files[i],onSuccess);
+              }
           }
 
       },
@@ -292,9 +287,6 @@ define (function (require) {
         }
 
         var fail = function (error) {
-          console.log("An error has occurred: Code = " + error);
-          console.log("upload error source " + error.source);
-          console.log("upload error target " + error.target);
           callback(fileURL,'',error);
         }
 
@@ -309,16 +301,17 @@ define (function (require) {
                 }
 
                 reader.onloadend = function(evt) {
+                    var content = evt.target.result.split("data:image/jpeg;base64,")[1];
                     var params ={
                       "filename": name,
                       "description": "attachment",
-                      "content":evt.target.result,
+                      "content":content,
                       "mimetype": "39"
                     }
                     var data = JSON.stringify(params);
                     serverCall.connectServer("POST","documents",data,success);
                 }
-                reader.readAsText(file);
+                reader.readAsDataURL(file);
             },fail);
           }, fail);
 
