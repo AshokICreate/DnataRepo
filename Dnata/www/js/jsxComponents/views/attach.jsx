@@ -74,12 +74,11 @@ define(function (require) {
     },
     onFail: function(msg) {
       var msgButtonsArray = [{"title":"ok"}];
-      var that = this;
       var onDeleteAttachment = function(title)
       {
           NavigationActions.removePopup();
-          that.setState({fadevalue: false,images:that.state.images});
       }
+      this.setState({fadevalue: false,images:this.state.images});
       NavigationActions.presentPopup(<Msg msgLabel={"failed_attachment"} buttons={msgButtonsArray} onMsgClick={onDeleteAttachment} />);
     },
 

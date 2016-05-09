@@ -68,7 +68,14 @@ define(function (require) {
 
     _onBackButtonClick:function(){
       var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
-      NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtonsArray} onMsgClick={this._clearData}/>);
+      if(Store.isDataAvailable())
+      {
+        NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtonsArray} onMsgClick={this._clearData}/>);
+      }
+      else
+      {
+        NavigationActions.popController();
+      }
     },
     _clearData:function(title){
       NavigationActions.removePopup();
