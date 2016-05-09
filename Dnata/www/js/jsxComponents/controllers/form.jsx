@@ -49,6 +49,10 @@ define(function (require) {
       },
       componentWillReceiveProps: function(nextProps) {
           this.setState(this.getContent(nextProps.id,nextProps.childId,nextProps.rowId));
+
+          //Phani: not proper fix , it should remember the state of the child tab. Shouldnt go to top always when tabs are shifted
+          var node = this.getDOMNode();
+          node.scrollTop = 0;
       },
       getResources:{},
       render: function () {
