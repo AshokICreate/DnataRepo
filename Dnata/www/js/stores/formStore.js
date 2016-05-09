@@ -276,6 +276,16 @@ define (function (require) {
       },
       removeChangeListener: function(eventId,callback) {
         this.removeListener(eventId, callback);
+      },
+      isDataAvailable: function(){
+        if(formData)
+        {
+          return true;
+        }
+        else
+        {
+            return false;
+        }
       }
     });
 

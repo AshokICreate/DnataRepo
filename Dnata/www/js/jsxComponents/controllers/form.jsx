@@ -557,7 +557,7 @@ define(function (require) {
                   defaultArray  = getSelectedLOVS(options,defaultArray);
                   var selectContent= <Select options={options} isSingleSelect={isSingleSelect} onSave={that._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
                   var controllerData = {
-                    title:getString("Select"),
+                    title:getString("select"),
                     content:selectContent,
                     leftButtonName:"Back",
                     rightButtonName:"Submit"

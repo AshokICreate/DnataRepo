@@ -6,6 +6,7 @@ define(function (require) {
   var NavigationStore = require ("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
   var Msg = require("views/msgBox");
+  var Store = require ("stores/formStore");
 
   var grid = React.createClass({
 
@@ -67,8 +68,16 @@ define(function (require) {
     },
 
     _onBackButtonClick:function(){
-        var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
+
+      var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
+      if(Store.isDataAvailable())
+      {
         NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtonsArray} onMsgClick={this._clearData}/>);
+      }
+      else
+      {
+        NavigationActions.popController();
+      }
     },
     _clearData:function(title){
         NavigationActions.removePopup();

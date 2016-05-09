@@ -26,12 +26,13 @@
 <invalid_email "Enter valid Email ID">
 <invalid_contact "Enter valid Contact Number">
 <field_not_found "Field not found">
+<select "Select">
 <select_prev_lov "This field needs the input of : \"{0}\" ">
 <delete_attachment "Are you sure you want to remove the attachment?">
-<delete_multirow "Are you sure you want to delete row?">
+<delete_multirow "Are you sure you want to delete this row?">
 <clear_data "All the data you entered will be cleared! Are you sure you want to proceed?">
 <category_not_selected "You have not selected any Category(s)">
-<failed_attachment "Error occurred while attaching! Please try again.">
+<failed_attachment "Did not receive any image as attachment! Please try again.">
 <confirm_logout "Are you sure you want to Logout?">
 <yes "YES">
 <no "NO">

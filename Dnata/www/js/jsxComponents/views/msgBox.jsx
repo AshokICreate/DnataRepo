@@ -25,7 +25,7 @@ define(function(require){
         className = className+" highlight";
       }
       content.push(
-        <div className={className} onClick={this._onAction.bind(this,i)}>{getString(msgButton[i].title)}</div>
+        <div className={className} key={i} onClick={this._onAction.bind(this,i)}>{getString(msgButton[i].title)}</div>
       );
     }
     return(

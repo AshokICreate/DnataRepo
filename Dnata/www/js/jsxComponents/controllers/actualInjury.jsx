@@ -8,11 +8,8 @@ define(function(require){
   var MultiRowController = require ("controllers/multiRowController");
   var Msg = require("views/msgBox");
   var currentItem = "";
+  
   var actualhome = React.createClass({
-    getInitialState:function()
-    {
-      return {key:""};
-    },
 
     componentDidMount: function () {
         NavigationStore.addChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
@@ -22,14 +19,21 @@ define(function(require){
     },
     _onBackButtonClick:function(){
       var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
-      NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtonsArray} onMsgClick={this._clearData}/>);
+      if(Store.isDataAvailable())
+      {
+        NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtonsArray} onMsgClick={this._clearData}/>);
+      }
+      else
+      {
+        NavigationActions.popController();
+      }
     },
     _clearData:function(title){
       NavigationActions.removePopup();
-      if(title === "yes")
-      {
-        FormActions.clearFormData();
-      }
+        if(title === "yes")
+        {
+          FormActions.clearFormData();
+        }
     },
     _onNext:function()
     {
@@ -71,8 +75,8 @@ define(function(require){
         NavigationActions.pushController(controllerData);
     },
     _onClick: function (key) {
-      currentItem = key;
 
+      currentItem = key;
       var content =  <Form id={this.props.id} onRightButtonClick={this._onNext}/>;
       var rightButtonName = "Next";
       var leftButtonName = "Back";
@@ -84,15 +88,21 @@ define(function(require){
         leftButtonName:leftButtonName
       };
 
-      NavigationActions.pushController(controllerData);
+      NavigationActions.pushController(controllerData,currentItem);
 
     },
     getContent: function () {
+     var itemsSelected =  NavigationStore.getControllerState();;
      var contentItems = this.props.items;
      var content = [];
-     for (var i=0;i<contentItems.length;i++){
+     for (var i=0;i<contentItems.length;i++)
+     {
        var eachItem = contentItems[i];
        var className = "actualItem";
+       if(eachItem === itemsSelected )
+       {
+         className= "actualItem highlight"
+       }
        var iconClass = "actualIcon icon-"+eachItem;
        content.push
        (
@@ -112,9 +122,8 @@ define(function(require){
       <div className="actualcontroller">
           {content}
       </div>
-    );
-
-  }
+      );
+    }
 });
 return actualhome;
 });
