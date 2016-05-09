@@ -2,7 +2,6 @@ define(function(require){
   var NavigationActions = require ("actions/navigationActions");
   var NavigationStore = require ("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
-  var appActions = require ("actions/appActions");
 
   var TextArea = require("views/textareaBox");
   var TextBox = require("views/textBox");
@@ -78,14 +77,6 @@ define(function(require){
   _onCancel:function() {
     NavigationActions.removePopup();
   },
-  _onSuccess:function()
-  {
-      appActions.reInitiateApp();
-  },
-  _onError:function()
-  {
-
-  },
   _sendToServer:function()
   {
       var localObject = feedbackObj.primary_location;
@@ -117,7 +108,7 @@ define(function(require){
   },
   _onSubmitSuccess: function() {
     NavigationActions.removePopup();
-    appActions.reInitiateApp();
+    NavigationActions.popController();
   },
   _onSubmit:function()
   {

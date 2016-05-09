@@ -76,12 +76,14 @@ define (function (require) {
             case constants.Navigation_Clear:
                 {
                     controllerStack =[];
+                    controllerState = {};
                     navigationStore.emitChange(constants.Change_Event);
                     break;
                 }
             case constants.Navigation_ChangeRoot:
               {
                     controllerStack =[];
+                    controllerState = {};
                     controllerStack.push(action.controller);
                     navigationStore.emitChange(constants.Change_Event);
                     break;

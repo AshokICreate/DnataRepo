@@ -1,6 +1,6 @@
 define(function (require) {
 
-  var Store = require ("stores/formStore");
+  var FormActions = require ("actions/formActions");
   var NavigationActions = require ("actions/navigationActions");
   var Form = require ("controllers/form");
   var NavigationStore = require ("stores/navigationStore");
@@ -67,16 +67,15 @@ define(function (require) {
     },
 
     _onBackButtonClick:function(){
-      var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
-      NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtonsArray} onMsgClick={this._clearData}/>);
+        var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
+        NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtonsArray} onMsgClick={this._clearData}/>);
     },
     _clearData:function(title){
-      NavigationActions.removePopup();
-      if(title === "yes")
-      {
-        Store.clearFormData();
-        NavigationActions.popController();
-      }
+        NavigationActions.removePopup();
+        if(title === "yes")
+        {
+          FormActions.clearFormData();
+        }
     },
     _onClick: function (key) {
 
