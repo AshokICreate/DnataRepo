@@ -62,9 +62,9 @@ define(function (require) {
           {
               var array = that.state.images;
               array.splice(key,1);
-              if(this.props.onSave)
+              if(that.props.onSave)
               {
-                this.props.onSave(this.props.id,array);
+                that.props.onSave(that.props.id,array);
               }
 
               that.setState({fadevalue:false, images:array});
@@ -74,7 +74,13 @@ define(function (require) {
     },
     onFail: function(msg) {
       var msgButtonsArray = [{"title":"ok"}];
-      NavigationActions.presentPopup(<Msg msgLabel={"failed_attachment"} buttons={msgButtonsArray} onMsgClick={this._onDeleteAttachment} />);
+      var that = this;
+      var onDeleteAttachment = function(title)
+      {
+          NavigationActions.removePopup();
+          that.setState({fadevalue: false,images:that.state.images});
+      }
+      NavigationActions.presentPopup(<Msg msgLabel={"failed_attachment"} buttons={msgButtonsArray} onMsgClick={onDeleteAttachment} />);
     },
 
     render: function() {
