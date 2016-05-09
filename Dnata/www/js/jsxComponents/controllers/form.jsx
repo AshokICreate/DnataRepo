@@ -114,7 +114,7 @@ define(function (require) {
           obj.value = pid.toString();
 
           content["WITNESSES"] = {value:"2"}
-          
+
           var attachments;
           if(this.props.id === "MS_INC_POTENTIAL_INJ_FORM")
           {
@@ -700,9 +700,9 @@ define(function (require) {
                 case constants.Attachment:
                 {
                     var defaultvalues = [];
-                    for(var i=0;i<value.length;i++)
+                    for(var valIndex=0; valIndex<value.length; valIndex++)
                     {
-                      defaultvalues.push({"key":value[i]});
+                      defaultvalues.push({"key":value[valIndex]});
                     }
                     contentUI.push(<Attach name={element.label} isRequired={isRequired} onSave={this._onComponentSave} defaultvalue={defaultvalues} id={key} key={key}/>);
                     break;
