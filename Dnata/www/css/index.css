@@ -212,7 +212,7 @@ input[type="search"]
   background-color: #0f88ca;
   height: 69%;
   width: 100%;
-  padding-top: 3%;
+  padding-top: 2%;
   position: relative;
 }
 
@@ -290,7 +290,7 @@ input[type="search"]
   display: table;
   margin: 0 auto;
   margin-top: 10%;
-  margin-bottom: 7%;
+  margin-bottom: 8%;
   border-radius: 50px;
   border: 1px solid white;
   background-color: white;
