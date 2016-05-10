@@ -10,9 +10,28 @@ define(function (require) {
     },
     componentDidMount: function () {
         Store.addChangeListener (this._onChange);
+        //this is for input navigations in form
+        $('input').keydown( function(e) {
+          var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+          if(key == 13) {
+              e.preventDefault();
+              var inputs = $('.loginscreen').find(':input:visible');
+
+              if(inputs.index(this) === inputs.length-1)
+              {
+                $(this).blur();
+              }else {
+                inputs.eq( inputs.index(this)+ 1 ).focus();
+              }
+
+          }
+        });
+
     },
     componentWillUnmount: function () {
         Store.removeChangeListener (this._onChange);
+        var node = this.getDOMNode();
+        $(node).find('input').unbind('keydown');
     },
     _onChange: function () {
       if(!Store.isUserLoggedIn())

@@ -4,7 +4,7 @@ define(function (require) {
   var NavigationStore = require("stores/navigationStore");
   var NavigationActions = require ("actions/navigationActions");
   var constants = require ("constants/navigationConstants");
-
+  var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
   function getState () {
       return {
           controller: NavigationStore.getController(),
@@ -66,7 +66,8 @@ define(function (require) {
           }
 
           var title = this.state.controller.title ? this.state.controller.title:"";
-          controller = <div className="gclass">
+          var key = NavigationStore.getControllerKey();
+          controller = <div className="gclass" key={key}>
                         <div className="navigationBar">
                           {leftButton}
                           <Header name={title}/>
@@ -88,7 +89,10 @@ define(function (require) {
 
       return(
         <div className="container">
+        <ReactCSSTransitionGroup transitionName="controller" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
           {controller}
+        </ReactCSSTransitionGroup>
+
           {presentationLayer}
         </div>
       );
