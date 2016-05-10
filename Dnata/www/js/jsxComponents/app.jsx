@@ -1,30 +1,24 @@
 define(function (require) {
 
-    var Store = require("stores/appStore");
-    var LoginStore = require("stores/loginStore");
+
     var Home = require ("controllers/home");
     var Login = require ("controllers/login");
     var Feedback = require("controllers/feedback");
     var NavigationController = require ("controllers/navigationController");
-    var NavigationActions = require ("actions/navigationActions");
-    var NavigationConstants = require ("constants/navigationConstants");
+    var FormConstants = require ("constants/formConstants");
+    var FormStore = require("stores/formStore");
+    var LoginStore = require("stores/loginStore");
 
     var app = React.createClass({
         displayName: 'dnata',
 
     componentDidMount: function () {
-        Store.addChangeListener (this.reInitiateApp);
+        FormStore.addChangeListener (FormConstants.Clear_Data_Event,this.onChange);
         LoginStore.addChangeListener (this.onChange);
     },
     componentWillUnmount: function () {
-        Store.removeChangeListener (this.reInitiateApp);
+        FormStore.removeChangeListener (FormConstants.Clear_Data_Event,this.onChange);
         LoginStore.removeChangeListener (this.onChange);
-    },
-    reInitiateApp:function()
-    {
-        //this.onChange();
-        var that = this;
-        setTimeout(function(){ that.onChange(); }, 100);
     },
     onChange:function()
     {

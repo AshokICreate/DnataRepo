@@ -1,6 +1,6 @@
 define(function(require){
-
   var Store = require ("stores/formStore");
+  var FormActions = require ("actions/formActions");
   var Form = require ("controllers/form");
   var NavigationActions = require ("actions/navigationActions");
   var NavigationStore = require("stores/navigationStore");
@@ -8,14 +8,8 @@ define(function(require){
   var MultiRowController = require ("controllers/multiRowController");
   var Msg = require("views/msgBox");
   var currentItem = "";
+  
   var actualhome = React.createClass({
-    getInitialState:function()
-    {
-      var state = NavigationStore.getControllerState();
-      if(!state)
-        state="";
-      return {key:"",itemsSelected:state};
-    },
 
     componentDidMount: function () {
         NavigationStore.addChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
@@ -38,29 +32,51 @@ define(function(require){
       NavigationActions.removePopup();
         if(title === "yes")
         {
-          Store.clearFormData();
-          NavigationActions.popController();
+          FormActions.clearFormData();
         }
     },
     _onNext:function()
     {
-      var content =  <MultiRowController id={this.props.id} childId={currentItem} />;
-      var rightButtonName = "Submit";
-      var leftButtonName = "Back";
 
-      var controllerData = {
-        title:currentItem,
-        content:content,
-        rightButtonName:rightButtonName,
-        leftButtonName:leftButtonName
-      };
+        var formsData = Store.getData();
 
-      NavigationActions.pushController(controllerData);
+        //fix for clearing child data when user switch the selection of  child form
+        if(formsData && formsData[this.props.id])
+        {
+            var content = formsData[this.props.id].data.content;
+            var childContents = formsData[this.props.id].childContents;
+            var keys = Object.keys(childContents);
+
+            for(var i=0;i<keys.length;i++)
+            {
+                if(currentItem != keys[i])
+                {
+                    var obj = childContents[keys[i]];
+                    var copied = jQuery.extend(true, {}, obj);
+                    var array = [copied];
+                    content[keys[i]]= array;
+                }
+            }
+
+        }
+
+        ///
+        var content =  <MultiRowController id={this.props.id} childId={currentItem} />;
+        var rightButtonName = "Submit";
+        var leftButtonName = "Back";
+
+        var controllerData = {
+          title:currentItem,
+          content:content,
+          rightButtonName:rightButtonName,
+          leftButtonName:leftButtonName
+        };
+
+        NavigationActions.pushController(controllerData);
     },
     _onClick: function (key) {
 
-      var itemsSelected = key;
-      this.setState({itemsSelected:itemsSelected});
+      currentItem = key;
       var content =  <Form id={this.props.id} onRightButtonClick={this._onNext}/>;
       var rightButtonName = "Next";
       var leftButtonName = "Back";
@@ -72,18 +88,18 @@ define(function(require){
         leftButtonName:leftButtonName
       };
 
-      NavigationActions.pushController(controllerData,itemsSelected);
+      NavigationActions.pushController(controllerData,currentItem);
 
     },
     getContent: function () {
-     var itemsSelected = this.state.itemsSelected;
+     var itemsSelected =  NavigationStore.getControllerState();;
      var contentItems = this.props.items;
      var content = [];
      for (var i=0;i<contentItems.length;i++)
      {
        var eachItem = contentItems[i];
        var className = "actualItem";
-       if(itemsSelected === eachItem)
+       if(eachItem === itemsSelected )
        {
          className= "actualItem highlight"
        }

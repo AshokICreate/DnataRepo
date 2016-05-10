@@ -286,9 +286,6 @@ define (function (require) {
         {
             return false;
         }
-      },
-      clearFormData: function(){
-          formData = undefined;
       }
     });
 
@@ -301,7 +298,8 @@ define (function (require) {
         }
         case constants.Clear_Form_Data:
         {
-          delete formData[action.formId];
+          formData = undefined;
+          FormStore.emitChange(constants.Clear_Data_Event);
           break;
         }
         default:
@@ -310,7 +308,7 @@ define (function (require) {
         }
       }
 
-      FormStore.emitChange(constants.NO_Change);
+
     });
 
     return FormStore;

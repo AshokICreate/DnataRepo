@@ -13,7 +13,6 @@ define(function (require) {
   var NavigationActions = require ("actions/navigationActions");
   var NavigationStore = require ("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
-  var appActions = require ("actions/appActions");
   var Feedback = require("controllers/feedback");
   var TextArea = require("views/textareaBox");
   var Confirm = require("views/confirmBox");
@@ -259,8 +258,7 @@ define(function (require) {
       _onSubmitSuccess: function()
       {
         NavigationActions.removePopup();
-        actions.clearFormData(this.props.id);
-        appActions.reInitiateApp();
+        actions.clearFormData();
       },
       _onCancel:function()
       {
@@ -461,10 +459,10 @@ define(function (require) {
           {
               var options = getValuesOfResource(resources[element.resource.ref]);
               defaultArray  = getSelectedLOVS(options,defaultArray);
-              content= <Select options={options} isSingleSelect={isSingleSelect} onSave={this._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
+              var selectContent= <Select options={options} isSingleSelect={isSingleSelect} onSave={this._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
               var controllerData = {
                 title:getString("select"),
-                content:content,
+                content:selectContent,
                 leftButtonName:"Back",
                 rightButtonName:"Submit"
               };
@@ -481,9 +479,22 @@ define(function (require) {
                   var obj = parameters[i];
                   var valueObj = content[obj.ref];
 
+                  if(!valueObj)
+                  {
+                      var parentContent= formsData[this.props.id].data.content;
+                      valueObj = parentContent[obj.ref];
+                  }
+
                   var structLabel = "";
                   if(structure[obj.ref])
+                  {
                     structLabel = structure[obj.ref].label;
+                  }
+                  else {
+                    var parentStructure = formsData[this.props.id].data.structure;
+                    if(parentStructure[obj.ref])
+                      structLabel = parentStructure[obj.ref].label;
+                  }
 
                   refValue = obj.value;
                   if(valueObj)
@@ -544,10 +555,10 @@ define(function (require) {
                   }
 
                   defaultArray  = getSelectedLOVS(options,defaultArray);
-                  content= <Select options={options} isSingleSelect={isSingleSelect} onSave={that._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
+                  var selectContent= <Select options={options} isSingleSelect={isSingleSelect} onSave={that._onComponentSave} defaultvalues={defaultArray} id={key} key={key}/>
                   var controllerData = {
                     title:getString("select"),
-                    content:content,
+                    content:selectContent,
                     leftButtonName:"Back",
                     rightButtonName:"Submit"
                   };
