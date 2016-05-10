@@ -199,11 +199,21 @@ input[type="search"]
   background-color: white;
   position: relative;
   color: black;
-  height: 27%;
+  height: 30%;
   width: 100%;
   background-image: url('../img/dnatalogo.png');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.loginscreen{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #0f88ca;
+  height: 69%;
+  width: 100%;
+  padding-top: 2%;
+  position: relative;
 }
 
 .userdetails {
@@ -274,24 +284,13 @@ input[type="search"]
 }
 
 
-.loginscreen{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: #0f88ca;
-  height: 70%;
-  width: 100%;
-  padding-top: 10%;
-  padding-bottom: 5%;
-  position: relative;
-}
-
 .loginbtn{
   -webkit-appearance: none;
   -moz-appearance: none;
   display: table;
   margin: 0 auto;
   margin-top: 10%;
-  margin-bottom: 7%;
+  margin-bottom: 8%;
   border-radius: 50px;
   border: 1px solid white;
   background-color: white;
@@ -300,7 +299,7 @@ input[type="search"]
   font-weight: 500;
   font-size: 1.3em;
   outline:none;
-  width: 91%;
+  width: 83%;
   position:relative;
   height: 10%;
   padding: 2%;
@@ -318,10 +317,10 @@ input[type="search"]
 }
 
 .footer{
-  bottom:0;
-  position:fixed;
+  position:relative;
   left:0;
   right:0;
+  bottom:0;
 }
 
 .msfooter{
