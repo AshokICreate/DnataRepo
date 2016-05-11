@@ -10,6 +10,7 @@ define(function(require){
   var Select = require("controllers/select");
   var Msg = require("views/msgBox");
   var msgButtonsArray = [{"title":"ok"}];
+  var serverCall = require ("util/serverCall");
 
   var feedbackObj = {
     feedback_title:"",
@@ -83,15 +84,14 @@ define(function(require){
       feedbackObj.primary_location = localObject.key;
 
       var qParams = getQueryParams(feedbackObj);
+      var url = serverCall.getURL();
 
       $.ajax({
         type            : "POST", //GET or POST or PUT or DELETE verb
-        url             : "http://172.27.138.47/metricstream/feedbak?"+qParams, // Location of the service
+        url             : url+"/feedbak?"+qParams, // Location of the service
         data            : "", //Data sent to server
         contentType     : "application/json", // content type sent to server
-        dataType        : "JSON",
-        success         : this._onSuccess,
-        error						: this._onError,
+        dataType        : "JSON"
       })
 
       feedbackObj = {

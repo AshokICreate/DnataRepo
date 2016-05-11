@@ -34,8 +34,19 @@ define(function (require) {
         $(node).find('input').unbind('keydown');
     },
     _onChange: function () {
-      if(!Store.isUserLoggedIn())
-        this.setState({msg:"* Authentication failed. Please check your credentials"});
+        if(!Store.isUserLoggedIn())
+        {
+            var error = Store.getError();
+            var msg = "Authentication failed. Please check your credentials";
+            if(error == "network_failed")
+            {
+                msg = error;
+            }
+
+            msg = "* "+getString(msg);
+
+            this.setState({msg:msg});
+        }
     },
     loginButtonClicked: function () {
       var username = $("#userinfo").val();
