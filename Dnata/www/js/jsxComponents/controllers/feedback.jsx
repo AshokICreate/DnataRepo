@@ -55,8 +55,15 @@ define(function(require){
       NavigationStore.removeChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
   },
   _onBackButtonClick:function(){
-    var msgButtons = [{"title":"yes"},{"title":"no"}];
-    NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtons} onMsgClick={this._clearData}/>);
+    if(feedbackObj.feedback_title || feedbackObj.primary_location || feedbackObj.feedback_name || feedbackObj.company_name || feedbackObj.email_address || feedbackObj.contact_number)
+    {
+      var msgButtons = [{"title":"yes"},{"title":"no"}];
+      NavigationActions.presentPopup(<Msg msgLabel={"clear_data"} buttons={msgButtons} onMsgClick={this._clearData}/>);
+    }
+    else
+    {
+        NavigationActions.popController();
+    }
   },
   _clearData:function(title){
     NavigationActions.removePopup();
@@ -192,14 +199,14 @@ define(function(require){
     }
     return(
       <div className="gclass form">
-        <TextArea name={"What feedback would you like to provide"} isRequired={true} limit={2000} onSave={this._onSave} id={"feedback_title"} defaultvalue={feedbackObj["feedback_title"]}/>
-        <SelectBox name={"Where are you providing feedback for"} isRequired={true} onSelectBoxClick={this._onSelect} id={"primary_location"} defaultvalues={[feedbackObj["primary_location"]]}/>
-        <ToggleButton name={"Would you like to receive a response to your feedback?"} isRequired={true} options={[{"key":"1","value":"Yes"},{"key":"2","value":"No"}]} id={"receive_update"} onSave={this._onSave} defaultvalue={feedbackObj["receive_update"]}/>
+        <TextArea name={"feedback_title"} isRequired={true} limit={2000} onSave={this._onSave} id={"feedback_title"} defaultvalue={feedbackObj["feedback_title"]}/>
+        <SelectBox name={"primary_location"} isRequired={true} onSelectBoxClick={this._onSelect} id={"primary_location"} defaultvalues={[feedbackObj["primary_location"]]}/>
+        <ToggleButton name={"receive_update"} isRequired={true} options={[{"key":"1","value":"Yes"},{"key":"2","value":"No"}]} id={"receive_update"} onSave={this._onSave} defaultvalue={feedbackObj["receive_update"]}/>
         <div className={className}>
-          <TextBox name={"Name"} isRequired={true} id={"feedback_name"} onSave={this._onSave} defaultvalue={feedbackObj["feedback_name"]}/>
-          <TextBox name={"Company name"} id={"company_name"} onSave={this._onSave} defaultvalue={feedbackObj["company_name"]}/>
-          <TextBox name={"Email"} isRequired={true} id={"email_address"} onSave={this._onSave} defaultvalue={feedbackObj["email_address"]} />
-          <TextBox name={"Contact number"} isRequired={true} id={"contact_number"} onSave={this._onSave} defaultvalue={feedbackObj["contact_number"]} />
+          <TextBox name={"feedback_name"} isRequired={true} id={"feedback_name"} onSave={this._onSave} defaultvalue={feedbackObj["feedback_name"]}/>
+          <TextBox name={"company_name"} id={"company_name"} onSave={this._onSave} defaultvalue={feedbackObj["company_name"]}/>
+          <TextBox name={"email_address"} isRequired={true} id={"email_address"} onSave={this._onSave} defaultvalue={feedbackObj["email_address"]} />
+          <TextBox name={"contact_number"} isRequired={true} id={"contact_number"} onSave={this._onSave} defaultvalue={feedbackObj["contact_number"]} />
         </div>
       </div>
         );

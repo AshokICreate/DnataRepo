@@ -16,7 +16,7 @@ define(function (require) {
     },
     _onChange: function () {
       if(!Store.isUserLoggedIn())
-        this.setState({msg:"* Authentication failed. Please check your credentials"});
+        this.setState({msg:getString("login_failed")});
     },
     loginButtonClicked: function () {
       var username = $("#userinfo").val();
@@ -34,18 +34,18 @@ define(function (require) {
         <div className="loginicon"></div>
         <div className="loginscreen">
           <div className="userdetails">
-            <label className="loginlabel">dnata id</label><br/>
+            <label className="loginlabel">{getString("dnata_id")}</label><br/>
             <input id="userinfo" type="text" name="username" value="s130906"></input><br/>
           </div>
           <div className="pwdetails">
-            <label className="loginlabel">Password</label><br/>
+            <label className="loginlabel">{getString("password")}</label><br/>
             <input id="pwdinfo" type="password" name="pwd"></input>
           </div>
           <div className="errorMsg">{this.state.msg}</div>
           <button className="loginbtn" onClick={this.loginButtonClicked}>LOGIN</button>
           <div className="footer">
-            <div className="msfooter">Powered by <span id="msbold">MetricStream</span></div>
-            <div className="vfooter">Version 1.01.02</div>
+            <div className="msfooter">{getString("powered_by")}<span id="msbold">{getString("msi")}</span></div>
+            <div className="vfooter">{getString("version")}</div>
           </div>
         </div>
       </div>

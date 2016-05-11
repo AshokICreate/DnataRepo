@@ -1,5 +1,11 @@
 <network_failed "Failed to connect to server. Please check your network.">
 <appName "Dnata">
+<dnata_id "dnata id">
+<password "Password">
+<login "LOGIN">
+<powered_by "Powered by">
+<msi " MetricStream">
+<version "Version 1.01.02">
 <report_injury "Report Incident">
 <MS_INC_ACTUAL_INJURY "Actual Injury or Damage">
 <MS_INC_POTENTIAL_INJ_FORM "Potential Injury or Damage">
@@ -17,11 +23,20 @@
 <PRD "Property damage">
 <PAE "Plant and equipment damage">
 <internal_error "Internal Error occurred.Please restart the application">
+<capture "Capture">
+<upload "Upload">
 <save_as_draft "Save this as Draft">
 <submit_incident "Submit the incident">
 <mandatory_field "Please enter all mandatory fields">
 <submission_success "Form submitted successfully">
 <save_draft_success "Form saved as draft successfully">
+<feedback_title "What feedback would you like to provide?">
+<primary_location "Where are you providing feedback for?">
+<receive_update "Would you like to receive a response to your feedback?">
+<feedback_name "Name">
+<company_name "Company Name">
+<email_address "Email">
+<contact_number "Contact number">
 <feedback_success "Thank you for your feedback!">
 <invalid_email "Enter valid Email ID">
 <invalid_contact "Enter valid Contact Number">
@@ -33,7 +48,9 @@
 <clear_data "All the data you entered will be cleared! Are you sure you want to proceed?">
 <category_not_selected "You have not selected any Category(s)">
 <failed_attachment "Did not receive any image as attachment! Please try again.">
+<login_failed "* Authentication failed. Please check your credentials">
 <confirm_logout "Are you sure you want to Logout?">
+<invalid_date "The date you entered exceeds current date! Please enter again.">
 <yes "YES">
 <no "NO">
 <ok "OK">

@@ -26,7 +26,10 @@ define(function(require) {
     },
     _onRightButtonClick:function()
     {
-        this.props.onSave(this.props.id,selectedArray);
+        if(!this.props.isSingleSelect)
+        {
+          this.props.onSave(this.props.id,selectedArray);
+        }
         NavigationActions.popController();
     },
     _onBackButtonClick:function()

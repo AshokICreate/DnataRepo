@@ -1,38 +1,17 @@
 @font-face {
-    font-family: 'icomoon';
-    src:    url('../css/fonts/icomoon.eot?sb0wqh');
-    src:    url('../css/fonts/icomoon.eot?sb0wqh#iefix') format('embedded-opentype'),
-        url('../css/fonts/icomoon.ttf?sb0wqh') format('truetype'),
-        url('../css/fonts/icomoon.woff?sb0wqh') format('woff'),
-        url('../css/fonts/icomoon.svg?sb0wqh#icomoon') format('svg');
+    font-family: 'menu-icon';
+    src:    url('fonts/menu-icon.eot?tua6qw');
+    src:    url('fonts/menu-icon.eot?tua6qw#iefix') format('embedded-opentype'),
+        url('fonts/menu-icon.ttf?tua6qw') format('truetype'),
+        url('fonts/menu-icon.woff?tua6qw') format('woff'),
+        url('fonts/menu-icon.svg?tua6qw#menu-icon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
-
-@font-face {
-    font-family: 'Import';
-    src:
-        url('../css/fonts/Import.ttf?jhdobg') format('truetype'),
-        url('../css/fonts/Import.woff?jhdobg') format('woff'),
-        url('../css/fonts/Import.svg?jhdobg#Import') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Icon-3';
-    src:
-        url('fonts/Icon-3.ttf?7m67un') format('truetype'),
-        url('fonts/Icon-3.woff?7m67un') format('woff'),
-        url('fonts/Icon-3.svg?7m67un#Icon-3') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
 
 [class^="icon-"], [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'icomoon' !important;
+    font-family: 'menu-icon' !important;
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -45,65 +24,40 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-[class^="import-"], [class*=" import-"] {
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'Import' !important;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+.icon-Calender:before {
+    content: "\e901";
 }
-
-
-[class^="image-"], [class*=" image-"] {
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'Icon-3' !important;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+.icon-Clock-01:before {
+    content: "\e902";
 }
-
-.image-Calender:before {
-    content: "\e1005";
+.icon-Search:before {
+    content: "\e900";
 }
-.image-Clock-01:before {
-    content: "\e1006";
-}
-.image-search:before {
-    content: "\e1007";
-}
-
 .icon-Next:before {
-    content: "\e907";
-}
-.icon-Save:before {
     content: "\e908";
 }
+.icon-Save:before {
+  content: "\e90a";
+}
 .icon-Add:before {
-    content: "\e909";
+    content: "\e903";
 }
 .icon-Back:before {
-    content: "\e90a";
+    content: "\e904";
 }
 .icon-Cancel:before {
-    content: "\e90b";
+    content: "\e905";
 }
 .icon-Menu7:before {
-    content: "\e912";
+    content: "\e70e";
 }
+.icon-Capture:before {
+    content: "\e906";
+}
+.icon-Picture:before {
+    content: "\e909";
+}
+
 
 .gridIcon:before{
   font-size: 3.1em;
@@ -115,60 +69,48 @@
 }
 
 .icon-PSD:before{
-  content: "\e900";
+  content: "\e700";
 }
 
 .icon-FLY:before{
-    content: "\e901";
+  content: "\e701";
 }
 
 .icon-WAB:before{
-    content: "\e902";
+  content: "\e702";
 }
 
 .icon-SBR:before{
-    content: "\e903";
+  content: "\e703";
 }
 
 .icon-DGR:before{
-    content: "\e904";
+  content: "\e704";
 }
 
 .icon-EQD:before{
-    content: "\e905";
+  content: "\e705";
 }
 
 .icon-PRD:before{
-    content: "\e906";
+  content: "\e706";
 }
 
 .icon-PAE:before{
-   content: "\e902";
+  content: "\e707";
 }
 
 
 .icon-MS_INC_ACTUAL_INJURY:before{
-  content: "\e90c";
+  content: "\e708";
 }
 
 .icon-MS_INC_POTENTIAL_INJ_FORM:before{
-  content: "\e90d";
+  content: "\e709";
 }
 
 .icon-feedback:before{
-  content: "\e90e";
-}
-
-.icon-observation:before{
-  content: "\e90f";
-}
-
-.icon-safety_contact:before{
-  content: "\e910";
-}
-
-.icon-settings:before{
-  content: "\e911";
+  content: "\e70a";
 }
 
 .inputBox{
@@ -337,6 +279,7 @@
     border-bottom: 1px solid #ddd;
     padding: 3%;
     cursor: pointer;
+    min-height: 1.6em;
 }
 
 .listtitle
@@ -524,7 +467,7 @@
 
 .attach:before{
   background-color: #e6e7e8;
-  color: #bcbec0;
+  color: #7e7e7e;
   font-size: 2.5em;
   margin-left: 3%;
   position: relative;
@@ -584,15 +527,6 @@
   transform: translate(-50%, -50%);
   left: 50%;
 }
-
-.import-Capture:before {
-    content: "\e1001";
-}
-
-.import-Picture:before {
-    content: "\e1003";
-}
-
 
 .attachtext{
   height: 40%;
@@ -759,7 +693,7 @@
 }
 
 .msgLabel{
-  color: #0f88ca;
+  color: black;
   font-size: 105%;
   position: relative;
   word-spacing: 0.02em;

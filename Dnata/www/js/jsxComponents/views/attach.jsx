@@ -103,18 +103,18 @@ define(function (require) {
           <TextLabel name={this.props.name} isRequired={this.props.isRequired}/>
           <div className="attachmentholder">
             {divsToAttach}
-            <div className="attach icon-Add" onClick={this._onAttach}></div>
+            <div className="attach icon-Picture" onClick={this._onAttach}></div>
             <div className={classname}>
               <div className="attachbox">
                 <div className="cancel" onClick={this._onCancel}>✕</div>
                 <div className="capture" onClick={this._capturePhoto}>
-                   <div className="attachicon import-Capture"></div>
-                   <div className="attachtext">Capture</div>
+                   <div className="attachicon icon-Capture"></div>
+                   <div className="attachtext">{getString("capture")}</div>
                 </div>
                 <div className="divider"></div>
                 <div className="capture" onClick={this._uploadPhoto}>
-                   <div className="attachicon import-Picture"></div>
-                   <div className="attachtext">Upload</div>
+                   <div className="attachicon icon-Picture"></div>
+                   <div className="attachtext">{getString("upload")}</div>
                 </div>
               </div>
             </div>
