@@ -102,6 +102,7 @@ define(function (require) {
               }else {
                   msg = JSON.parse(error).message;
               }
+              NavigationActions.removePopup();
               NavigationActions.presentPopup(<Msg msgLabel={msg} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
           }
       },
@@ -559,7 +560,7 @@ define(function (require) {
               var that = this;
               var gotResourceData=function(data,error)
               {
-
+                  NavigationActions.removePopup();
                   var options = getValuesOfResource(data);
                   that.getResources[key] = options;
                   if(options.length == 1 )
@@ -584,7 +585,7 @@ define(function (require) {
                   };
                   NavigationActions.pushController(controllerData,state);
               }
-
+              NavigationActions.presentPopup(<Loader />);
               Store.getResorceData(url,gotResourceData);
           }
       },
