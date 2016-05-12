@@ -6,11 +6,17 @@ define (function (require) {
     var serverCall = require ("util/serverCall");
 
     var isLoggedin = false;
+    var errorMsg;
+
     var LoginStore = assign ({}, EventEmitter.prototype, {
 
       isUserLoggedIn:function()
       {
         return isLoggedin;
+      },
+      getError:function()
+      {
+          return errorMsg;
       },
       emitChange: function() {
         this.emit(constants.Change_Event);
@@ -29,6 +35,8 @@ define (function (require) {
         {
           isLoggedin = true;
 
+        }else {
+          errorMsg = error;
         }
         LoginStore.emitChange();
       }

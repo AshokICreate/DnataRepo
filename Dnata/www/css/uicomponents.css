@@ -273,29 +273,28 @@
     overflow-y: scroll
 }
 .list{
-    -moz-appearance: none;
     position: relative;
     width: 94%;
     border-bottom: 1px solid #ddd;
     padding: 3%;
     cursor: pointer;
-    min-height: 1.6em;
+    height: 1.2em;
 }
 
 .listtitle
 {
     -webkit-appearance: none;
-    -moz-appearance: none;
-    display: inline-block;
     position: relative;
     margin-left: 4%;
     width: 80%;
+    float: left;
 }
 
 .tick{
   display: inline-block;
   position: relative;
   margin-left: 2%;
+  float: left;
 }
 
 .hide{
@@ -303,12 +302,6 @@
   visibility: hidden;
 }
 
-
-/*.searchclass{
-  position: relative;
-  height: 10%;
-  width: 90%;
-}*/
 
 .searchbox{
   -webkit-appearance: none;

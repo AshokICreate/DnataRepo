@@ -24,6 +24,10 @@ define (function (require) {
 
         return controller;
       },
+      getControllerKey:function()
+      {
+        return controllerStack.length-1;
+      },
       getControllerState:function()
       {
           var state;

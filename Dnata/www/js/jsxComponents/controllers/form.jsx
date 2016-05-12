@@ -39,12 +39,32 @@ define(function (require) {
               node.scrollTop = state.scrollTop;
           }
 
+          //this is for input navigations in form
+          $('input').keydown( function(e) {
+            var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+            if(key == 13) {
+                e.preventDefault();
+                var inputs = $('.form').find(':input:visible');
+
+                if(inputs.index(this) === inputs.length-1)
+                {
+                  $(this).blur();
+                }else {
+                  inputs.eq( inputs.index(this)+ 1 ).focus();
+                }
+
+            }
+          });
+
       },
       componentWillUnmount: function () {
           Store.removeChangeListener (constants.Change_Data_Event,this._onChange);
           Store.removeChangeListener (constants.On_Error,this.showError);
           NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
           NavigationStore.removeChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
+          var node = this.getDOMNode();
+          $(node).find('input').unbind('keydown');
+
       },
       componentWillReceiveProps: function(nextProps) {
           this.setState(this.getContent(nextProps.id,nextProps.childId,nextProps.rowId));
