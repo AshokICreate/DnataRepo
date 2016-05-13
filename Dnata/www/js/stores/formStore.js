@@ -23,7 +23,7 @@ define (function (require) {
         "MS_INC_ACTUAL_INJURY":"DD_CURRENT_STAGE"
     }
 
-    var mimetype = [{"id":"35","text":"audio/mpegurl"},{"id":"36","text":"audio/ogg"},{"id":"33","text":"audio/midi"},
+    var MIMETYPES = [{"id":"35","text":"audio/mpegurl"},{"id":"36","text":"audio/ogg"},{"id":"33","text":"audio/midi"},
                     {"id":"34","text":"audio/mpeg"},{"id":"39","text":"image/jpeg"},{"id":"37","text":"image/gif"},
                     {"id":"38","text":"image/ief"},{"id":"43","text":"message/rfc822"},{"id":"42","text":"image/tiff"},
                     {"id":"41","text":"image/png"},{"id":"40","text":"image/pcx"},{"id":"67","text":"video/quicktime"},
@@ -318,27 +318,29 @@ define (function (require) {
         var success = function (data,error) {
           if(error)
           {
-            callback(fileURL,'',error);
+            callback(fileURL,'',"attachment_upload_failed");
+            return;
           }
           callback(fileURL,data);
         }
 
         var fail = function (error) {
-          callback(fileURL,'',error);
+          callback(fileURL,'',"attachment_upload_failed");
         }
 
         window.resolveLocalFileSystemURL(fileURL, function(fileEntry) {
             fileEntry.file(function(file) {
                 var reader = new FileReader();
-                var name =  file.name;
-
+                var name = file.name;
+                var type = file.type;
                 if(name.indexOf(".") == -1)
                 {
-                    name = name + ".jpeg"
+                    name = name + "." + type.split("/")[1];
                 }
+                var mimetype = getMimetypeId(type)
 
                 reader.onloadend = function(evt) {
-                    var content = evt.target.result.split("data:image/jpeg;base64,")[1];
+                    var content = evt.target.result.split(";base64,")[1];
                     var params ={
                       "filename": name,
                       "description": "attachment",
@@ -354,6 +356,20 @@ define (function (require) {
 
     }
 
+    function getMimetypeId(type)
+    {
+       for (var i=0;i<MIMETYPES.length;i++)
+       {
+          var typeObj = MIMETYPES[i];
+          if(typeObj && typeObj.text === type)
+          {
+            return typeObj.id;
+          }
+       }
+
+       return "39";
+    }
+
     function getFormData(id)
     {
         var assignmentId = "";
@@ -363,6 +379,7 @@ define (function (require) {
             {
                 errorMsg = error;
                 FormStore.emitChange(constants.On_Error);
+                return;
             }
             var obj = {
                         assignmentId:assignmentId,
@@ -405,6 +422,7 @@ define (function (require) {
             {
                 errorMsg = error;
                 FormStore.emitChange(constants.On_Error);
+                return;
             }
 
             serverCall.connectServer("GET","tasks/"+data.assignmentId+"/form","",gotFormData);
