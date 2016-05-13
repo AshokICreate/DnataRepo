@@ -18,7 +18,7 @@ define(function(require){
     var button = this.props.buttons;
     for (var i=0; i<button.length;i++)
     {
-      var buttonClass = "btn";
+      var buttonClass = "confirmBtn";
       if(i%2 !== 0)
       {
         buttonClass = buttonClass+" highlight";
@@ -30,7 +30,7 @@ define(function(require){
     return(
           <div className="confirmBox">
             <div className="cancel" onClick={this.props.onCancel}>✕</div>
-              {content}
+              <center className="centerBox">{content}</center>
           </div>
         );
       }

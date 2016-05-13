@@ -171,10 +171,7 @@ define(function(require){
     else if(id === "contact_number")
     {
         var number = feedbackObj.contact_number;
-        if(isNaN(number) || number.indexOf(" ")!=-1)
-        {
-          NavigationActions.presentPopup(<Msg msgLabel={"invalid_contact"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
-        }
+        NavigationActions.presentPopup(<Msg msgLabel={"invalid_contact"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
     }
   },
 
