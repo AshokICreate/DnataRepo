@@ -65,11 +65,11 @@ define(function (require) {
         <div className="loginscreen">
           <div className="userdetails">
             <label className="loginlabel">{getString("dnata_id")}</label><br/>
-            <input id="userinfo" type="text" name="username" value="s130906"></input><br/>
+            <input id="userinfo" className="loginFields" type="text" name="username" value="s130906"></input><br/>
           </div>
           <div className="pwdetails">
             <label className="loginlabel">{getString("password")}</label><br/>
-            <input id="pwdinfo" type="password" name="pwd"></input>
+            <input id="pwdinfo" className="loginFields" type="password" name="pwd"></input>
           </div>
           <div className="errorMsg">{this.state.msg}</div>
           <button className="loginbtn" onClick={this.loginButtonClicked}>LOGIN</button>
