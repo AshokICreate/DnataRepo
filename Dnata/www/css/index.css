@@ -17,18 +17,6 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-textarea
-{
-  font-size: 80%;
-}
-input[type="text"]
-{
-  font-size: 80%;
-}
-input[type="search"]
-{
-  font-size: 80%;
-}
 #mainContainer
 {
   position: fixed;
@@ -226,6 +214,10 @@ input[type="search"]
   font-family: Roboto;
 }
 
+#userinfo{
+  font-size: medium;
+}
+
 .loginFields{
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -413,12 +405,18 @@ font-size: 1.5em;
    cursor: pointer;
  }
 
-/*.presentationLayer{
-  position: fixed;
-  z-index: 90;
-  width:100%;
-  height:100%;
-}*/
+ textarea
+ {
+   font-size: 80%;
+ }
+ input[type="text"]
+ {
+   font-size: 80%;
+ }
+ input[type="search"]
+ {
+   font-size: 80%;
+ }
 
 .controller-enter {
   opacity: 0.01;
@@ -437,27 +435,3 @@ font-size: 1.5em;
   opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
-
-/*.controller-enter {
-
-    transform:   translate(500px,0);
-    transform: translate3d(500px,0,0);
-}
-.controller-enter.controller-enter-active {
-	transform:   translate(0,0);
-	transform: translate3d(0,0,0);
-	transition-property: transform;
-	transition-duration: 300ms;
-	transition-timing-function: ease-in;
-}
-.controller-leave {
-	transform:   translate(0,0,0);
-	transform: translate3d(0,0,0);
-	transition-property: transform;
-	transition-duration: 300ms;
-	transition-timing-function: ease-out;
-}
-.controller-leave.controller-leave-active {
-	transform:   translate(500px,0);
-	transform: translate3d(500px,0,0);
-}*/
