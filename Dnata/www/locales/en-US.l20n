@@ -1,10 +1,11 @@
 <network_failed "Failed to connect to server. Please check your network.">
 <appName "Dnata">
-<dnata_id "dnata id">
+<dnata_id "Employee ID">
 <password "Password">
 <login "LOGIN">
 <powered_by "Powered by">
-<msi " MetricStream">
+<metric " Metric">
+<stream "Stream">
 <version "Version 1.01.02">
 <report_injury "Report Incident">
 <MS_INC_ACTUAL_INJURY "Actual Injury or Damage">
