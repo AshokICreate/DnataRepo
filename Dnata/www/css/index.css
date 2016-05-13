@@ -196,7 +196,7 @@ input[type="search"]
 .loginicon{
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-color: white;
+  background-color: #0088ce;
   position: relative;
   color: black;
   height: 30%;
@@ -204,12 +204,13 @@ input[type="search"]
   background-image: url('../img/dnatalogo.png');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
 }
 
 .loginscreen{
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-color: #0f88ca;
+  color: #0088ce;
   height: 69%;
   width: 100%;
   padding-top: 2%;
@@ -219,54 +220,36 @@ input[type="search"]
 .userdetails {
   -webkit-appearance: none;
   -moz-appearance: none;
-  color: white;
   margin-left: 10%;
   margin-top: 10%;
   position: relative;
   font-family: Roboto;
 }
 
-#userinfo{
+.loginFields{
   -webkit-appearance: none;
   -moz-appearance: none;
   border:none;
   background:transparent;
-  border-bottom: 0.5vw solid white;
-  color:white;
+  border-bottom: 0.55vw solid #0088ce;
   outline: none;
   padding-top: 5%;
+  padding-bottom: 3%;
   width: 91%;
   position:relative;
   font-family: Roboto;
   font-size: medium;
+  font-weight: 300;
 }
 
 .pwdetails{
   -webkit-appearance: none;
   -moz-appearance: none;
-  color: white;
   margin-left: 10%;
   margin-top: 10%;
   position: relative;
   font-family: Roboto;
 }
-
-
-#pwdinfo{
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border:none;
-  background:transparent;
-  border-bottom: 0.5vw solid white;
-  color:white;
-  outline: none;
-  padding-top: 5%;
-  width: 91%;
-  position:relative;
-  font-family: Roboto;
-  font-size: medium;
-}
-
 
 /*for the dnataid and password labels*/
 
@@ -274,11 +257,9 @@ input[type="search"]
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  opacity:0.4;
   position:relative;
   font-family: Roboto;
   font-weight: 300;
-  font-style: italic;
   font-size: 1.2em;
   height: 5%;
 }
@@ -292,18 +273,18 @@ input[type="search"]
   margin-top: 10%;
   margin-bottom: 8%;
   border-radius: 50px;
-  border: 1px solid white;
-  background-color: white;
-  color:#6abd45;
+  border: 1px solid #0088ce;
+  background-color: #0088ce;
   font-family: Roboto;
   font-weight: 500;
   font-size: 1.3em;
   outline:none;
-  width: 83%;
+  width: 50%;
   position:relative;
   height: 10%;
   padding: 2%;
   cursor: pointer;
+  color:white;
 }
 
 .errorMsg {
@@ -328,7 +309,6 @@ input[type="search"]
   font-weight: 300;
   /*font-size: small;*/
   position: relative;
-  color: white;
   height: 1.5em;
   width: 100%;
   text-align: center;
@@ -348,7 +328,6 @@ font-size: 1.5em;
   font-family: Roboto;
   font-weight: 300;
   position: relative;
-  color: white;
   height: 1.5em;
   width: 100%;
   text-align: center;
