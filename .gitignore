@@ -3,3 +3,4 @@ platforms/
 plugins/
 components/
 *.zip
+*.DS_Store
