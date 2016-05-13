@@ -51,7 +51,8 @@
 <failed_attachment "Did not receive any image as attachment! Please try again.">
 <login_failed "Authentication failed. Please check your credentials">
 <confirm_logout "Are you sure you want to Logout?">
-<invalid_date "The date you entered exceeds current date! Please enter again.">
+<invalid_date "Please enter valid date. Resetting to current time">
+<future_date "Incident date cannot be future date. Resetting to current time">
 <yes "YES">
 <no "NO">
 <ok "OK">
