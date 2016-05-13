@@ -258,6 +258,7 @@ define(function (require) {
           }else {
               this._submitFormData(formAction,title);
           }
+          NavigationActions.presentPopup(<Loader />);
 
       },
       _submitFormData: function(formAction,title)
@@ -265,6 +266,7 @@ define(function (require) {
           var that = this;
           var onSubmit = function(data)
           {
+              NavigationActions.removePopup();
               if(title === "submit_incident")
               {
                 NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={that._onSubmitSuccess}/>);

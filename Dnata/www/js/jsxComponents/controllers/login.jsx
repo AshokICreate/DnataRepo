@@ -65,7 +65,7 @@ define(function (require) {
         <div className="loginscreen">
           <div className="userdetails">
             <label className="loginlabel">{getString("dnata_id")}</label><br/>
-            <input id="userinfo" className="loginFields" type="text" name="username" value="s130906"></input><br/>
+            <input id="userinfo" className="loginFields" type="text" name="username"></input><br/>
           </div>
           <div className="pwdetails">
             <label className="loginlabel">{getString("password")}</label><br/>
