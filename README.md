@@ -18,3 +18,4 @@ Add Plugins:
 cordova-plugin-camera : To enable camera
 cordova plugin add cordova-plugin-keyboard :for keyboard
 cordova plugin add cordova-plugin-file : for file
+cordova plugin add cordova plugin add cordova-plugin-splashscreen : for splashscreen

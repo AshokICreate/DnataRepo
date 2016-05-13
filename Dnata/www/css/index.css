@@ -339,6 +339,11 @@ input[type="search"]
   font-size: 1.5em;
 }
 
+#msnormal{
+font-weight: normal;
+font-size: 1.5em;
+}
+
 .vfooter {
   font-family: Roboto;
   font-weight: 300;
