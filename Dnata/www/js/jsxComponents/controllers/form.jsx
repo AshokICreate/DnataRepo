@@ -214,6 +214,7 @@ define(function (require) {
                   selectValue = "6";
 
               }
+              content["DUMMY_CHAR6"] = {value:getString(this.props.childId)}
               content["SELECTED_TABS_ID"] = {value:selectValue}
               content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
               content["INC_STATUS"] = {value:"Reporting"}
