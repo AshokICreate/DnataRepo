@@ -161,10 +161,11 @@ define(function (require) {
                var titleArray = [
                  "INC_POTENTIAL_INJURY_COUNTRY",
                  "REPORTERS_DEPARTMENT",
-                 "EVENT_TYPE",
-                 "MS_INC_ATTRIBUTE1"
+                 "EVENT_TYPE"
                ]
                var titleValue = getAppendedValuesFromContent(titleArray,content);
+               titleValue =  titleValue + "-" + Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm")
+
                content["POTENTIAL_INJURY_NAME"] = {"value":titleValue};
                content["EVENT_TYPE"]= {"value":getString(this.props.id)};
 
