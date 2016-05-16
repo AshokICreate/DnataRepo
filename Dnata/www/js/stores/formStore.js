@@ -175,7 +175,7 @@ define (function (require) {
           {
               if(error)
               {
-                  errorMsg = error;
+                  errorMsg = "{\"message\":\"matches_not_found\"}";
                   FormStore.emitChange(constants.On_Error);
               }else {
                   callback(data);
