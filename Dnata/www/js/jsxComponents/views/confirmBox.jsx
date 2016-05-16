@@ -29,7 +29,9 @@ define(function(require){
     }
     return(
           <div className="confirmBox">
-            <div className="cancel" onClick={this.props.onCancel}>✕</div>
+            <div className="cancel"  onClick={this.props.onCancel}>
+              <div className="cross">✕</div>
+            </div>
               <center className="centerBox">{content}</center>
           </div>
         );

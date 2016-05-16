@@ -106,7 +106,9 @@ define(function (require) {
             <div className="attach icon-Picture" onClick={this._onAttach}></div>
             <div className={classname}>
               <div className="attachbox">
-                <div className="cancel" onClick={this._onCancel}>✕</div>
+                <div className="cancel" onClick={this._onCancel}>
+                  <div className="cross">✕</div>
+                </div>
                 <div className="capture" onClick={this._capturePhoto}>
                    <div className="attachicon icon-Capture"></div>
                    <div className="attachtext">{getString("capture")}</div>

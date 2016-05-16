@@ -19,7 +19,6 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <icon src="www/img/dnatalogo.png" />
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="StatusBarOverlaysWebView" value="false" />
