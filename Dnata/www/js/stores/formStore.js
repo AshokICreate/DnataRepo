@@ -318,14 +318,14 @@ define (function (require) {
         var success = function (data,error) {
           if(error)
           {
-            callback(fileURL,'',"attachment_upload_failed");
+            callback(fileURL,'',"{\"message\":\"attachment_upload_failed\"}");
             return;
           }
           callback(fileURL,data);
         }
 
         var fail = function (error) {
-          callback(fileURL,'',"attachment_upload_failed");
+          callback(fileURL,'',"{\"message\":\"attachment_upload_failed\"}");
         }
 
         window.resolveLocalFileSystemURL(fileURL, function(fileEntry) {
