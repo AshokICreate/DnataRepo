@@ -74,7 +74,8 @@ define(function (require) {
           <div className="errorMsg">{this.state.msg}</div>
           <button className="loginbtn" onClick={this.loginButtonClicked}>LOGIN</button>
           <div className="footer">
-            <div className="msfooter">{getString("powered_by")}<span id="msbold">{getString("metric")}</span><span id="msnormal">{getString("stream")}</span></div>
+            <div className="msfooter">{getString("powered_by")}</div>
+            <div className="msLogo"></div>
             <div className="vfooter">{getString("version")}</div>
           </div>
         </div>
