@@ -46,10 +46,10 @@ define(function(require){
         var dateAndTime =  Moment().format("M/DD/YYYY HH:mm:ss");
         this.props.onSave(this.props.id,dateAndTime);
 
-        var msgLabel = "invalid_date"
+        var msgLabel = "future_date"
         if(date === "" || time === "")
         {
-            msgLabel = "future_date"
+            msgLabel = "invalid_date"
         }
         NavigationActions.presentPopup(<Msg msgLabel={msgLabel} buttons={msgButton} onMsgClick={this._onCancel}/>);
 
