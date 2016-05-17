@@ -73,11 +73,13 @@ define(function (require) {
           </div>
           <div className="errorMsg">{this.state.msg}</div>
           <button className="loginbtn" onClick={this.loginButtonClicked}>LOGIN</button>
-          <div className="footer">
+        </div>
+        <div className="footer">
+          <div>
             <div className="msfooter">{getString("powered_by")}</div>
-            <div className="msLogo"></div>
-            <div className="vfooter">{getString("version")}</div>
+            <img className="msLogo"></img>
           </div>
+          <div className="vfooter">{getString("version")}</div>
         </div>
       </div>
     );

@@ -199,9 +199,10 @@ body {
   -webkit-appearance: none;
   -moz-appearance: none;
   color: #0088ce;
-  height: 69%;
+  height: 55%;
   width: 100%;
   padding-top: 2%;
+  padding-bottom: 2%;
   position: relative;
 }
 
@@ -263,7 +264,6 @@ body {
   display: table;
   margin: 0 auto;
   margin-top: 10%;
-  margin-bottom: 8%;
   border-radius: 50px;
   border: 1px solid #0088ce;
   background-color: #0088ce;
@@ -273,7 +273,7 @@ body {
   outline:none;
   width: 50%;
   position:relative;
-  height: 10%;
+  height: 12%;
   padding: 2%;
   cursor: pointer;
   color:white;
@@ -291,21 +291,28 @@ body {
 
 .footer{
   position:relative;
+  height:13%;
+  width:100%;
+  color: #0088ce;
   left:0;
   right:0;
   bottom:0;
+  text-align: center;
+  margin-top: 2.5%;
 }
 
-.msfooter{
+.msfooter {
   font-family: Roboto;
   font-weight: 300;
-  /*font-size: small;*/
-  position: relative;
-  height: 1.5em;
-  width: 100%;
-  text-align: center;
+  display: inline-block;
 }
 
+.msLogo{
+  content: url('../img/metricstreamlogo.svg');
+  width: 50%;
+  margin-bottom: -3%;
+  display: inline;
+}
 
 .vfooter {
   font-family: Roboto;
@@ -313,9 +320,9 @@ body {
   position: relative;
   height: 1.5em;
   width: 100%;
-  text-align: center;
   margin-top: 2%;
 }
+
 .homecontroller {
     position: relative;
     width: 100%;
