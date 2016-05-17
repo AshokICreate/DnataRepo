@@ -40,7 +40,6 @@
 <contact_number "Contact number">
 <feedback_success "Thank you for your feedback!">
 <invalid_email "Enter valid Email ID">
-<invalid_contact "Enter valid Contact Number">
 <field_not_found "Field not found">
 <select "Select">
 <select_prev_lov "This field needs the input of : \"{0}\" ">

@@ -168,11 +168,6 @@ define(function(require){
         NavigationActions.presentPopup(<Msg msgLabel={"invalid_email"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
       }
     }
-    else if(id === "contact_number")
-    {
-        var number = feedbackObj.contact_number;
-        NavigationActions.presentPopup(<Msg msgLabel={"invalid_contact"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
-    }
   },
 
   _onSelect: function() {
