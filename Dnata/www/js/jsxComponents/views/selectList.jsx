@@ -13,7 +13,11 @@ define(function(require) {
     if(!mArray){
       mArray = [];
     }
-    return { temp: mArray, options: this.props.options};
+
+    var options = this.props.options;
+    options = options.sort(compare);
+
+    return { temp: mArray, options:options};
   },
   checkMark: function(key,event) {
       if(this.props.isSingle)
@@ -93,4 +97,14 @@ define(function(require) {
     }
   });
   return selectList;
+
+  function compare(a,b) {
+    if (a.value < b.value)
+      return -1;
+    else if (a.value > b.value)
+      return 1;
+    else
+      return 0;
+  }
+
 });
