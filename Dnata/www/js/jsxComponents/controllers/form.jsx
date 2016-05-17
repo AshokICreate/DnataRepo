@@ -112,6 +112,13 @@ define(function (require) {
       },
       _onActionClick:function(title)
       {
+          var formAction = "submit";
+          if(title==="save_as_draft")
+          {
+              formAction = "save";
+          }
+
+          this._onCancel();
 
           var formsData = Store.getData();
           var content = formsData[this.props.id].data.content;
@@ -139,7 +146,7 @@ define(function (require) {
 
           content["WITNESSES"] = {value:"2"}
 
-          var attachments;
+
           if(this.props.id === "MS_INC_POTENTIAL_INJ_FORM")
           {
 
@@ -170,7 +177,8 @@ define(function (require) {
                content["EVENT_TYPE"]= {"value":getString(this.props.id)};
 
                content["INCIDENT_DESCRIPTION_LKP"] = [{"value":this.props.potentialLov}];
-               attachments = content["INC_ATTACHMENT"];
+               this._submitAttachments(formAction);
+
           }else {
               content["DUMMY_CHAR2"] = {"value":this.props.childId};
               var location = content["INC_LOCATION"];
@@ -220,33 +228,76 @@ define(function (require) {
               content["INC_STATUS"] = {value:"Reporting"}
               attachments = content["ADN_SUPPORTING_DOC"];
               content["REPORTED_BY"] = content["DD_CURRENT_USER_NAME"];
+
+              var structure = formsData[this.props.id].data.structure;
+              var element = structure["REPORTERS_DEPT"];
+              var parameters = element.resource.parameters;
+              var queryParams;
+
+              for(var i=0;i<parameters.length;i++)
+              {
+                  var obj = parameters[i];
+                  var valueObj = content[obj.ref];
+                  if(i==0)
+                  {
+                      queryParams=obj.ref+"="+valueObj.value;
+                  }
+                  else {
+                      queryParams = queryParams +"&"+obj.ref+"="+valueObj.value
+                  }
+              }
+
+              var url  = "tasks/"+formsData[this.props.id].assignmentId+"/form/resources/"+element.resource.ref+"?"+queryParams;
+              var that = this;
+              var onResourceSuccess=function(data)
+              {
+                  var depObj;
+                  for(var key in data)
+                  {
+                      depObj = data[key];
+
+                  }
+                  content["REPORTERS_DEPT"] = depObj;
+                  that._submitAttachments(formAction);
+              }
+              Store.getResorceData(url,onResourceSuccess);
           }
 
-          var formAction = "submit";
-          if(title==="save_as_draft")
+          NavigationActions.presentPopup(<Loader />);
+
+      },
+      _submitAttachments:function(formAction)
+      {
+          var formsData = Store.getData();
+          var content = formsData[this.props.id].data.content;
+          var attachments;
+          if(this.props.id === "MS_INC_POTENTIAL_INJ_FORM")
           {
-              formAction = "save";
+              attachments = content["INC_ATTACHMENT"];
+
+          }else {
+
+              attachments = content["ADN_SUPPORTING_DOC"]
           }
 
-          this._onCancel();
-
-          //attachments
           if(attachments && attachments.length ==1)
           {
               var that = this;
-              var onAttachmentSuccess = function(array,error)
+              var onAttachmentSuccess = function(array)
               {
-                  var attachIds = "";
+                  var attachIds = [];
                   for(var i=0;i<array.length;i++)
                   {
-                      if(i!=0)
-                      {
-                         attachIds = attachIds+";"
-                      }
-                      attachIds = attachIds+array[i].id;
+                      attachIds.push({value:array[i].id});
                   }
-                  attachments[0].value = attachIds;
-                  that._submitFormData(formAction,title);
+
+                  if(that.props.id === "MS_INC_POTENTIAL_INJ_FORM")
+                  {
+                      content["INC_ATTACHMENT"] = attachIds;
+                  }else {
+                      content["ADN_SUPPORTING_DOC"] = attachIds;
+                  }
+                  that._submitFormData(formAction);
               }
               var attachObj = attachments[0];
               var files = attachObj.value.split(";");
@@ -257,22 +308,20 @@ define(function (require) {
               }
 
           }else {
-              this._submitFormData(formAction,title);
+              this._submitFormData(formAction);
           }
-          NavigationActions.presentPopup(<Loader />);
-
       },
-      _submitFormData: function(formAction,title)
+      _submitFormData: function(formAction)
       {
           var that = this;
           var onSubmit = function(data)
           {
               NavigationActions.removePopup();
-              if(title === "submit_incident")
+              if(formAction === "submit")
               {
                 NavigationActions.presentPopup(<Msg msgLabel={"submission_success"} buttons={msgButtonsArray} onMsgClick={that._onSubmitSuccess}/>);
               }
-              else if(title === "save_as_draft")
+              else
               {
                 NavigationActions.presentPopup(<Msg msgLabel={"save_draft_success"} buttons={msgButtonsArray} onMsgClick={that._onSubmitSuccess}/>);
               }
@@ -562,7 +611,7 @@ define(function (require) {
               var url  = "tasks/"+formsData[this.props.id].assignmentId+"/form/resources/"+element.resource.ref+"?"+queryParams;
 
               var that = this;
-              var gotResourceData=function(data,error)
+              var gotResourceData=function(data)
               {
                   NavigationActions.removePopup();
                   var options = getValuesOfResource(data);

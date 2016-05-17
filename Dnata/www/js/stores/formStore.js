@@ -175,7 +175,7 @@ define (function (require) {
           {
               if(error)
               {
-                  errorMsg = "{\"message\":\"matches_not_found\"}";
+                  errorMsg = error;
                   FormStore.emitChange(constants.On_Error);
               }else {
                   callback(data);
@@ -328,7 +328,13 @@ define (function (require) {
           callback(fileURL,'',"{\"message\":\"attachment_upload_failed\"}");
         }
 
-        window.resolveLocalFileSystemURL(fileURL, function(fileEntry) {
+        var url = fileURL;
+        if(fileURL.toLowerCase().startsWith("/storage"))
+        {
+           url= "file:///"+url
+        }
+
+        window.resolveLocalFileSystemURL(url, function(fileEntry) {
             fileEntry.file(function(file) {
                 var reader = new FileReader();
                 var name = file.name;
