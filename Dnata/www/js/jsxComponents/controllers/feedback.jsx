@@ -158,16 +158,6 @@ define(function(require){
        }
         this.setState({value:isReceiveUpdate});
     }
-    else if(id === "email_address")
-    {
-      var email = feedbackObj.email_address;
-      var atpos = email.indexOf("@");
-      var dotpos = email.lastIndexOf(".");
-      if (atpos <1 || dotpos <atpos+2 || dotpos+2 >= email.length)
-      {
-        NavigationActions.presentPopup(<Msg msgLabel={"invalid_email"} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
-      }
-    }
   },
 
   _onSelect: function() {
