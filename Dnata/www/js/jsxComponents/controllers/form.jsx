@@ -373,27 +373,32 @@ define(function (require) {
           if(this.props.childId && isEmpty === false)
           {
             var array = Store.getKeysToMandate(this.props.childId);
-            content = content[this.props.childId][this.props.rowId];
-            for(var i=0;i<array.length;i++)
+            for(var childIndex=0;childIndex<(content[this.props.childId].length);childIndex++)
             {
-              var key = array[i];
-              var object = content[key];
-              if (object instanceof Array)
-              {
-                if(object.length<1 || !object[0].value)
+              var childContent = content[this.props.childId][childIndex];
+                for(var i=0;i<array.length;i++)
                 {
-                      isEmpty = true;
-                      break;
+                  var key = array[i];
+                  var object = childContent[key];
+                  if (object instanceof Array)
+                  {
+                    if(object.length<1 || !object[0].value)
+                    {
+                          isEmpty = true;
+                          break;
+                    }
+                  }
+                  else
+                  {
+                      if(!object.value)
+                      {
+                          isEmpty = true;
+                          break;
+                      }
+                  }
                 }
-              }
-              else {
-                if(!object.value)
-                {
-                      isEmpty = true;
-                      break;
-                }
-              }
             }
+
           }
           if(isEmpty)
           {
