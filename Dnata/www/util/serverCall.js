@@ -24,7 +24,7 @@ define (function (require) {
 			var data;
 			if(404 === msg.status)
 			{
-				server.callBackSuccess(data,msg.responseText);
+				server.callBackSuccess(data,"matches_not_found");
 			}else {
 				server.callBackSuccess(data,"network_failed");
 			}

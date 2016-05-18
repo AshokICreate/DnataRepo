@@ -95,15 +95,8 @@ define(function (require) {
           var error = Store.getError();
           if(error)
           {
-              var msg;
-              if(error == "network_failed")
-              {
-                  msg = error;
-              }else {
-                  msg = JSON.parse(error).message;
-              }
               NavigationActions.removePopup();
-              NavigationActions.presentPopup(<Msg msgLabel={msg} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
+              NavigationActions.presentPopup(<Msg msgLabel={error} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
           }
       },
       _onChange:function()
@@ -272,16 +265,21 @@ define(function (require) {
               var that = this;
               var onResourceSuccess=function(data)
               {
-                  var depObj;
-                  for(var key in data)
-                  {
-                      depObj = data[key];
+                  var depObj={"value":""};
 
+                  if(data)
+                  {
+                      for(var key in data)
+                      {
+                          depObj = data[key];
+
+                      }
                   }
+
                   content["REPORTERS_DEPT"] = depObj;
                   that._submitAttachments(formAction);
               }
-              Store.getResorceData(url,onResourceSuccess);
+              Store.getResorceData(url,onResourceSuccess,true);
           }
 
           NavigationActions.presentPopup(<Loader />);
@@ -301,7 +299,7 @@ define(function (require) {
               attachments = content["ADN_SUPPORTING_DOC"]
           }
 
-          if(attachments && attachments.length ==1)
+          if(attachments && attachments.length ==1 && attachments[0].value !=="")
           {
               var that = this;
               var onAttachmentSuccess = function(array)
