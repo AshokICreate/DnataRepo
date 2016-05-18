@@ -187,7 +187,6 @@ define(function (require) {
 
 
           }else {
-
               content["DUMMY_CHAR2"] = {"value":this.props.childId};
               var location = content["INC_LOCATION"];
               content["DUMMY_CHAR3"] = {"value":location.value};
@@ -224,20 +223,27 @@ define(function (require) {
               content["INCIDENT_NAME"] = {"value":titleValue};
 
               var selectValue = "0";
+              var selectTab = "MSAI_37";
               if(this.props.childId === "PSD")
               {
                   selectValue = "1";
+                  selectTab = "MSAI_37";
 
               }else if(this.props.childId === "FLY"){
 
                   selectValue = "2";
+                  selectTab = "MSAI_38";
 
               }else if(this.props.childId === "EQD"){
 
                   selectValue = "6";
+                  selectTab = "MSAI_42";
 
               }
-              content["DUMMY_CHAR6"] = {value:getString(this.props.childId)}
+
+              content["DUMMY_CHAR6"] = {"value":getString(this.props.childId)}
+              content["DUMMY_CHAR1"] = {"value":selectTab};
+
               content["SELECTED_TABS_ID"] = {value:selectValue}
               content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
               content["INC_STATUS"] = {value:"Reporting"}
