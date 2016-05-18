@@ -72,7 +72,7 @@ define(function (require) {
             <input id="pwdinfo" className="loginFields" type="password" name="pwd"></input>
           </div>
           <div className="errorMsg">{this.state.msg}</div>
-          <button className="loginbtn" onClick={this.loginButtonClicked}>LOGIN</button>
+          <button className="loginbtn" onClick={this.loginButtonClicked}>{getString("login")}</button>
         </div>
         <div className="footer">
           <div>
