@@ -214,6 +214,7 @@ body {
   margin-top: 10%;
   position: relative;
   font-family: Roboto;
+  height: 20%;
 }
 
 #userinfo{
@@ -243,6 +244,7 @@ body {
   margin-top: 10%;
   position: relative;
   font-family: Roboto;
+  height: 20%;
 }
 
 /*for the dnataid and password labels*/
@@ -270,11 +272,10 @@ body {
   background-color: #0088ce;
   font-family: Roboto;
   font-weight: 500;
-  font-size: 1.3em;
+  font-size: 120%;
   outline:none;
   width: 50%;
   position:relative;
-  height: 12%;
   padding: 2%;
   cursor: pointer;
   color:white;
@@ -283,7 +284,7 @@ body {
 .errorMsg {
   position: relative;
   color: orange;
-  height: 1em;
+  height: 6%;
   margin-top: 5%;
   margin-left: 10%;
   font-family: Roboto;
@@ -298,8 +299,13 @@ body {
   bottom:0;
   text-align: center;
   margin-top: 2.5%;
+  z-index: -1;
 }
 
+.metricLogo{
+  position: relative;
+  height: 40%;
+}
 .msfooter {
   font-family: Roboto;
   font-weight: 300;
@@ -317,7 +323,7 @@ body {
   font-family: Roboto;
   font-weight: 300;
   position: relative;
-  height: 1.5em;
+  height: 38%;
   width: 100%;
   margin-top: 2%;
 }
