@@ -95,15 +95,8 @@ define(function (require) {
           var error = Store.getError();
           if(error)
           {
-              var msg;
-              if(error == "network_failed")
-              {
-                  msg = error;
-              }else {
-                  msg = JSON.parse(error).message;
-              }
               NavigationActions.removePopup();
-              NavigationActions.presentPopup(<Msg msgLabel={msg} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
+              NavigationActions.presentPopup(<Msg msgLabel={error} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
           }
       },
       _onChange:function()
@@ -165,6 +158,12 @@ define(function (require) {
                var modified = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("M/DD/YYYY HH:mm")
                content["MS_INC_ATTRIBUTE1"] = {"value":modified};
 
+               var hours = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("HH");
+               var minutes = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("mm");
+
+               content["INCIDENT_TIME_HOUR"] = {"value":hours};
+               content["INCIDENT_TIME_MINUTES"] = {"value":minutes};
+
                var titleArray = [
                  "INC_POTENTIAL_INJURY_COUNTRY",
                  "REPORTERS_DEPARTMENT",
@@ -178,6 +177,7 @@ define(function (require) {
 
                content["INCIDENT_DESCRIPTION_LKP"] = [{"value":this.props.potentialLov}];
                this._submitAttachments(formAction);
+
 
           }else {
               content["DUMMY_CHAR2"] = {"value":this.props.childId};
@@ -200,7 +200,14 @@ define(function (require) {
               ]
               var titleValue = getAppendedValuesFromContent(titleArray,content);
               titleValue = titleValue + "-" + getString(this.props.childId);
+
               var obj = content["INCIDENT_DATE"];
+              var hours = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("HH");
+              var minutes = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("mm");
+
+              content["INCIDENT_TIME_HOURS"] = {"value":hours};
+              content["INCIDENT_TIME_MINUTES"] = {"value":minutes};
+
               var modified = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm")
               titleValue = titleValue + "-" + modified;
 
@@ -209,20 +216,27 @@ define(function (require) {
               content["INCIDENT_NAME"] = {"value":titleValue};
 
               var selectValue = "0";
+              var selectTab = "MSAI_37";
               if(this.props.childId === "PSD")
               {
                   selectValue = "1";
+                  selectTab = "MSAI_37";
 
               }else if(this.props.childId === "FLY"){
 
                   selectValue = "2";
+                  selectTab = "MSAI_38";
 
               }else if(this.props.childId === "EQD"){
 
                   selectValue = "6";
+                  selectTab = "MSAI_42";
 
               }
-              content["DUMMY_CHAR6"] = {value:getString(this.props.childId)}
+
+              content["DUMMY_CHAR6"] = {"value":getString(this.props.childId)}
+              content["DUMMY_CHAR1"] = {"value":selectTab};
+
               content["SELECTED_TABS_ID"] = {value:selectValue}
               content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
               content["INC_STATUS"] = {value:"Reporting"}
@@ -251,16 +265,20 @@ define(function (require) {
               var that = this;
               var onResourceSuccess=function(data)
               {
-                  var depObj;
-                  for(var key in data)
-                  {
-                      depObj = data[key];
+                  var depObj={"value":""};
 
+                  if(data)
+                  {
+                      for(var key in data)
+                      {
+                          depObj = data[key];
+                      }
                   }
+
                   content["REPORTERS_DEPT"] = depObj;
                   that._submitAttachments(formAction);
               }
-              Store.getResorceData(url,onResourceSuccess);
+              Store.getResorceData(url,onResourceSuccess,true);
           }
 
           NavigationActions.presentPopup(<Loader />);
@@ -280,7 +298,7 @@ define(function (require) {
               attachments = content["ADN_SUPPORTING_DOC"]
           }
 
-          if(attachments && attachments.length ==1)
+          if(attachments && attachments.length ==1 && attachments[0].value !=="")
           {
               var that = this;
               var onAttachmentSuccess = function(array)

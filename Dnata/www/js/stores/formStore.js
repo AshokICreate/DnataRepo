@@ -169,11 +169,11 @@ define (function (require) {
       getData:function(){
           return formData;
       },
-      getResorceData:function(url,callback)
+      getResorceData:function(url,callback,skipError)
       {
           var onResponse =  function(data,error)
           {
-              if(error)
+              if(error && !skipError)
               {
                   errorMsg = error;
                   FormStore.emitChange(constants.On_Error);
@@ -318,14 +318,14 @@ define (function (require) {
         var success = function (data,error) {
           if(error)
           {
-            callback(fileURL,'',"{\"message\":\"attachment_upload_failed\"}");
+            callback(fileURL,'',"attachment_upload_failed");
             return;
           }
           callback(fileURL,data);
         }
 
         var fail = function (error) {
-          callback(fileURL,'',"{\"message\":\"attachment_upload_failed\"}");
+          callback(fileURL,'',"attachment_upload_failed");
         }
 
         var url = fileURL;

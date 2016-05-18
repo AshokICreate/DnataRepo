@@ -75,7 +75,7 @@ define(function (require) {
           <button className="loginbtn" onClick={this.loginButtonClicked}>{getString("login")}</button>
         </div>
         <div className="footer">
-          <div>
+          <div className="metricLogo">
             <div className="msfooter">{getString("powered_by")}</div>
             <img className="msLogo"></img>
           </div>
