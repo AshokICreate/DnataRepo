@@ -466,7 +466,7 @@ define(function (require) {
                   var obj = {value:value.key};
                   content[id] = obj;
 
-              }else if(value !== "")
+              }else
               {
                   var obj = {value:value};
                   content[id] = obj;

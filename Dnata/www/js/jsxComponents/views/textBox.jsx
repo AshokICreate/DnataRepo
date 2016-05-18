@@ -21,7 +21,6 @@ define(function (require) {
         this.setState({value: event.target.value});
       },
       _save: function(event) {
-        if(event.target.value !== "")
           this.props.onSave(this.props.id, event.target.value);
       },
       render: function() {
