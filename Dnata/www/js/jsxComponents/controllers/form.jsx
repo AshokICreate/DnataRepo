@@ -165,6 +165,12 @@ define(function (require) {
                var modified = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("M/DD/YYYY HH:mm")
                content["MS_INC_ATTRIBUTE1"] = {"value":modified};
 
+               var hours = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("HH");
+               var minutes = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("mm");
+
+               content["INCIDENT_TIME_HOUR"] = {"value":hours};
+               content["INCIDENT_TIME_MINUTES"] = {"value":minutes};
+
                var titleArray = [
                  "INC_POTENTIAL_INJURY_COUNTRY",
                  "REPORTERS_DEPARTMENT",
@@ -179,7 +185,9 @@ define(function (require) {
                content["INCIDENT_DESCRIPTION_LKP"] = [{"value":this.props.potentialLov}];
                this._submitAttachments(formAction);
 
+
           }else {
+
               content["DUMMY_CHAR2"] = {"value":this.props.childId};
               var location = content["INC_LOCATION"];
               content["DUMMY_CHAR3"] = {"value":location.value};
@@ -200,7 +208,14 @@ define(function (require) {
               ]
               var titleValue = getAppendedValuesFromContent(titleArray,content);
               titleValue = titleValue + "-" + getString(this.props.childId);
+
               var obj = content["INCIDENT_DATE"];
+              var hours = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("HH");
+              var minutes = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("mm");
+
+              content["INCIDENT_TIME_HOURS"] = {"value":hours};
+              content["INCIDENT_TIME_MINUTES"] = {"value":minutes};
+
               var modified = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm")
               titleValue = titleValue + "-" + modified;
 
