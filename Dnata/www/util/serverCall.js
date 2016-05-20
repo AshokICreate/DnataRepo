@@ -36,7 +36,27 @@ define (function (require) {
 		{
 				return URL;
 		},
-		connectServer:function (reqType,reqURL,reqdata,successFunction)
+		uploadDocument:function(reqType,reqURL,fileURL,options,successFunction)
+		{
+				server.reqType = reqType;
+				server.reqdata = fileURL;
+				server.callBackSuccess = successFunction;
+				server.requestURL = reqURL;
+
+				var headers={
+											'Authorization':authorization
+										};
+
+				options.headers = headers;
+
+				var success = function (data) {
+					servercall_success(JSON.parse(data.response))
+				}
+
+				var ft = new FileTransfer();
+				ft.upload(fileURL, BaseURL+reqURL, success, servercall_error, options);
+		},
+		connectServer:function (reqType,reqURL,reqdata,successFunction,contentType)
 		{
 			try
 			{
@@ -54,7 +74,13 @@ define (function (require) {
 						//return;
 				}
 
-				makeServerCall(reqType,BaseURL+reqURL,reqdata,servercall_success,servercall_error,"application/json");
+				var type = contentType;
+				if(!contentType)
+				{
+						type = "application/json";
+				}
+
+				makeServerCall(reqType,BaseURL+reqURL,reqdata,servercall_success,servercall_error,type);
 			}
 			catch (e)
 			{

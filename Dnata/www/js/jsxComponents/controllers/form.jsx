@@ -158,8 +158,8 @@ define(function (require) {
                var modified = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("M/DD/YYYY HH:mm")
                content["MS_INC_ATTRIBUTE1"] = {"value":modified};
 
-               var hours = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("HH");
-               var minutes = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("mm");
+               var hours = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("H");
+               var minutes = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("m");
 
                content["INCIDENT_TIME_HOUR"] = {"value":hours};
                content["INCIDENT_TIME_MINUTES"] = {"value":minutes};
@@ -202,8 +202,8 @@ define(function (require) {
               titleValue = titleValue + "-" + getString(this.props.childId);
 
               var obj = content["INCIDENT_DATE"];
-              var hours = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("HH");
-              var minutes = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("mm");
+              var hours = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("H");
+              var minutes = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("m");
 
               content["INCIDENT_TIME_HOURS"] = {"value":hours};
               content["INCIDENT_TIME_MINUTES"] = {"value":minutes};
@@ -490,6 +490,12 @@ define(function (require) {
                   content[id] = obj;
               }
 
+              //special case
+              if(id === 'FLIGHT_NUMBER_AVAIL')
+              {
+                  this._onChange();
+              }
+
             }
 
       },
@@ -703,6 +709,16 @@ define(function (require) {
               var element = structure[key];
               var obj = content[key];
               var value;
+
+              //special case Aircraft damage
+              if(key === 'FLIGHT_NUMBER')
+              {
+                  var shdShowFlight = content["FLIGHT_NUMBER_AVAIL"];
+
+                  if(shdShowFlight && shdShowFlight.value === "2")
+                    continue;
+              }
+
               if(obj instanceof Array)
               {
                   value = [];
@@ -729,7 +745,6 @@ define(function (require) {
                 requiredId = childId;
               }
               var isRequired = Store.isFieldRequired(requiredId,key);
-
 
               switch (element.fieldtype) {
                 case constants.Popup:
