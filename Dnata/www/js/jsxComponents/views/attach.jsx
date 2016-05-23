@@ -4,6 +4,45 @@ define(function (require) {
   var serverCall = require ("util/serverCall");
   var Msg = require("views/msgBox");
 
+  var AttachBox = React.createClass({
+
+    propTypes: {
+      onSuccess: React.PropTypes.func.isRequired,
+      onFail: React.PropTypes.func.isRequired,
+      onCancel: React.PropTypes.func.isRequired
+    },
+
+    _capturePhoto: function() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+       navigator.camera.getPicture(this.props.onSuccess, this.props.onFail, { quality: 60,
+         destinationType: navigator.camera.DestinationType.FILE_URI,encodingType: Camera.EncodingType.JPEG,
+         cameraDirection:navigator.camera.Direction.BACK,correctOrientation: true,targetWidth: 3000});
+    },
+    _uploadPhoto: function() {
+       navigator.camera.getPicture(this.props.onSuccess, this.props.onFail, { quality: 60,
+          destinationType: navigator.camera.DestinationType.FILE_URI,
+          sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,targetWidth: 3000,correctOrientation: true});
+    },
+
+    render: function(){
+      return(
+              <div className="attachbox">
+                <div className="cancel" onClick={this.props.onCancel}>
+                  <div className="cross">✕</div>
+                </div>
+                <div className="capture" onClick={this._capturePhoto}>
+                   <div className="attachicon icon-Capture"></div>
+                   <div className="attachtext">{getString("capture")}</div>
+                </div>
+                <div className="divider"></div>
+                <div className="capture" onClick={this._uploadPhoto}>
+                   <div className="attachicon icon-Picture"></div>
+                   <div className="attachtext">{getString("upload")}</div>
+                </div>
+              </div>
+            );
+        }
+  });
   var attach = React.createClass({
     propTypes: {
       name: React.PropTypes.string.isRequired,
@@ -19,32 +58,22 @@ define(function (require) {
       {
         defaultAttachment = this.props.defaultvalue;
       }
-      return { fadevalue: false, images:defaultAttachment };
+      return {images:defaultAttachment};
     },
 
     _onAttach: function() {
-      this.setState({fadevalue: true,images:this.state.images});
+      NavigationActions.presentPopup(<AttachBox onSuccess={this._onSuccess} onFail={this._onFail} onCancel={this._onCancel}/>);
+      this.setState({images:this.state.images});
     },
 
     _onCancel: function() {
-      this.setState({fadevalue: false,images:this.state.images});
+      NavigationActions.removePopup();
     },
 
-    _capturePhoto: function() {
-      // Take picture using device camera and retrieve image as base64-encoded string
-       navigator.camera.getPicture(this.onSuccess, this.onFail, { quality: 60,
-         destinationType: navigator.camera.DestinationType.FILE_URI,encodingType: Camera.EncodingType.JPEG,
-         cameraDirection:navigator.camera.Direction.BACK,correctOrientation: true,targetWidth: 3000});
-    },
-    _uploadPhoto: function() {
-       navigator.camera.getPicture(this.onSuccess, this.onFail, { quality: 60,
-          destinationType: navigator.camera.DestinationType.FILE_URI,
-          sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,targetWidth: 3000,correctOrientation: true});
-    },
-    onSuccess: function(imgURI) {
+    _onSuccess: function(imgURI) {
+       NavigationActions.removePopup();
        var array = this.state.images;
        array.push({"key":imgURI});
-
        if(this.props.onSave)
        {
          this.props.onSave(this.props.id,array);
@@ -52,6 +81,18 @@ define(function (require) {
 
        this.setState({fadevalue:false,images:array});
     },
+
+    _onFail: function(msg) {
+      NavigationActions.removePopup();
+      var msgButtonsArray = [{"title":"ok"}];
+      var onDeleteAttachment = function(title)
+      {
+          NavigationActions.removePopup();
+      }
+      this.setState({images:this.state.images});
+      NavigationActions.presentPopup(<Msg msgLabel={"failed_attachment"} buttons={msgButtonsArray} onMsgClick={onDeleteAttachment} />);
+    },
+
     _onDelete: function(key){
       var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
       var that = this;
@@ -67,29 +108,12 @@ define(function (require) {
                 that.props.onSave(that.props.id,array);
               }
 
-              that.setState({fadevalue:false, images:array});
+              that.setState({images:array});
           }
       }
       NavigationActions.presentPopup(<Msg msgLabel={"delete_attachment"} buttons={msgButtonsArray} onMsgClick={onDeleteAttachment} />);
     },
-    onFail: function(msg) {
-      var msgButtonsArray = [{"title":"ok"}];
-      var onDeleteAttachment = function(title)
-      {
-          NavigationActions.removePopup();
-      }
-      this.setState({fadevalue: false,images:this.state.images});
-      NavigationActions.presentPopup(<Msg msgLabel={"failed_attachment"} buttons={msgButtonsArray} onMsgClick={onDeleteAttachment} />);
-    },
-
     render: function() {
-      var classname = "filler hide";
-
-      if(this.state.fadevalue)
-      {
-        classname = "filler";
-      }
-
       var divsToAttach=[];
       for(var i=0;i<this.state.images.length;i++)
       {
@@ -104,22 +128,6 @@ define(function (require) {
           <div className="attachmentholder">
             {divsToAttach}
             <div className="attach icon-Picture" onClick={this._onAttach}></div>
-            <div className={classname}>
-              <div className="attachbox">
-                <div className="cancel" onClick={this._onCancel}>
-                  <div className="cross">✕</div>
-                </div>
-                <div className="capture" onClick={this._capturePhoto}>
-                   <div className="attachicon icon-Capture"></div>
-                   <div className="attachtext">{getString("capture")}</div>
-                </div>
-                <div className="divider"></div>
-                <div className="capture" onClick={this._uploadPhoto}>
-                   <div className="attachicon icon-Picture"></div>
-                   <div className="attachtext">{getString("upload")}</div>
-                </div>
-              </div>
-            </div>
         </div>
       </div>
         );

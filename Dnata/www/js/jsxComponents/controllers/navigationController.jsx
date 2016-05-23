@@ -41,7 +41,6 @@ define(function (require) {
     {
       e.preventDefault();
       e.stopPropagation();
-      return false;
     },
     render:function()
     {
@@ -92,8 +91,8 @@ define(function (require) {
 
       if(this.state.presentationLayer)
       {
-            presentationLayer = <div className="presentationLayer">
-                                    <div className="filler" onTouchMove={this._noScroll}/>
+            presentationLayer = <div className="presentationLayer" onTouchMove={this._noScroll}>
+                                    <div className="filler"/>
                                     {this.state.presentationLayer}
                                 </div>
       }
