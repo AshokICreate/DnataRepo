@@ -53,6 +53,14 @@ body {
   height: 100%;
 }
 
+.fillerEffect{
+  filter: blur(3px);
+  -webkit-filter:blur(3px);
+  -moz-filter:blur(3px);
+  -o-filter:blur(3px);
+  -ms-filter:blur(3px);
+}
+
 .form{
   color:black;
   overflow-y: scroll;

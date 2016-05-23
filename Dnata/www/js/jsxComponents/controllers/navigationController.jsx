@@ -37,6 +37,12 @@ define(function (require) {
     {
         NavigationStore.emitChange(constants.Right_Click_Event);
     },
+    _noScroll:function(e)
+    {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    },
     render:function()
     {
 
@@ -67,7 +73,12 @@ define(function (require) {
 
           var title = this.state.controller.title ? this.state.controller.title:"";
           var key = NavigationStore.getControllerKey();
-          controller = <div className="gclass" key={key}>
+          var classname = "gclass";
+          if(this.state.presentationLayer)
+          {
+            var classname = "gclass fillerEffect"
+          }
+          controller = <div className={classname} key={key}>
                         <div className="navigationBar">
                           {leftButton}
                           <Header name={title}/>
@@ -82,7 +93,7 @@ define(function (require) {
       if(this.state.presentationLayer)
       {
             presentationLayer = <div className="presentationLayer">
-                                    <div className="filler"/>
+                                    <div className="filler" onTouchMove={this._noScroll}/>
                                     {this.state.presentationLayer}
                                 </div>
       }
