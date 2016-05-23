@@ -23,35 +23,6 @@ define (function (require) {
         "MS_INC_ACTUAL_INJURY":"DD_CURRENT_STAGE"
     }
 
-    var MIMETYPES = [{"id":"35","text":"audio/mpegurl"},{"id":"36","text":"audio/ogg"},{"id":"33","text":"audio/midi"},
-                    {"id":"34","text":"audio/mpeg"},{"id":"39","text":"image/jpeg"},{"id":"37","text":"image/gif"},
-                    {"id":"38","text":"image/ief"},{"id":"43","text":"message/rfc822"},{"id":"42","text":"image/tiff"},
-                    {"id":"41","text":"image/png"},{"id":"40","text":"image/pcx"},{"id":"67","text":"video/quicktime"},
-                    {"id":"66","text":"video/mp4"},{"id":"69","text":"video/webm"},{"id":"68","text":"video/ogg"},
-                    {"id":"22","text":"application/rtf"},{"id":"23","text":"application/sla"},
-                    {"id":"24","text":"application/smil"},{"id":"25","text":"application/xml"},
-                    {"id":"26","text":"application/zip"},{"id":"27","text":"audio/amr"},{"id":"28","text":"audio/amr"},
-                    {"id":"29","text":"audio/annodex"},{"id":"3","text":"application/dicom"},
-                    {"id":"2","text":"application/bbolin"},{"id":"1","text":"application/annodex"},
-                    {"id":"7","text":"application/hta"},{"id":"30","text":"audio/basic"},
-                    {"id":"6","text":"application/futuresplash"},{"id":"5","text":"application/ecmascript"},
-                    {"id":"32","text":"audio/flac"},{"id":"4","text":"application/dsptype"},
-                    {"id":"31","text":"audio/csound"},{"id":"9","text":"application/json"},
-                    {"id":"8","text":"application/javascript"},{"id":"59","text":"video/annodex"},
-                    {"id":"58","text":"video/3gpp"},{"id":"57","text":"text/texmacs"},{"id":"56","text":"text/scriptlet"},
-                    {"id":"19","text":"application/pdf"},{"id":"55","text":"text/richtext"},{"id":"17","text":"application/ogg"},
-                    {"id":"18","text":"application/onenote"},{"id":"15","text":"application/mxf"},
-                    {"id":"16","text":"application/oda"},{"id":"13","text":"application/msaccess"},
-                    {"id":"14","text":"application/msword"},{"id":"11","text":"application/mathematica"},
-                    {"id":"12","text":"application/mbox"},{"id":"21","text":"application/rar"},
-                    {"id":"20","text":"application/postscript"},{"id":"64","text":"video/mpeg"},{"id":"65","text":"video/MP2T"},
-                    {"id":"62","text":"video/fli"},{"id":"63","text":"video/gl"},{"id":"102","text":"audio/x-caf"},
-                    {"id":"60","text":"video/dl"},{"id":"101","text":"application/plcrashreport"},{"id":"61","text":"video/dv"},
-                    {"id":"49","text":"text/csv"},{"id":"48","text":"text/css"},{"id":"45","text":"model/mesh"},
-                    {"id":"44","text":"model/iges"},{"id":"47","text":"text/calendar"},{"id":"46","text":"model/vrml"},
-                    {"id":"10","text":"application/m3g"},{"id":"51","text":"text/html"},{"id":"52","text":"text/iuls"},
-                    {"id":"53","text":"text/mathml"},{"id":"54","text":"text/plain"},{"id":"50","text":"text/h323"}]
-
     var keysToShow ={
       "MS_INC_POTENTIAL_INJ_FORM":[
                                   "INC_DATE_AND_TIME",
@@ -324,56 +295,11 @@ define (function (require) {
           callback(fileURL,data);
         }
 
-        var fail = function (error) {
-          callback(fileURL,'',"attachment_upload_failed");
-        }
+        var options = new FileUploadOptions();
+        options.fileKey = "content";
+        options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+        serverCall.uploadDocument("POST","documents",fileURL,options,success);
 
-        var url = fileURL;
-        if(fileURL.toLowerCase().startsWith("/storage"))
-        {
-           url= "file:///"+url
-        }
-
-        window.resolveLocalFileSystemURL(url, function(fileEntry) {
-            fileEntry.file(function(file) {
-                var reader = new FileReader();
-                var name = file.name;
-                var type = file.type;
-                if(name.indexOf(".") == -1)
-                {
-                    name = name + "." + type.split("/")[1];
-                }
-                var mimetype = getMimetypeId(type)
-
-                reader.onloadend = function(evt) {
-                    var content = evt.target.result.split(";base64,")[1];
-                    var params ={
-                      "filename": name,
-                      "description": "attachment",
-                      "content":content,
-                      "mimetype": "39"
-                    }
-                    var data = JSON.stringify(params);
-                    serverCall.connectServer("POST","documents",data,success);
-                }
-                reader.readAsDataURL(file);
-            },fail);
-          }, fail);
-
-    }
-
-    function getMimetypeId(type)
-    {
-       for (var i=0;i<MIMETYPES.length;i++)
-       {
-          var typeObj = MIMETYPES[i];
-          if(typeObj && typeObj.text === type)
-          {
-            return typeObj.id;
-          }
-       }
-
-       return "39";
     }
 
     function getFormData(id)
