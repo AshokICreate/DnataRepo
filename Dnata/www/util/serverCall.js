@@ -2,8 +2,8 @@ define (function (require) {
 
 	var server={requestURL:"", reqType:"",reqdata:"",callBackSuccess:""};
 	//var URL= "http://msi-l1905/metricstream";
-	//var URL= "https://dnatasafetyhub-uat.ek.aero/metricstream";
-	var URL= "http://172.27.138.47/metricstream";
+	var URL= "https://dnatasafetyhub-uat.ek.aero/metricstream";
+	//var URL= "http://172.27.138.47/metricstream";
 	var versionM2 = "m2/2.3";
 	var BaseURL;
 	var authorization;
@@ -25,8 +25,10 @@ define (function (require) {
 			if(404 === msg.status)
 			{
 				server.callBackSuccess(data,"matches_not_found");
-			}else {
+			}else if(408 === msg.status || 200 > msg.status || 3 === msg.code){
 				server.callBackSuccess(data,"network_failed");
+			}else {
+				server.callBackSuccess(data,"internal_error");
 			}
 
 	};

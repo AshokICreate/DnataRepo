@@ -289,7 +289,11 @@ define (function (require) {
         var success = function (data,error) {
           if(error)
           {
-            callback(fileURL,'',"attachment_upload_failed");
+            if(error === "network_failed")
+              callback(fileURL,'',"network_failed");
+            else {
+              callback(fileURL,'',"attachment_upload_failed");
+            }
             return;
           }
           callback(fileURL,data);
