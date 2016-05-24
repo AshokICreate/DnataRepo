@@ -15,7 +15,10 @@ Setup:
 
 Add Plugins:
 
-cordova-plugin-camera : To enable camera
-cordova plugin add cordova-plugin-keyboard :for keyboard
-cordova plugin add cordova-plugin-file : for file
-cordova plugin add cordova plugin add cordova-plugin-splashscreen : for splashscreen
+cordova-plugin-camera          --------  2.1.1 "Camera"
+cordova-plugin-compat          --------  1.0.0 "Compat"
+cordova-plugin-file            --------  4.2.0 "File"
+cordova-plugin-file-transfer   --------  1.5.1 "File Transfer"
+cordova-plugin-splashscreen    --------  3.2.2 "Splashscreen"
+cordova-plugin-statusbar       --------  2.1.2 "StatusBar"
+cordova-plugin-whitelist       --------  1.2.1 "Whitelist"
