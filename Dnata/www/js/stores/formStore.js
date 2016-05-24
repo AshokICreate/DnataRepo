@@ -295,10 +295,13 @@ define (function (require) {
           callback(fileURL,data);
         }
 
+        var url = fileURL.split(/[?#]/)[0];
+
         var options = new FileUploadOptions();
         options.fileKey = "content";
-        options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-        serverCall.uploadDocument("POST","documents",fileURL,options,success);
+        options.fileName = url.substr(fileURL.lastIndexOf('/') + 1);
+        options.chunkedMode = false;
+        serverCall.uploadDocument("POST","documents",url,options,success);
 
     }
 

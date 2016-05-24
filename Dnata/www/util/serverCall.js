@@ -54,7 +54,7 @@ define (function (require) {
 				}
 
 				var ft = new FileTransfer();
-				ft.upload(fileURL, BaseURL+reqURL, success, servercall_error, options);
+				ft.upload(fileURL, BaseURL+reqURL, success, servercall_error, options,true);
 		},
 		connectServer:function (reqType,reqURL,reqdata,successFunction,contentType)
 		{
