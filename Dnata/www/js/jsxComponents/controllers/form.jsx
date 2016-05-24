@@ -716,7 +716,11 @@ define(function (require) {
                   var shdShowFlight = content["FLIGHT_NUMBER_AVAIL"];
 
                   if(shdShowFlight && shdShowFlight.value === "2")
-                    continue;
+                  {
+                      obj.value = "";
+                      continue;
+                  }
+
               }
 
               if(obj instanceof Array)
