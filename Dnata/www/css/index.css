@@ -150,6 +150,7 @@ body {
 .gridName {
     width: 100%;
     text-align: center;
+    font-size: 90%;
 }
 
 .gridContainer {
@@ -192,6 +193,7 @@ body {
 .loginicon{
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   background-color: #0088ce;
   position: relative;
   color: black;
@@ -206,6 +208,7 @@ body {
 .loginscreen{
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   color: #0088ce;
   height: 55%;
   width: 100%;
@@ -234,7 +237,7 @@ body {
   -moz-appearance: none;
   border:none;
   background:transparent;
-  border-bottom: 0.55vw solid #0088ce;
+  border-bottom: 0.12em solid #0088ce;
   outline: none;
   padding-top: 5%;
   padding-bottom: 3%;
@@ -364,7 +367,7 @@ body {
   height: 60%;
   font-size: 4.2em;
   text-align: center;
-  top: 20%;
+  top: 19%;
   cursor: pointer;
 }
 
@@ -374,7 +377,7 @@ body {
   height:40%;
   text-align: center;
   font-family: Roboto;
-  font-size: 1.3em;
+  font-size: 1.25em;
   cursor: pointer;
  }
 

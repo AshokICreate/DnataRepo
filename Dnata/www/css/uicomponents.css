@@ -60,11 +60,13 @@
 
 
 .gridIcon:before{
-  font-size: 3.1em;
+  font-size: 3em;
   position: absolute;
   top: 40%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   left: 50%;
 }
 
@@ -114,6 +116,7 @@
 }
 
 .inputBox{
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
@@ -140,6 +143,7 @@
 
 
 .cfield{
+    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     position: relative;
@@ -168,6 +172,7 @@
 .descfield{
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   position: relative;
   border-radius: 20px;
   border: 1px solid #D3D3D3;
@@ -190,6 +195,7 @@
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   position: relative;
   border-radius: 20px;
   border: 1px solid #D3D3D3;
@@ -220,11 +226,14 @@
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
 
 .lclass{
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   position: relative;
   width: 98%;
   height:auto;
@@ -233,6 +242,7 @@
 .label{
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   position: relative;
   margin-left: 3%;
   margin-bottom: 4%;
@@ -285,6 +295,8 @@
 .listtitle
 {
     -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: none;
     position: relative;
     margin-left: 4%;
     width: 80%;
@@ -308,6 +320,7 @@
 .searchbox{
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance:none;
   position: relative;
   border: 1px solid #D3D3D3;
   outline: none;
@@ -346,6 +359,7 @@
 .toggle_first_segment{
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   float: left;
   position: relative;
   height: 30px;
@@ -374,6 +388,7 @@
 .toggle_second_segment{
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   float: left;
   height: 30px;
   position: relative;
@@ -445,6 +460,7 @@
 }
 
 .attachment{
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   height: 15%;
@@ -537,6 +553,8 @@
   cursor:pointer;
   margin-right: -50%;
   transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   left: 50%;
 }
 
