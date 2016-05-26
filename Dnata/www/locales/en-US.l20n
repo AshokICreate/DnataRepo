@@ -48,7 +48,7 @@
 <category_not_selected "You have not selected any Category(s)">
 <failed_attachment "Did not receive any image as attachment! Please try again.">
 <attachment_upload_failed "Internal error occurred while uploading attachment.">
-<login_failed "Authentication failed. Please check your credentials">
+<login_failed "Authentication failed. Please check your credentials.">
 <confirm_logout "Are you sure you want to Logout?">
 <invalid_date "Please enter valid date. Resetting to current time">
 <future_date "Incident date cannot be future date. Resetting to current time">
