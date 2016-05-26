@@ -484,14 +484,14 @@ define(function (require) {
                   var obj = {value:value.key};
                   content[id] = obj;
 
-              }else
+              }else if(value !== "")
               {
                   var obj = {value:value};
                   content[id] = obj;
               }
 
               //special case
-              if(id === 'FLIGHT_NUMBER_AVAIL')
+              if(id === 'FLIGHT_NUMBER')
               {
                   this._onChange();
               }
@@ -716,11 +716,7 @@ define(function (require) {
                   var shdShowFlight = content["FLIGHT_NUMBER_AVAIL"];
 
                   if(shdShowFlight && shdShowFlight.value === "2")
-                  {
-                      obj.value = "";
-                      continue;
-                  }
-
+                    continue;
               }
 
               if(obj instanceof Array)
@@ -902,7 +898,7 @@ define(function (require) {
       var values= [];
       for (var key in resourceData) {
         var value = resourceData[key].value;
-        values.push({key,value});
+        values.push({key:key,value:value});
       }
 
       return values;
