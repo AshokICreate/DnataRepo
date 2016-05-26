@@ -289,16 +289,23 @@ define (function (require) {
         var success = function (data,error) {
           if(error)
           {
-            callback(fileURL,'',"attachment_upload_failed");
+            if(error === "network_failed")
+              callback(fileURL,'',"network_failed");
+            else {
+              callback(fileURL,'',"attachment_upload_failed");
+            }
             return;
           }
           callback(fileURL,data);
         }
 
+        var url = fileURL.split(/[?#]/)[0];
+
         var options = new FileUploadOptions();
         options.fileKey = "content";
-        options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-        serverCall.uploadDocument("POST","documents",fileURL,options,success);
+        options.fileName = url.substr(fileURL.lastIndexOf('/') + 1);
+        options.chunkedMode = false;
+        serverCall.uploadDocument("POST","documents",url,options,success);
 
     }
 
