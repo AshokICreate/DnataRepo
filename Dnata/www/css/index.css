@@ -228,16 +228,12 @@ body {
   height: 20%;
 }
 
-#userinfo{
-  font-size: medium;
-}
-
 .loginFields{
   -webkit-appearance: none;
   -moz-appearance: none;
   border:none;
   background:transparent;
-  border-bottom: 0.12em solid #0088ce;
+  border-bottom: 0.1em solid #0088ce;
   outline: none;
   padding-top: 5%;
   padding-bottom: 3%;
@@ -423,10 +419,7 @@ body {
  {
    font-size: 80%;
  }
- input[type="text"]
- {
-   font-size: 80%;
- }
+
  input[type="search"]
  {
    font-size: 80%;

@@ -16,12 +16,12 @@ define(function (require) {
       // Take picture using device camera and retrieve image as base64-encoded string
        navigator.camera.getPicture(this.props.onSuccess, this.props.onFail, { quality: 45,
          destinationType: navigator.camera.DestinationType.FILE_URI,encodingType: Camera.EncodingType.JPEG,
-         cameraDirection:navigator.camera.Direction.BACK,correctOrientation: true,targetWidth: 3000});
+         cameraDirection:navigator.camera.Direction.BACK,correctOrientation: true});
     },
     _uploadPhoto: function() {
        navigator.camera.getPicture(this.props.onSuccess, this.props.onFail, { quality: 45,
           destinationType: navigator.camera.DestinationType.FILE_URI,
-          sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,targetWidth: 3000,correctOrientation: true});
+          sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,correctOrientation: true});
     },
 
     render: function(){
