@@ -484,14 +484,14 @@ define(function (require) {
                   var obj = {value:value.key};
                   content[id] = obj;
 
-              }else if(value !== "")
+              }else
               {
                   var obj = {value:value};
                   content[id] = obj;
               }
 
               //special case
-              if(id === 'FLIGHT_NUMBER')
+              if(id === 'FLIGHT_NUMBER_AVAIL')
               {
                   this._onChange();
               }
@@ -716,7 +716,10 @@ define(function (require) {
                   var shdShowFlight = content["FLIGHT_NUMBER_AVAIL"];
 
                   if(shdShowFlight && shdShowFlight.value === "2")
+                  {
+                    obj.value = "";
                     continue;
+                  }
               }
 
               if(obj instanceof Array)
