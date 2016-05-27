@@ -63,6 +63,7 @@ define(function(require){
     }
     else
     {
+        feedbackObj.receive_update = "2";
         NavigationActions.popController();
     }
   },

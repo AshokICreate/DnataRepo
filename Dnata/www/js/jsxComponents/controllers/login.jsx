@@ -76,11 +76,11 @@ define(function (require) {
         <div className="loginicon"></div>
         <div className="loginscreen">
           <div className="userdetails">
-            <label className="loginlabel">{getString("dnata_id")}</label><br/>
-            <input id="userinfo" className="loginFields" type="text" name="username"></input><br/>
+            <label className="loginlabel">{getString("dnata_id")}</label>
+            <input id="userinfo" className="loginFields" type="text" name="username"></input>
           </div>
           <div className="pwdetails">
-            <label className="loginlabel">{getString("password")}</label><br/>
+            <label className="loginlabel">{getString("password")}</label>
             <input id="pwdinfo" className="loginFields" type="password" name="pwd"></input>
           </div>
           <div className="errorMsg">{this.state.msg}</div>

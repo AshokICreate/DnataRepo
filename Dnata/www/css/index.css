@@ -228,16 +228,12 @@ body {
   height: 20%;
 }
 
-#userinfo{
-  font-size: medium;
-}
-
 .loginFields{
   -webkit-appearance: none;
   -moz-appearance: none;
   border:none;
   background:transparent;
-  border-bottom: 0.12em solid #0088ce;
+  border-bottom: 0.1em solid #0088ce;
   outline: none;
   padding-top: 5%;
   padding-bottom: 3%;
@@ -421,9 +417,9 @@ body {
    position: relative;
    width: 100%;
    height: 60%;
-   font-size: 4em;
+   font-size: 3.9em;
    text-align: center;
-   top: 15%;
+   top: 14%;
    cursor: pointer;
  }
 
@@ -433,8 +429,8 @@ body {
    height:40%;
    text-align: center;
    font-family: Roboto;
-   font-size: 1.3em;
-   top: 7%;
+   font-size: 1.25em;
+   top: 8%;
    cursor: pointer;
  }
 
@@ -442,10 +438,7 @@ body {
  {
    font-size: 80%;
  }
- input[type="text"]
- {
-   font-size: 80%;
- }
+
  input[type="search"]
  {
    font-size: 80%;
