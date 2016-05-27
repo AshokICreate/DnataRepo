@@ -1,12 +1,13 @@
 define(function (require) {
   var actions = require ("actions/loginActions");
   var Store = require ("stores/loginStore");
+  var Loader = require("views/loader");
 
   var login = React.createClass({
 
     getInitialState:function()
     {
-      return {msg:""}
+      return {msg:"",login:true}
     },
     componentDidMount: function () {
         Store.addChangeListener (this._onChange);
@@ -45,7 +46,7 @@ define(function (require) {
 
             msg = "* "+getString(msg);
 
-            this.setState({msg:msg});
+            this.setState({msg:msg,login:true});
         }
     },
     loginButtonClicked: function () {
@@ -56,9 +57,20 @@ define(function (require) {
          pwd: pwd,
       }
     actions.doLogin(Obj);
+    this.setState({msg:"",login:false});
   },
 
   render: function () {
+
+    var loginButton = "";
+    var filler = "";
+    if(this.state.login)
+      loginButton = <button className="loginbtn" onClick={this.loginButtonClicked}>{getString("login")}</button>
+    else {
+      loginButton = <div className="loginLoader" ><Loader /></div>
+      filler = <div className="loginFiller" />
+    }
+
     return(
       <div className= "gclass">
         <div className="loginicon"></div>
@@ -72,7 +84,7 @@ define(function (require) {
             <input id="pwdinfo" className="loginFields" type="password" name="pwd"></input>
           </div>
           <div className="errorMsg">{this.state.msg}</div>
-          <button className="loginbtn" onClick={this.loginButtonClicked}>{getString("login")}</button>
+          {loginButton}
         </div>
         <div className="footer">
           <div className="metricLogo">
@@ -81,6 +93,7 @@ define(function (require) {
           </div>
           <div className="vfooter">{getString("version")}</div>
         </div>
+        {filler}
       </div>
     );
     }
