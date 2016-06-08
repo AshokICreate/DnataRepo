@@ -17,11 +17,13 @@ define(function(require){
       return(
         <div className="msgBox">
           <div className="msgClass">
-            <div className="msgLabel"><center>{getString(promptLabel)}</center></div>
-            <center><div className="promptField"><input type="password" id="sessionkey" placeholder="Enter session key"></input></div></center>
-            <div className="msgBtnClass">
-              <center className="centerBox"><div className="msgBtn" onClick={this._onAction}>OK</div></center>
-            </div>
+            <center><div className="msgLabel">{getString(promptLabel)}</div></center>
+            <center><div className="promptField"><input type="password" id="sessionkey" placeholder="Enter password"></input></div></center>
+            <center className="centerBox">
+              <div className="msgBtnClass">
+                <div className="msgBtn" onClick={this._onAction}>OK</div>
+              </div>
+            </center>
           </div>
         </div>
       );

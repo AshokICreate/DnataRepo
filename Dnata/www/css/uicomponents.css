@@ -733,14 +733,22 @@
 }
 
 .promptField{
-  color:black;
-  border: 1px solid black;
-  padding:2%;
-  width:55%;
+  color: black;
+  padding: 2%;
 }
 #sessionkey{
   -webkit-appearance: none;
-  border-width: 0;
+  -moz-appearance: none;
+  border: none;
+  background: transparent;
+  border-bottom: 0.1em solid #0088ce;
+  outline: none;
+  padding-top: 5%;
+  padding-bottom: 3%;
+  width: 91%;
+  position: relative;
+  font-size: medium;
+  text-align: center;
 }
 
 .msgBtnClass{
@@ -766,8 +774,8 @@
   text-align: center;
   color: white;
   font-size: 1em;
+  margin-right: 2%;
   padding: 3%;
-  margin-right: 5%;
   margin-top: 7%;
   cursor: pointer;
   display: inline-block;
