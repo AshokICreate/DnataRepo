@@ -37,7 +37,7 @@ define (function (require) {
 
     function showPrompt()
     {
-      LoginStore.emitChange(constants.Pre_Session_Expiry_Event*1);
+      LoginStore.emitChange(constants.Pre_Session_Expiry_Event);
     }
 
     function clearSessionTimers()
@@ -80,13 +80,6 @@ define (function (require) {
       serverCall.connectServer("GET","handshake",user,gotLoginData);
     }
 
-    function logout(){
-      userDetails = undefined;
-      clearSessionTimers();
-      serverCall.clearCookies()
-      LoginStore.emitChange(constants.Logout_Issued_Event);
-    }
-
     function reLogin(issueCode)
     {
         var reloggedData = function(data,error)
@@ -109,6 +102,13 @@ define (function (require) {
             serverCall.connectServer("GET","handshake",Obj,reloggedData);
         }
 
+    }
+    
+    function logout(){
+      userDetails = undefined;
+      clearSessionTimers();
+      serverCall.clearCookies()
+      LoginStore.emitChange(constants.Logout_Issued_Event);
     }
 
     appDispatcher.register (function (action) {

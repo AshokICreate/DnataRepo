@@ -53,6 +53,13 @@ define(function (require) {
     loginButtonClicked: function () {
       var username = $("#userinfo").val();
       var pwd = $("#pwdinfo").val();
+
+      if(!username || !pwd )
+      {
+          msg = "* "+getString("login_validation_field");
+          this.setState({msg:msg,login:true});
+          return;
+      }
       var that = this;
       this.setState({msg:"",login:false});
       Encrypter.encryptMessage(
