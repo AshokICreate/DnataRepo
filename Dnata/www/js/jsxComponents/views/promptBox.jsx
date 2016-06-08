@@ -26,8 +26,14 @@ define(function(require){
       var sessionKey = $("#sessionkey").val();
       return this.props.onPromptClick(sessionKey);
   },
-
   countDown: function(){
+    if(this.state.value === 0){
+      if(timer){
+        clearInterval(timer);
+        timer = undefined;
+      }
+      return;
+    }
     this.setState({value:this.state.value-1});
   },
   render: function (){
