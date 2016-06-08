@@ -57,4 +57,4 @@
 <no "NO">
 <ok "OK">
 <matches_not_found "List of values not found for this field">
-<session_expiry_prompt_msg "Session is going to expire in 2 mins. To continue your please enter password.">
+<session_expiry_prompt_msg "Session is going to expire in {0} seconds. To continue, please enter password.">
