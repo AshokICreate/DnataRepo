@@ -19,9 +19,11 @@ define(function (require) {
     componentDidMount: function () {
         NavigationStore.addChangeListener (constants.Change_Event,this._onChange);
         NavigationActions.pushController(this.props.controller);
+        document.addEventListener("backbutton", this._onBackButtonClick, false);
     },
     componentWillUnmount: function () {
         NavigationStore.removeChangeListener (constants.Change_Event,this._onChange);
+        document.removeEventListener("backbutton", this._onBackButtonClick, false);
     },
     componentWillReceiveProps: function(nextProps) {
       NavigationActions.changeRootController(nextProps.controller);
