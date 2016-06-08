@@ -1,5 +1,5 @@
 define(function(require){
-
+  var timer;
   var Prompt = React.createClass({
 
   propTypes: {
@@ -7,13 +7,32 @@ define(function(require){
     onPromptClick: React.PropTypes.func.isRequired
   },
 
+  getInitialState: function(){
+    var counter = 120;
+    return {value: counter};
+  },
+
+  componentDidMount:function(){
+    timer = setInterval(this.countDown, 1000);
+  },
+
+  componentWillUnmount:function(){
+      if(timer){
+        clearInterval(timer);
+        timer = undefined;
+      }
+  },
   _onAction: function(){
       var sessionKey = $("#sessionkey").val();
       return this.props.onPromptClick(sessionKey);
   },
 
+  countDown: function(){
+    this.setState({value:this.state.value-1});
+  },
   render: function (){
     var promptLabel = this.props.promptLabel;
+    var label = String.format(promptLabel,this.state.value);
       return(
         <div className="msgBox">
           <div className="msgClass">
