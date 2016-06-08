@@ -37,7 +37,7 @@ define (function (require) {
 
     function showPrompt()
     {
-      LoginStore.emitChange(constants.Pre_Session_Expiry_Event);
+      LoginStore.emitChange(constants.Pre_Session_Expiry_Event*1);
     }
 
     function clearSessionTimers()

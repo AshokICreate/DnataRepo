@@ -35,17 +35,16 @@ define(function (require) {
     _reLogin:function(issueToken)
     {
         NavigationActions.removePopup();
-        // Encrypter.encryptMessage(
-        //       function (encrypt) {
-        //         LoginActions.reLogin(encrypt);
-        //       },
-        //       function(error)
-        //       {
-        //           showPrompt();
-        //       },
-        //       issueToken
-        // );
-        LoginActions.reLogin('TuUTOYMy6H+xrDg+Lh+g+Q==');
+        Encrypter.encryptMessage(
+              function (encrypt) {
+                LoginActions.reLogin(encrypt);
+              },
+              function(error)
+              {
+                  showPrompt();
+              },
+              issueToken
+        );
     },
     showExpiryPrompt:function()
     {

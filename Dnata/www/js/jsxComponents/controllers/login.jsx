@@ -55,29 +55,22 @@ define(function (require) {
       var pwd = $("#pwdinfo").val();
       var that = this;
       this.setState({msg:"",login:false});
-
-      var Obj = {
-         username: 'GNDNATASDS01',
-         pwd: 'TuUTOYMy6H+xrDg+Lh+g+Q==',
-      }
-      actions.doLogin(Obj);
-
-      // Encrypter.encryptMessage(
-      //       function (encrypt) {
-      //         var Obj = {
-      //            username: username,
-      //            pwd: encrypt,
-      //         }
-      //         actions.doLogin(Obj);
-      //       },
-      //       function(error)
-      //       {
-      //         var msg = "internal_error";
-      //         msg = "* "+getString(msg);
-      //         that.setState({msg:msg,login:true});
-      //       },
-      //       pwd
-      // );
+      Encrypter.encryptMessage(
+            function (encrypt) {
+              var Obj = {
+                 username: username,
+                 pwd: encrypt,
+              }
+              actions.doLogin(Obj);
+            },
+            function(error)
+            {
+              var msg = "internal_error";
+              msg = "* "+getString(msg);
+              that.setState({msg:msg,login:true});
+            },
+            pwd
+      );
   },
 
   render: function () {
