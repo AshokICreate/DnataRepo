@@ -2,6 +2,7 @@ define(function (require) {
   var actions = require ("actions/loginActions");
   var Store = require ("stores/loginStore");
   var Loader = require("views/loader");
+  var constants = require ("constants/loginConstants");
 
   var login = React.createClass({
 
@@ -10,7 +11,7 @@ define(function (require) {
       return {msg:"",login:true}
     },
     componentDidMount: function () {
-        Store.addChangeListener (this._onChange);
+        Store.addChangeListener (constants.Login_Issued_Event,this._onChange);
         //this is for input navigations in form
         $('input').keydown( function(e) {
           var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
@@ -30,7 +31,7 @@ define(function (require) {
 
     },
     componentWillUnmount: function () {
-        Store.removeChangeListener (this._onChange);
+        Store.removeChangeListener (constants.Login_Issued_Event,this._onChange);
         var node = this.getDOMNode();
         $(node).find('input').unbind('keydown');
     },
@@ -52,12 +53,31 @@ define(function (require) {
     loginButtonClicked: function () {
       var username = $("#userinfo").val();
       var pwd = $("#pwdinfo").val();
+      var that = this;
+      this.setState({msg:"",login:false});
+
       var Obj = {
-         username: username,
-         pwd: pwd,
+         username: 'GNDNATASDS01',
+         pwd: 'TuUTOYMy6H+xrDg+Lh+g+Q==',
       }
-    actions.doLogin(Obj);
-    this.setState({msg:"",login:false});
+      actions.doLogin(Obj);
+
+      // Encrypter.encryptMessage(
+      //       function (encrypt) {
+      //         var Obj = {
+      //            username: username,
+      //            pwd: encrypt,
+      //         }
+      //         actions.doLogin(Obj);
+      //       },
+      //       function(error)
+      //       {
+      //         var msg = "internal_error";
+      //         msg = "* "+getString(msg);
+      //         that.setState({msg:msg,login:true});
+      //       },
+      //       pwd
+      // );
   },
 
   render: function () {

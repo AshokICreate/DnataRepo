@@ -22,12 +22,13 @@ define (function (require) {
 	function servercall_error(msg)
 	{
 			var data;
-			if(404 === msg.status)
-			{
+			if(404 === msg.status){
 				server.callBackSuccess(data,"matches_not_found");
 			}else if(408 === msg.status || 200 > msg.status || 3 === msg.code){
 				server.callBackSuccess(data,"network_failed");
-			}else {
+			}else if(401 === msg.status){
+				server.callBackSuccess(data,"invalid_session");
+			}else{
 				server.callBackSuccess(data,"internal_error");
 			}
 
@@ -37,6 +38,10 @@ define (function (require) {
 		getURL:function()
 		{
 				return URL;
+		},
+		clearCookies:function()
+		{
+				authorization = "";
 		},
 		uploadDocument:function(reqType,reqURL,fileURL,options,successFunction)
 		{
@@ -70,10 +75,16 @@ define (function (require) {
 				if(reqURL=="handshake")
 				{
 						BaseURL = URL+"/"+versionM2+"/"+server.reqdata.username+"/";
-						authorization = server.reqdata.pwd;
-						//server.reqdata.username = "pfadmin"
-						//getInitialTokenForClient();
-						//return;
+						var storage = window.localStorage;
+						var value = storage.getItem("clientData");
+						if(value)
+						{
+								getAuthorizationCode(JSON.parse(value));
+						}else {
+								getClientAuthenticatation();
+						}
+
+						return;
 				}
 
 				var type = contentType;
@@ -131,18 +142,38 @@ define (function (require) {
 	}
 
 
-	function getAccessToken(clientData,code)
+	function verifyM2Access(userDetails)
 	{
 			var _onSuccess = function(response)
 			{
-					BaseURL = URL+"/"+versionM2+"/"+server.reqdata.username+"/";
-					authorization = response.token_type+" "+response.access_token;
-					makeServerCall(server.reqType,BaseURL+server.requestURL,"",server.callBackSuccess);
+					if(response.authenticated === "yes")
+					{
+							servercall_success(userDetails);
+					}else {
+							servercall_error("login_failed");
+					}
 			}
 
 			var _onError = function(response,error,msg)
 			{
+					servercall_error(response);
+			}
 
+			BaseURL = URL+"/"+versionM2+"/"+server.reqdata.username+"/";
+			authorization = userDetails.token_type+" "+userDetails.access_token;
+			makeServerCall(server.reqType,BaseURL+server.requestURL,"",_onSuccess,_onError);
+	}
+
+	function getAccessToken(clientData,code)
+	{
+			var _onSuccess = function(response)
+			{
+					verifyM2Access(response);
+			}
+
+			var _onError = function(response,error,msg)
+			{
+					servercall_error(response);
 			}
 
 			var data = "grant_type=authorization_code"
@@ -165,10 +196,17 @@ define (function (require) {
 			xhttp.onreadystatechange = function() {
 				if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
 					var token = getParameterByName("code",xhttp.responseURL);
+					if(!token)
+					{
+						var error = getParameterByName("error",xhttp.responseURL);
+						servercall_error(xhttp);
+						return;
+					}
+
 					getAccessToken(clientData,token);
 				}
 			};
-			xhttp.open("GET", URL+"/oauth2/token?username="+server.reqdata.username, true);
+			xhttp.open("GET", URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd), true);
 			xhttp.send();
 
 	}
@@ -185,6 +223,8 @@ define (function (require) {
 					if(response.status === 401)
 					{
 						 getAuthenticate(clientData);
+					}else {
+						servercall_error(response);
 					}
 
 			}
@@ -197,12 +237,14 @@ define (function (require) {
 	{
 			var _onSuccess = function(data)
 			{
+					var storage = window.localStorage;
+					storage.setItem("clientData", JSON.stringify(data));
 					getAuthorizationCode(data);
 			}
 
-			var _onError = function(error,msg,response)
+			var _onError = function(response,error,msg)
 			{
-					console.log(response);
+					servercall_error(response);
 			}
 
 			var obj = "initial_access_token="+token;
@@ -211,22 +253,50 @@ define (function (require) {
 
 	function getInitialTokenForClient()
 	{
+
 			var xhttp;
-		  if (window.XMLHttpRequest) {
-		    // code for modern browsers
-		    xhttp = new XMLHttpRequest();
-		    } else {
-		    // code for IE6, IE5
-		    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		  }
-		  xhttp.onreadystatechange = function() {
-		    if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
-		      var token = getParameterByName("initial_access_token",xhttp.responseURL);
+			if (window.XMLHttpRequest) {
+				// code for modern browsers
+				xhttp = new XMLHttpRequest();
+				} else {
+				// code for IE6, IE5
+				xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xhttp.onreadystatechange = function() {
+				if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
+					var token = getParameterByName("initial_access_token",xhttp.responseURL);
+
+					if(!token)
+					{
+						var error = getParameterByName("error",xhttp.responseURL);
+						servercall_error(xhttp);
+						return;
+					}
 					registerClient(token);
-		    }
-		  };
-		  xhttp.open("GET", URL+"/oauth2/authorize?response_type=initial_token", true);
-		  xhttp.send();
+				}
+			};
+			xhttp.open("GET", URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd), true);
+			xhttp.send();
+
+	}
+
+	function getClientAuthenticatation()
+	{
+			var _onSuccess = function(data)
+			{
+
+			}
+
+			var _onError = function(response,error,msg)
+			{
+					if(response.status === 401)
+					{
+							getInitialTokenForClient();
+					}else {
+						servercall_error(response);
+					}
+			}
+			makeServerCall("GET",URL+"/oauth2/authorize?response_type=initial_token","",_onSuccess,_onError);
 	}
 
 	function getParameterByName(name, url) {

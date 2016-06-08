@@ -13,6 +13,9 @@ define(function (require) {
   var NavigationActions = require ("actions/navigationActions");
   var NavigationStore = require ("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
+  var LoginConstants = require ("constants/loginConstants");
+  var LoginStore = require("stores/loginStore");
+
   var Feedback = require("controllers/feedback");
   var TextArea = require("views/textareaBox");
   var Confirm = require("views/confirmBox");
@@ -30,6 +33,7 @@ define(function (require) {
           Store.addChangeListener (constants.On_Error,this.showError);
           NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
           NavigationStore.addChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
+          LoginStore.addChangeListener (LoginConstants.Logout_Issued_Event,this.loggedOut);
 
           var state = NavigationStore.getControllerState();
 
@@ -62,6 +66,8 @@ define(function (require) {
           Store.removeChangeListener (constants.On_Error,this.showError);
           NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
           NavigationStore.removeChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
+          LoginStore.removeChangeListener (LoginConstants.Logout_Issued_Event,this.loggedOut);
+
           var node = this.getDOMNode();
           $(node).find('input').unbind('keydown');
 
@@ -72,6 +78,10 @@ define(function (require) {
           //Phani: not proper fix , it should remember the state of the child tab. Shouldnt go to top always when tabs are shifted
           var node = this.getDOMNode();
           node.scrollTop = 0;
+      },
+      loggedOut:function()
+      {
+          actions.loggedOut();
       },
       getResources:{},
       render: function () {
@@ -176,6 +186,7 @@ define(function (require) {
                content["EVENT_TYPE"]= {"value":getString(this.props.id)};
 
                content["INCIDENT_DESCRIPTION_LKP"] = [{"value":this.props.potentialLov}];
+               content["INC_DUMMY_CHAR12"] = {"value":"Y"};
                this._submitAttachments(formAction);
 
 
@@ -240,6 +251,7 @@ define(function (require) {
               content["SELECTED_TABS_ID"] = {value:selectValue}
               content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
               content["INC_STATUS"] = {value:"Reporting"}
+              content["IS_MOBILE_REPT"] = {"value":"Y"};
               attachments = content["ADN_SUPPORTING_DOC"];
               content["REPORTED_BY"] = content["DD_CURRENT_USER_NAME"];
 

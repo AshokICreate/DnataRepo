@@ -273,6 +273,11 @@ define (function (require) {
           FormStore.emitChange(constants.Clear_Data_Event);
           break;
         }
+        case constants.Logged_Out:
+        {
+          formData = undefined;
+          break;
+        }
         default:
         {
             return true;
@@ -368,7 +373,7 @@ define (function (require) {
             assignmentId = data.assignmentId;
         }
 
-        serverCall.connectServer("POST","tasks?formname="+id,"",createdTask);
+        serverCall.connectServer("POST",encodeURI("tasks?formname="+id+"&text="+getString(id)),"",createdTask);
 
     }
 

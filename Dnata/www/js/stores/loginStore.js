@@ -5,68 +5,151 @@ define (function (require) {
     var constants = require ("constants/loginConstants");
     var serverCall = require ("util/serverCall");
 
-    var isLoggedin = false;
+    var userDetails;
     var errorMsg;
+    var sessionExpiryTimer;
+    var promptExpiryTimer;
 
     var LoginStore = assign ({}, EventEmitter.prototype, {
 
       isUserLoggedIn:function()
       {
-        return isLoggedin;
+          if(userDetails)
+            return true;
+          else {
+            return false;
+          }
       },
       getError:function()
       {
           return errorMsg;
       },
-      emitChange: function() {
-        this.emit(constants.Change_Event);
+      emitChange: function(id) {
+        this.emit(id);
       },
-      addChangeListener: function(callback) {
-        this.on(constants.Change_Event, callback);
+      addChangeListener: function(id,callback) {
+        this.on(id, callback);
       },
-      removeChangeListener: function(callback) {
-        this.removeListener(constants.Change_Event, callback);
+      removeChangeListener: function(id,callback) {
+        this.removeListener(id, callback);
       }
     });
+
+    function showPrompt()
+    {
+      LoginStore.emitChange(constants.Pre_Session_Expiry_Event);
+    }
+
+    function clearSessionTimers()
+    {
+        if(sessionExpiryTimer)
+        {
+            clearTimeout(sessionExpiryTimer);
+            sessionExpiryTimer = undefined;
+        }
+        if(promptExpiryTimer)
+        {
+            clearTimeout(promptExpiryTimer);
+            promptExpiryTimer = undefined;
+        }
+
+    }
+    function setSessionExpiryTimers(time)
+    {
+        clearSessionTimers();
+        sessionExpiryTimer = setTimeout(logout, time);
+        var promptExpiryTime = 60*1000
+        if(time > promptExpiryTime)
+        {
+            promptExpiryTimer = setTimeout(showPrompt, (time-promptExpiryTime));
+        }
+    }
+
     function login(user){
       var gotLoginData = function(data,error)
       {
-        if(!error && data.authenticated === "yes")
-        {
-          isLoggedin = true;
-
-        }else {
-          errorMsg = error;
-        }
-        LoginStore.emitChange();
+          if(!error)
+          {
+            userDetails = data;
+            setSessionExpiryTimers(parseInt(data.expires_in));
+          }else {
+            errorMsg = error;
+          }
+          LoginStore.emitChange(constants.Login_Issued_Event);
       }
       serverCall.connectServer("GET","handshake",user,gotLoginData);
     }
 
     function logout(){
-
-      isLoggedin  = false;
-      //setTimeout(function(){ LoginStore.emitChange(); }, );
-      LoginStore.emitChange();
+      userDetails = undefined;
+      clearSessionTimers();
+      serverCall.clearCookies()
+      LoginStore.emitChange(constants.Logout_Issued_Event);
     }
+
+    function reLogin(issueCode)
+    {
+        var reloggedData = function(data,error)
+        {
+            if(!error)
+            {
+              userDetails = data;
+              setSessionExpiryTimers(parseInt(data.expires_in));
+            }else {
+              showPrompt();
+            }
+        }
+
+        if(userDetails)
+        {
+
+            // Encrypter.encryptMessage(
+            //       function (encrypt) {
+            //         var Obj = {
+            //            username: userDetails.username,
+            //            pwd: encrypt,
+            //         }
+            //         serverCall.connectServer("GET","handshake",Obj,reloggedData);
+            //       },
+            //       function(error)
+            //       {
+            //           showPrompt();
+            //       },
+            //       issueCode
+            // );
+
+            var Obj = {
+               username: 'GNDNATASDS01',
+               pwd: 'TuUTOYMy6H+xrDg+Lh+g+Q==',
+            }
+            actions.doLogin(Obj);
+        }
+
+    }
+
     appDispatcher.register (function (action) {
         switch (action.actionType) {
-            case constants.Login_Auth:
-                {
-                  //authentication
-                  login(action.user);
-                  break;
-                }
+            case constants.Login_Authenticate:
+            {
+              //authentication
+              login(action.user);
+              break;
+            }
             case constants.Logout:
-                {
+            {
 
-                  logout();
-                  break;
-                }
+              logout();
+              break;
+            }
+            case constants.Login_Reissue:
+            {
+                reLogin();
+                break;
+            }
             default:
-                {
-                    console.log ("No Registered action");
-                }
+            {
+                console.log ("No Registered action");
+            }
         }
     });
 

@@ -10,6 +10,7 @@ define (function () {
         Dropdown:"DROPDOWN",
         Calendar:"CALENDAR",
         Textfield:"TEXTFIELD",
-        Attachment:"ATTACHMENT"
+        Attachment:"ATTACHMENT",
+        Logged_Out:"logged_out"
     };
 });

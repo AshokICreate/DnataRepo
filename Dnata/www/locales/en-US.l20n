@@ -23,7 +23,7 @@
 <EQD "GSE damage">
 <PRD "Property damage">
 <PAE "Plant and equipment damage">
-<internal_error "Internal Error occurred.Please restart the application">
+<internal_error "Internal Error occurred. Try restarting the application. If problem persists contact administrator.">
 <capture "Capture">
 <upload "Upload">
 <save_as_draft "Save this as Draft">
@@ -47,12 +47,14 @@
 <clear_data "All the data you entered will be cleared! Are you sure you want to proceed?">
 <category_not_selected "You have not selected any Category(s)">
 <failed_attachment "Did not receive any image as attachment! Please try again.">
-<attachment_upload_failed "Internal error occurred while uploading attachment.">
+<attachment_upload_failed "Internal error occurred while uploading attachment. Try restarting the application. If problem persists contact administrator.">
 <login_failed "Authentication failed. Please check your credentials.">
 <confirm_logout "Are you sure you want to Logout?">
 <invalid_date "Please enter valid date. Resetting to current time">
 <future_date "Incident date cannot be future date. Resetting to current time">
+<invalid_session "Session got expired. Please login again.">
 <yes "YES">
 <no "NO">
 <ok "OK">
 <matches_not_found "List of values not found for this field">
+<session_expiry_prompt_msg "Session is going to expire in 2 mins. To continue your please enter password.">

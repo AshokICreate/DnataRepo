@@ -11,8 +11,13 @@ define (function (require) {
       },
       clearFormData:function(id){
         appDispatcher.dispatch ({
-            actionType: constants.Clear_Form_Data,
-            formId: id
+            actionType: constants.Clear_Form_Data
+        });
+      },
+      loggedOut:function()
+      {
+        appDispatcher.dispatch ({
+            actionType: constants.Logged_Out
         });
       }
     };
