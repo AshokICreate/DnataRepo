@@ -289,7 +289,7 @@
     border-bottom: 1px solid #ddd;
     padding: 3%;
     cursor: pointer;
-    height: 1.2em;
+    height: 4%;
 }
 
 .listtitle
@@ -299,7 +299,7 @@
     -moz-appearance: none;
     position: relative;
     margin-left: 4%;
-    width: 80%;
+    width: 84%;
     font-size: 90%;
     float: left;
 }
@@ -730,6 +730,17 @@
   word-spacing: 0.02em;
   width: 100%;
   /*margin-left: 2%;*/
+}
+
+.promptField{
+  color:black;
+  border: 1px solid black;
+  padding:2%;
+  width:55%;
+}
+#sessionkey{
+  -webkit-appearance: none;
+  border-width: 0;
 }
 
 .msgBtnClass{
