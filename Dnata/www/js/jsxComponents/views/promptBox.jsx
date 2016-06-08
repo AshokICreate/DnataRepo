@@ -32,12 +32,12 @@ define(function(require){
   },
   render: function (){
     var promptLabel = this.props.promptLabel;
-    var label = String.format(promptLabel,this.state.value);
+    var label = String.format(getString(promptLabel),this.state.value);
       return(
         <div className="msgBox">
           <div className="msgClass">
-            <center><div className="msgLabel">{getString(promptLabel)}</div></center>
-            <center><div className="promptField"><input type="password" id="sessionkey" placeholder="Enter password"></input></div></center>
+            <center><div className="msgLabel">{label}</div></center>
+            <center><div className="promptField"><input type="password" id="sessionkey"></input></div></center>
             <center className="centerBox">
               <div className="msgBtnClass">
                 <div className="msgBtn" onClick={this._onAction}>OK</div>
