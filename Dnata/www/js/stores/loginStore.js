@@ -58,7 +58,7 @@ define (function (require) {
     {
         clearSessionTimers();
         sessionExpiryTimer = setTimeout(logout, time);
-        var promptExpiryTime = 60*1000
+        var promptExpiryTime = 2*60*1000
         if(time > promptExpiryTime)
         {
             promptExpiryTimer = setTimeout(showPrompt, (time-promptExpiryTime));
@@ -102,27 +102,11 @@ define (function (require) {
 
         if(userDetails)
         {
-
-            // Encrypter.encryptMessage(
-            //       function (encrypt) {
-            //         var Obj = {
-            //            username: userDetails.username,
-            //            pwd: encrypt,
-            //         }
-            //         serverCall.connectServer("GET","handshake",Obj,reloggedData);
-            //       },
-            //       function(error)
-            //       {
-            //           showPrompt();
-            //       },
-            //       issueCode
-            // );
-
             var Obj = {
-               username: 'GNDNATASDS01',
-               pwd: 'TuUTOYMy6H+xrDg+Lh+g+Q==',
+               username: userDetails.user_name,
+               pwd: issueCode,
             }
-            actions.doLogin(Obj);
+            serverCall.connectServer("GET","handshake",Obj,reloggedData);
         }
 
     }
@@ -143,7 +127,7 @@ define (function (require) {
             }
             case constants.Login_Reissue:
             {
-                reLogin();
+                reLogin(action.token);
                 break;
             }
             default:

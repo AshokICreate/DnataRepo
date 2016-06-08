@@ -10,7 +10,8 @@ define(function (require) {
     var FormStore = require("stores/formStore");
     var LoginConstants = require ("constants/loginConstants");
     var LoginStore = require("stores/loginStore");
-    var Msg = require("views/msgBox");
+    var LoginActions= require("actions/loginActions");
+    var PromptBox = require("views/promptBox");
 
     var app = React.createClass({
         displayName: 'dnata',
@@ -31,14 +32,24 @@ define(function (require) {
     {
       this.setState(this.getContents());
     },
-    _reLogin:function()
+    _reLogin:function(issueToken)
     {
         NavigationActions.removePopup();
-
+        // Encrypter.encryptMessage(
+        //       function (encrypt) {
+        //         LoginActions.reLogin(encrypt);
+        //       },
+        //       function(error)
+        //       {
+        //           showPrompt();
+        //       },
+        //       issueToken
+        // );
+        LoginActions.reLogin('TuUTOYMy6H+xrDg+Lh+g+Q==');
     },
     showExpiryPrompt:function()
     {
-        NavigationActions.presentPopup(<Msg msgLabel={"session_expiry_prompt_msg"} buttons={msgButtonsArray} onMsgClick={this._reLogin}/>);
+        NavigationActions.presentPopup(<PromptBox promptLabel={"session_expiry_prompt_msg"} onPromptClick={this._reLogin}/>);
     },
     getContents:function () {
         var content;

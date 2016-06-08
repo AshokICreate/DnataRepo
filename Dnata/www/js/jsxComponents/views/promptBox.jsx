@@ -13,7 +13,6 @@ define(function(require){
   },
 
   render: function (){
-    var promptButton = this.props.buttons;
     var promptLabel = this.props.promptLabel;
       return(
         <div className="msgBox">

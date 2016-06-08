@@ -13,10 +13,11 @@ define (function (require) {
               actionType: constants.Logout
           });
         },
-        reLogin:function()
+        reLogin:function(token)
         {
           appDispatcher.dispatch ({
-            actionType: constants.Login_Reissue
+            actionType: constants.Login_Reissue,
+            token:token
           });
         }
     };
