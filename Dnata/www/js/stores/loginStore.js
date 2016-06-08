@@ -58,7 +58,7 @@ define (function (require) {
     {
         clearSessionTimers();
         sessionExpiryTimer = setTimeout(logout, time);
-        var promptExpiryTime = 2*60*1000
+        var promptExpiryTime = 1*60*1000
         if(time > promptExpiryTime)
         {
             promptExpiryTimer = setTimeout(showPrompt, (time-promptExpiryTime));
