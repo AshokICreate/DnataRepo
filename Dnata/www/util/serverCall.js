@@ -2,8 +2,8 @@ define (function (require) {
 
 	var server={requestURL:"", reqType:"",reqdata:"",callBackSuccess:""};
 	//var URL= "http://msi-l1905/metricstream";
-	//var URL= "https://dnatasafetyhub-uat.ek.aero/metricstream";
-	var URL= "http://172.27.138.47/metricstream";
+	var URL= "https://dnatasafetyhub-uat.ek.aero/metricstream";
+	//var URL= "http://172.27.138.47/metricstream";
 	var versionM2 = "m2/2.3";
 	var BaseURL;
 	var authorization;
@@ -141,9 +141,9 @@ define (function (require) {
 			});
 	}
 
-
 	function verifyM2Access(userDetails)
 	{
+
 			var _onSuccess = function(response)
 			{
 					if(response.authenticated === "yes")
@@ -202,30 +202,6 @@ define (function (require) {
 			var url = URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd);
 			getRedirectedUrl(url,_onSuccess);
 
-			// var xhttp;
-			// if (window.XMLHttpRequest) {
-			// 	// code for modern browsers
-			// 	xhttp = new XMLHttpRequest();
-			// 	} else {
-			// 	// code for IE6, IE5
-			// 	xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-			// }
-			// xhttp.onreadystatechange = function() {
-			// 	if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
-			// 		var token = getParameterByName("code",xhttp.responseURL);
-			// 		if(!token)
-			// 		{
-			// 			var error = getParameterByName("error",xhttp.responseURL);
-			// 			servercall_error(xhttp);
-			// 			return;
-			// 		}
-			//
-			// 		getAccessToken(clientData,token);
-			// 	}
-			// };
-			// xhttp.open("GET", URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd), true);
-			// xhttp.send();
-
 	}
 
 	function getAuthorizationCode(clientData)
@@ -273,7 +249,6 @@ define (function (require) {
 
 			var _onSuccess = function(callbackUrl)
 			{
-
 					var token = getParameterByName("initial_access_token",callbackUrl);
 					if(!token)
 					{
@@ -285,31 +260,6 @@ define (function (require) {
 			}
 			var url = URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd);
 			getRedirectedUrl(url,_onSuccess);
-			// var xhttp;
-			// if (window.XMLHttpRequest) {
-			// 	// code for modern browsers
-			// 	xhttp = new XMLHttpRequest();
-			// 	} else {
-			// 	// code for IE6, IE5
-			// 	xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-			// }
-			// xhttp.onreadystatechange = function() {
-			// 	if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
-			// 		var token = getParameterByName("initial_access_token",xhttp.responseURL);
-			//
-			// 		if(!token)
-			// 		{
-			// 			var error = getParameterByName("error",xhttp.responseURL);
-			// 			servercall_error(xhttp);
-			// 			return;
-			// 		}
-			// 		registerClient(token);
-			// 	}
-			// };
-			// xhttp.open("GET", URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd), true);
-			// xhttp.send();
-
-
 	}
 
 	function getClientAuthenticatation()
@@ -358,18 +308,22 @@ define (function (require) {
 	{
 			if(!isRedirectUrlWorks())
 			{
-				var ref = window.open(url, "_blank", "hidden=yes");
-				 ref.addEventListener('loadstop', function (e) {
-					 	 ref.close();
+
+
+				var browserRef = window.open(url, "_blank", "hidden=yes");
+				 browserRef.addEventListener('loadstop', function (e) {
+
+					 browserRef.close();
+					 browserRef = undefined;
 						 callback(e.url);
 
 				 });
 
-				 ref.addEventListener('loaderror', function (e) {
-					 	 ref.close();
-						 callback(e.url);
+				 browserRef.addEventListener('loaderror', function (e) {
+						 browserRef.close();
+						 browserRef = undefined;
+					 	 callback(e.url);
 				 });
-
 				 return;
 			}
 
