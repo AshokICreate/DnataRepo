@@ -20,6 +20,23 @@ define (function (require) {
             return false;
           }
       },
+      getTimeRemaining:function()
+      {
+          if(userDetails && userDetails.expiresAt)
+          {
+              var d = new Date();
+              var millisecs = userDetails.expiresAt-d.getTime();
+
+              if(millisecs>1000)
+              {
+                return parseInt(millisecs/1000);
+              }else {
+                return 1;
+              }
+          }
+
+          return 1;
+      },
       getError:function()
       {
           return errorMsg;
@@ -58,7 +75,7 @@ define (function (require) {
     {
         clearSessionTimers();
         sessionExpiryTimer = setTimeout(logout, time);
-        var promptExpiryTime = 1*60*1000
+        var promptExpiryTime = 2*60*1000
         if(time > promptExpiryTime)
         {
             promptExpiryTimer = setTimeout(showPrompt, (time-promptExpiryTime));
@@ -71,7 +88,10 @@ define (function (require) {
           if(!error)
           {
             userDetails = data;
-            setSessionExpiryTimers(parseInt(data.expires_in));
+            var d = new Date();
+            userDetails["expiresAt"] = d.getTime()+(data.expires_in*1000);
+
+            setSessionExpiryTimers(parseInt(data.expires_in*1000));
           }else {
             errorMsg = error;
           }
@@ -87,7 +107,7 @@ define (function (require) {
             if(!error)
             {
               userDetails = data;
-              setSessionExpiryTimers(parseInt(data.expires_in));
+              setSessionExpiryTimers(parseInt(data.expires_in*1000));
             }else {
               showPrompt();
             }
@@ -103,7 +123,7 @@ define (function (require) {
         }
 
     }
-    
+
     function logout(){
       userDetails = undefined;
       clearSessionTimers();

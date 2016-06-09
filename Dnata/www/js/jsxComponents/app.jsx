@@ -34,21 +34,28 @@ define(function (require) {
     },
     _reLogin:function(issueToken)
     {
-        NavigationActions.removePopup();
+        if(!issueToken)
+        {
+            showExpiryPrompt();
+            return;
+        }
+
+        NavigationActions.removePrompt();
         Encrypter.encryptMessage(
               function (encrypt) {
                 LoginActions.reLogin(encrypt);
               },
               function(error)
               {
-                  showPrompt();
+                  showExpiryPrompt();
               },
               issueToken
         );
     },
     showExpiryPrompt:function()
     {
-        NavigationActions.presentPopup(<PromptBox promptLabel={"session_expiry_prompt_msg"} onPromptClick={this._reLogin}/>);
+        var timeout = LoginStore.getTimeRemaining();
+        NavigationActions.presentPrompt(<PromptBox promptLabel={"session_expiry_prompt_msg"} timeLeft={timeout} onPromptClick={this._reLogin}/>);
     },
     getContents:function () {
         var content;

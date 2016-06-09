@@ -7,11 +7,15 @@ define (function (require) {
     var controllerStack =[];
     var controllerState = {};
     var popUpView;
+    var promptView;
 
     var navigationStore = assign ({}, EventEmitter.prototype, {
 
       getPresentationLayer:function()
       {
+        if(promptView)
+          return promptView;
+          
         return popUpView;
       },
       getController:function()
@@ -104,6 +108,18 @@ define (function (require) {
                     navigationStore.emitChange(constants.Change_Event);
                     break;
               }
+              case constants.Navigation_PresentPrompt:
+                {
+                      promptView = action.presentationLayer
+                      navigationStore.emitChange(constants.Change_Event);
+                      break;
+                }
+              case constants.Navigation_RemovePrompt:
+                {
+                      promptView = undefined;
+                      navigationStore.emitChange(constants.Change_Event);
+                      break;
+                }
             default:
                 {
                     console.log ("No Registered action");

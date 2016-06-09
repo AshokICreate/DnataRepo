@@ -38,6 +38,19 @@ define (function (require) {
             appDispatcher.dispatch ({
                 actionType: constants.Navigation_RemovePopup
             });
+        },
+        presentPrompt:function(view)
+        {
+            appDispatcher.dispatch ({
+                actionType: constants.Navigation_PresentPrompt,
+                presentationLayer: view
+            });
+        },
+        removePrompt:function()
+        {
+            appDispatcher.dispatch ({
+                actionType: constants.Navigation_RemovePrompt
+            });
         }
     };
     return navigationActions;

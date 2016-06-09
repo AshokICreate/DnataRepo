@@ -4,11 +4,12 @@ define(function(require){
 
   propTypes: {
     promptLabel: React.PropTypes.string.isRequired,
-    onPromptClick: React.PropTypes.func.isRequired
+    onPromptClick: React.PropTypes.func.isRequired,
+    timeLeft:React.PropTypes.number
   },
 
   getInitialState: function(){
-    var counter = 120;
+    var counter = this.props.timeLeft;
     return {value: counter};
   },
 
