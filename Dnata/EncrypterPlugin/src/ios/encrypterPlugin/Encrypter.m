@@ -63,9 +63,6 @@
 
 
     NSString *resultString = [result base64EncodedStringWithOptions:0];
-
-    NSLog(@"Encrypted HexString : %@",resultString);
-
     return resultString;
 }
 

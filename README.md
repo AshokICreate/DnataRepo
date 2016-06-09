@@ -15,11 +15,15 @@ Setup:
 
 Add Plugins:
 cordova plugin add
-EncrypterPlugin(metricstream plugin will be exported in this repo)
-cordova-plugin-camera          --------  2.1.1 "Camera"
-cordova-plugin-compat          --------  1.0.0 "Compat"
-cordova-plugin-file            --------  4.2.0 "File"
-cordova-plugin-file-transfer   --------  1.5.1 "File Transfer"
-cordova-plugin-splashscreen    --------  3.2.2 "Splashscreen"
-cordova-plugin-statusbar       --------  2.1.2 "StatusBar"
-cordova-plugin-whitelist       --------  1.2.1 "Whitelist"
+cordova-plugin-camera 2.2.0 "Camera"
+cordova-plugin-compat 1.0.0 "Compat"
+cordova-plugin-device 1.1.2 "Device"
+cordova-plugin-file 4.2.0 "File"
+cordova-plugin-file-transfer 1.5.1 "File Transfer"
+cordova-plugin-inappbrowser 1.4.0 "InAppBrowser"
+cordova-plugin-splashscreen 3.2.2 "Splashscreen"
+cordova-plugin-statusbar 2.1.2 "StatusBar"
+cordova-plugin-whitelist 1.2.1 "Whitelist"
+mis.dnata.cordova.EncrypterPlugin 0.1.0 "EncrypterPlugin"
+
+***EncrypterPlugin(metricstream plugin will be exported in this repo)

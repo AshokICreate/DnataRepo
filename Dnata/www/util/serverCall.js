@@ -185,29 +185,46 @@ define (function (require) {
 	}
 
 	function getAuthenticate(clientData) {
-			var xhttp;
-			if (window.XMLHttpRequest) {
-				// code for modern browsers
-				xhttp = new XMLHttpRequest();
-				} else {
-				// code for IE6, IE5
-				xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			xhttp.onreadystatechange = function() {
-				if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
-					var token = getParameterByName("code",xhttp.responseURL);
+
+			var _onSuccess = function(callbackUrl)
+			{
+					var token = getParameterByName("code",callbackUrl);
 					if(!token)
 					{
-						var error = getParameterByName("error",xhttp.responseURL);
-						servercall_error(xhttp);
+						var error = getParameterByName("error",callbackUrl);
+						servercall_error("internal_error");
 						return;
 					}
 
 					getAccessToken(clientData,token);
-				}
-			};
-			xhttp.open("GET", URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd), true);
-			xhttp.send();
+			}
+
+			var url = URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd);
+			getRedirectedUrl(url,_onSuccess);
+
+			// var xhttp;
+			// if (window.XMLHttpRequest) {
+			// 	// code for modern browsers
+			// 	xhttp = new XMLHttpRequest();
+			// 	} else {
+			// 	// code for IE6, IE5
+			// 	xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			// }
+			// xhttp.onreadystatechange = function() {
+			// 	if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
+			// 		var token = getParameterByName("code",xhttp.responseURL);
+			// 		if(!token)
+			// 		{
+			// 			var error = getParameterByName("error",xhttp.responseURL);
+			// 			servercall_error(xhttp);
+			// 			return;
+			// 		}
+			//
+			// 		getAccessToken(clientData,token);
+			// 	}
+			// };
+			// xhttp.open("GET", URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd), true);
+			// xhttp.send();
 
 	}
 
@@ -254,29 +271,44 @@ define (function (require) {
 	function getInitialTokenForClient()
 	{
 
-			var xhttp;
-			if (window.XMLHttpRequest) {
-				// code for modern browsers
-				xhttp = new XMLHttpRequest();
-				} else {
-				// code for IE6, IE5
-				xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			xhttp.onreadystatechange = function() {
-				if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
-					var token = getParameterByName("initial_access_token",xhttp.responseURL);
+			var _onSuccess = function(callbackUrl)
+			{
 
+					var token = getParameterByName("initial_access_token",callbackUrl);
 					if(!token)
 					{
-						var error = getParameterByName("error",xhttp.responseURL);
-						servercall_error(xhttp);
+						var error = getParameterByName("error",callbackUrl);
+						servercall_error("internal_error");
 						return;
 					}
 					registerClient(token);
-				}
-			};
-			xhttp.open("GET", URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd), true);
-			xhttp.send();
+			}
+			var url = URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd);
+			getRedirectedUrl(url,_onSuccess);
+			// var xhttp;
+			// if (window.XMLHttpRequest) {
+			// 	// code for modern browsers
+			// 	xhttp = new XMLHttpRequest();
+			// 	} else {
+			// 	// code for IE6, IE5
+			// 	xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			// }
+			// xhttp.onreadystatechange = function() {
+			// 	if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
+			// 		var token = getParameterByName("initial_access_token",xhttp.responseURL);
+			//
+			// 		if(!token)
+			// 		{
+			// 			var error = getParameterByName("error",xhttp.responseURL);
+			// 			servercall_error(xhttp);
+			// 			return;
+			// 		}
+			// 		registerClient(token);
+			// 	}
+			// };
+			// xhttp.open("GET", URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd), true);
+			// xhttp.send();
+
 
 	}
 
@@ -300,13 +332,65 @@ define (function (require) {
 	}
 
 	function getParameterByName(name, url) {
-	    if (!url) url = window.location.href;
+	    if (!url) return null;
 	    name = name.replace(/[\[\]]/g, "\\$&");
 	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
 	        results = regex.exec(url);
 	    if (!results) return null;
 	    if (!results[2]) return '';
 	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+
+	function isRedirectUrlWorks()
+	{
+			var platform = device.platform;
+			var version = device.version;
+
+			if(platform === "Android" && parseInt(version) <5)
+			{
+				return false;
+			}
+
+			return true;
+	}
+
+	function getRedirectedUrl(url,callback)
+	{
+			if(!isRedirectUrlWorks())
+			{
+				var ref = window.open(url, "_blank", "hidden=yes");
+				 ref.addEventListener('loadstop', function (e) {
+					 	 ref.close();
+						 callback(e.url);
+
+				 });
+
+				 ref.addEventListener('loaderror', function (e) {
+					 	 ref.close();
+						 callback(e.url);
+				 });
+
+				 return;
+			}
+
+			var xhttp;
+			if (window.XMLHttpRequest) {
+				// code for modern browsers
+				xhttp = new XMLHttpRequest();
+				} else {
+				// code for IE6, IE5
+				xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xhttp.onreadystatechange = function() {
+				if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
+					callback(xhttp.responseURL);
+				}else if(xhttp.readyState == 4 && xhttp.status == 200)
+				{
+					callback(null);
+				}
+			};
+			xhttp.open("GET",url, true);
+			xhttp.send();
 	}
 
 });
