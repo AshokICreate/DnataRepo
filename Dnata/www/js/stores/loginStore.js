@@ -107,6 +107,8 @@ define (function (require) {
             if(!error)
             {
               userDetails = data;
+              var d = new Date();
+              userDetails["expiresAt"] = d.getTime()+(data.expires_in*1000);
               setSessionExpiryTimers(parseInt(data.expires_in*1000));
             }else {
               showPrompt();
