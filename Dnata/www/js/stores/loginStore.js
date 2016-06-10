@@ -75,7 +75,7 @@ define (function (require) {
     {
         clearSessionTimers();
         sessionExpiryTimer = setTimeout(logout, time);
-        var promptExpiryTime = 2*60*1000
+        var promptExpiryTime = 2*59*1000
         if(time > promptExpiryTime)
         {
             promptExpiryTimer = setTimeout(showPrompt, (time-promptExpiryTime));
@@ -86,8 +86,8 @@ define (function (require) {
     {
         userDetails = data;
         var d = new Date();
-        userDetails["expiresAt"] = d.getTime()+(parseInt(data.expires_in)*1000-5000);
-        setSessionExpiryTimers((parseInt(data.expires_in)*1000-5000));
+        userDetails["expiresAt"] = d.getTime()+((parseInt(data.expires_in)-60)*1000);
+        setSessionExpiryTimers((parseInt(data.expires_in)-60)*1000);
     }
 
     function login(user){

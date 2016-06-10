@@ -367,6 +367,13 @@ define(function (require) {
       _onCancel:function()
       {
         NavigationActions.removePopup();
+
+        //this case comes when there is error in retrieving form data first time
+        var formsData = Store.getData();
+        if(!formsData)
+        {
+            actions.clearFormData();
+        }
       },
       _onBackButtonClick:function()
       {
