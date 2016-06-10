@@ -15,7 +15,7 @@ define (function (require) {
       {
         if(promptView)
           return promptView;
-          
+
         return popUpView;
       },
       getController:function()
@@ -47,10 +47,18 @@ define (function (require) {
         this.emit(eventId);
       },
       addChangeListener: function(eventId,callback) {
+
+        if(eventId === constants.Back_Click_Event || eventId === constants.Right_Click_Event)
+        {
+            this.removeAllListeners(eventId);
+        }
         this.on(eventId, callback);
       },
       removeChangeListener: function(eventId,callback) {
         this.removeListener(eventId, callback);
+      },
+      removeAllChangeListeners: function(eventId) {
+        this.removeAllListeners(eventId);
       }
     });
 
@@ -85,6 +93,8 @@ define (function (require) {
                 {
                     controllerStack =[];
                     controllerState = {};
+                    navigationStore.removeAllChangeListeners(constants.Back_Click_Event);
+                    navigationStore.removeAllChangeListeners(constants.Right_Click_Event);
                     navigationStore.emitChange(constants.Change_Event);
                     break;
                 }
@@ -92,6 +102,8 @@ define (function (require) {
               {
                     controllerStack =[];
                     controllerState = {};
+                    navigationStore.removeAllChangeListeners(constants.Back_Click_Event);
+                    navigationStore.removeAllChangeListeners(constants.Right_Click_Event);
                     controllerStack.push(action.controller);
                     navigationStore.emitChange(constants.Change_Event);
                     break;

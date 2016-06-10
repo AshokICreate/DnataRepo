@@ -251,7 +251,7 @@ define(function (require) {
               content["SELECTED_TABS_ID"] = {value:selectValue}
               content["REPORTED_TIME"] = {"value":Moment().format("M/DD/YYYY HH:mm:ss")}
               content["INC_STATUS"] = {value:"Reporting"}
-              content["IS_MOBILE_REPT"] = {"value":"Y"};
+              content["DUMMY_CHAR15"] = {"value":"Y"};
               attachments = content["ADN_SUPPORTING_DOC"];
               content["REPORTED_BY"] = content["DD_CURRENT_USER_NAME"];
 

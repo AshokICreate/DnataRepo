@@ -28,7 +28,7 @@ define(function(require){
       return this.props.onPromptClick(sessionKey);
   },
   countDown: function(){
-    if(this.state.value === 0){
+    if(this.state.value === 1){
       if(timer){
         clearInterval(timer);
         timer = undefined;
