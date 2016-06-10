@@ -36,18 +36,19 @@ define(function (require) {
     {
         if(!issueToken)
         {
-            showExpiryPrompt();
+            this.showExpiryPrompt();
             return;
         }
 
         NavigationActions.removePrompt();
+        var that = this;
         Encrypter.encryptMessage(
               function (encrypt) {
                 LoginActions.reLogin(encrypt);
               },
               function(error)
               {
-                  showExpiryPrompt();
+                  that.showExpiryPrompt();
               },
               issueToken
         );

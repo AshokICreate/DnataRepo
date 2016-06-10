@@ -82,16 +82,20 @@ define (function (require) {
         }
     }
 
+    function setUserSessionDetails(data)
+    {
+        userDetails = data;
+        var d = new Date();
+        userDetails["expiresAt"] = d.getTime()+(parseInt(data.expires_in)*1000-5000);
+        setSessionExpiryTimers((parseInt(data.expires_in)*1000-5000));
+    }
+
     function login(user){
       var gotLoginData = function(data,error)
       {
           if(!error)
           {
-            userDetails = data;
-            var d = new Date();
-            userDetails["expiresAt"] = d.getTime()+(data.expires_in*1000);
-
-            setSessionExpiryTimers(parseInt(data.expires_in*1000));
+              setUserSessionDetails(data);
           }else {
             errorMsg = error;
           }
@@ -106,10 +110,7 @@ define (function (require) {
         {
             if(!error)
             {
-              userDetails = data;
-              var d = new Date();
-              userDetails["expiresAt"] = d.getTime()+(data.expires_in*1000);
-              setSessionExpiryTimers(parseInt(data.expires_in*1000));
+              setUserSessionDetails(data);
             }else {
               showPrompt();
             }
@@ -127,10 +128,11 @@ define (function (require) {
     }
 
     function logout(){
-      userDetails = undefined;
-      clearSessionTimers();
-      serverCall.clearCookies()
-      LoginStore.emitChange(constants.Logout_Issued_Event);
+      // userDetails = undefined;
+      // clearSessionTimers();
+      // serverCall.clearCookies()
+      // LoginStore.emitChange(constants.Logout_Issued_Event);
+      document.location = "index.html";
     }
 
     appDispatcher.register (function (action) {
