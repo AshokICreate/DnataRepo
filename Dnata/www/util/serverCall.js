@@ -2,8 +2,10 @@ define (function (require) {
 
 	var server={requestURL:"", reqType:"",reqdata:"",callBackSuccess:""};
 	//var URL= "http://msi-l1905/metricstream";
-	var URL= "https://dnatasafetyhub-uat.ek.aero/metricstream";
-	//var URL= "http://172.27.138.47/metricstream";
+	//var URL= "https://dnatasafetyhub-uat.ek.aero/metricstream";
+	var URL= "http://172.27.138.47/metricstream";
+//PLAB Instance
+//var URL = "https://vmiintdntaplbap.metricstream.com/metricstream";
 	var versionM2 = "m2/2.3";
 	var BaseURL;
 	var authorization;
