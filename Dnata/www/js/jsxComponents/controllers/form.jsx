@@ -210,7 +210,7 @@ define(function (require) {
                 "REPORTERS_DEPT"
               ]
               var titleValue = getAppendedValuesFromContent(titleArray,content);
-              titleValue = titleValue + "-" + getString(this.props.childId);
+              titleValue = titleValue + " - " + getString(this.props.childId);
 
               var obj = content["INCIDENT_DATE"];
               var hours = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("H");
@@ -220,7 +220,7 @@ define(function (require) {
               content["INCIDENT_TIME_MINUTES"] = {"value":minutes};
 
               var modified = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("DD/MM/YYYY HH:mm")
-              titleValue = titleValue + "-" + modified;
+              titleValue = titleValue + " - " + modified;
 
               obj.value = Moment(obj.value,"M/DD/YYYY HH:mm:ss").format("MM/DD/YYYY HH:mm:ss")
 
