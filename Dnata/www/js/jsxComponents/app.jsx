@@ -41,17 +41,7 @@ define(function (require) {
         }
 
         NavigationActions.removePrompt();
-        var that = this;
-        Encrypter.encryptMessage(
-              function (encrypt) {
-                LoginActions.reLogin(encrypt);
-              },
-              function(error)
-              {
-                  that.showExpiryPrompt();
-              },
-              issueToken
-        );
+        LoginActions.reLogin(issueToken);
     },
     showExpiryPrompt:function()
     {

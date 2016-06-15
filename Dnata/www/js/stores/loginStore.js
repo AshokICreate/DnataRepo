@@ -4,12 +4,10 @@ define (function (require) {
     var assign = require ("object-assign");
     var constants = require ("constants/loginConstants");
     var serverCall = require ("util/serverCall");
-
     var userDetails;
     var errorMsg;
     var sessionExpiryTimer;
     var promptExpiryTimer;
-
     var LoginStore = assign ({}, EventEmitter.prototype, {
 
       isUserLoggedIn:function()
@@ -97,11 +95,13 @@ define (function (require) {
           {
               setUserSessionDetails(data);
           }else {
-            errorMsg = error;
+              errorMsg = error;
+              userDetails = null;
           }
           LoginStore.emitChange(constants.Login_Issued_Event);
       }
       serverCall.connectServer("GET","handshake",user,gotLoginData);
+
     }
 
     function reLogin(issueCode)
@@ -123,6 +123,9 @@ define (function (require) {
                pwd: issueCode,
             }
             serverCall.connectServer("GET","handshake",Obj,reloggedData);
+        }else {
+          //this call shouldn't happen. If cade is executig this line then there is some problem with authentication workflow
+            logout();
         }
 
     }

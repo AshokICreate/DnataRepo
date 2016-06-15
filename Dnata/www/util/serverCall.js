@@ -3,9 +3,10 @@ define (function (require) {
 	var server={requestURL:"", reqType:"",reqdata:"",callBackSuccess:""};
 	//var URL= "http://msi-l1905/metricstream";
 	//var URL= "https://dnatasafetyhub-uat.ek.aero/metricstream";
-	var URL= "http://172.27.138.47/metricstream";
-//PLAB Instance
-//var URL = "https://vmiintdntaplbap.metricstream.com/metricstream";
+	//Performance system: 172.27.132.219
+	//var URL= "https://172.27.132.219/metricstream";
+	var isSSO = true;
+	var URL = "http://172.27.138.47/metricstream";
 	var versionM2 = "m2/2.3";
 	var BaseURL;
 	var authorization;
@@ -77,13 +78,18 @@ define (function (require) {
 				if(reqURL=="handshake")
 				{
 						BaseURL = URL+"/"+versionM2+"/"+server.reqdata.username+"/";
-						var storage = window.localStorage;
-						var value = storage.getItem("clientData");
-						if(value)
+
+
+						if(isSSO)
 						{
-								getAuthorizationCode(JSON.parse(value));
+							authenticateBySSOEncryption();
 						}else {
-								getClientAuthenticatation();
+							var userDetails = {};
+							userDetails.token_type = server.reqdata.pwd;
+							userDetails.access_token = null;
+							userDetails.expires_in = 3600;
+							userDetails.user_name = server.reqdata.username;
+							verifyM2Access(userDetails);
 						}
 
 						return;
@@ -162,7 +168,11 @@ define (function (require) {
 			}
 
 			BaseURL = URL+"/"+versionM2+"/"+server.reqdata.username+"/";
-			authorization = userDetails.token_type+" "+userDetails.access_token;
+			authorization = userDetails.token_type;
+			if(userDetails.access_token)
+			{
+				authorization = authorization+" "+userDetails.access_token;
+			}
 			makeServerCall(server.reqType,BaseURL+server.requestURL,"",_onSuccess,_onError);
 	}
 
@@ -264,7 +274,7 @@ define (function (require) {
 			getRedirectedUrl(url,_onSuccess);
 	}
 
-	function getClientAuthenticatation()
+	function getClientAuthenticatationSSO()
 	{
 			var _onSuccess = function(data)
 			{
@@ -281,6 +291,42 @@ define (function (require) {
 					}
 			}
 			makeServerCall("GET",URL+"/oauth2/authorize?response_type=initial_token","",_onSuccess,_onError);
+	}
+
+	function authenticateBySSOEncryption()
+	{
+			var encryptSuccess = function(encryptedMessage)
+			{
+					server.reqdata.pwd = encryptedMessage;
+					var storage = window.localStorage;
+					var value = storage.getItem("clientData");
+					if(value)
+					{
+							getAuthorizationCode(JSON.parse(value));
+					}else {
+							getClientAuthenticatationSSO();
+					}
+			}
+			var encryptError = function(error)
+			{
+					servercall_error(error);
+			}
+			encryptMessage(server.reqdata.pwd,encryptSuccess,encryptError);
+	}
+
+	function encryptMessage(message,callBackSuccess,callBackError)
+	{
+			Encrypter.encryptMessage(
+						function (encryptedMessage) {
+								callBackSuccess(encryptedMessage);
+						},
+						function(error)
+						{
+								var msg = "internal_error";
+								callBackError(msg);
+						},
+						message
+			);
 	}
 
 	function getParameterByName(name, url) {

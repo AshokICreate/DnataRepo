@@ -3,6 +3,7 @@ define(function (require) {
   var Store = require ("stores/loginStore");
   var Loader = require("views/loader");
   var constants = require ("constants/loginConstants");
+  var serverCall = require ("util/serverCall");
 
   var login = React.createClass({
 
@@ -60,24 +61,12 @@ define(function (require) {
           this.setState({msg:msg,login:true});
           return;
       }
-      var that = this;
       this.setState({msg:"",login:false});
-      Encrypter.encryptMessage(
-            function (encrypt) {
-              var Obj = {
-                 username: username,
-                 pwd: encrypt,
-              }
-              actions.doLogin(Obj);
-            },
-            function(error)
-            {
-              var msg = "internal_error";
-              msg = "* "+getString(msg);
-              that.setState({msg:msg,login:true});
-            },
-            pwd
-      );
+      var Obj = {
+         username: username,
+         pwd: pwd,
+      }
+      actions.doLogin(Obj);
   },
 
   render: function () {
