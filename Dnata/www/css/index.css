@@ -339,7 +339,6 @@ body {
 }
 
 .msLogo{
-  content: url('../img/metricstreamlogo.svg');
   width: 50%;
   margin-bottom: -3%;
   display: inline;
