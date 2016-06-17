@@ -24,6 +24,7 @@ cordova-plugin-inappbrowser 1.4.0 "InAppBrowser"
 cordova-plugin-splashscreen 3.2.2 "Splashscreen"
 cordova-plugin-statusbar 2.1.2 "StatusBar"
 cordova-plugin-whitelist 1.2.1 "Whitelist"
-mis.dnata.cordova.EncrypterPlugin 0.1.0 "EncrypterPlugin"
+mis.dnata.cordova.encrypterplugin 0.1.0 "EncrypterPlugin"
+mis.dnata.cordova.urledirecter 0.1.0 "URLRedirecter"
 
 ***EncrypterPlugin(metricstream plugin will be exported in this repo)

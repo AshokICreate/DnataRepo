@@ -5,8 +5,11 @@ define (function (require) {
 	//var URL= "https://dnatasafetyhub-uat.ek.aero/metricstream";
 	//Performance system: 172.27.132.219
 	//var URL= "https://172.27.132.219/metricstream";
-	var isSSO = true;
-	var URL = "http://172.27.138.47/metricstream";
+	//dev
+	//var URL = "http://172.27.138.47/metricstream";
+	//production
+	var URL = "https://safetyhub.dnata.com/metricstream";
+	var isSSO = false;
 	var versionM2 = "m2/2.3";
 	var BaseURL;
 	var authorization;
@@ -198,26 +201,53 @@ define (function (require) {
 
 	function getAuthenticate(clientData) {
 
-			var _onSuccess = function(callbackUrl)
+			var _onSuccess = function(redirectURL)
 			{
-					var token = getParameterByName("code",callbackUrl);
+					var token = getParameterByName("code",redirectURL);
 					if(!token)
 					{
-						var error = getParameterByName("error",callbackUrl);
 						servercall_error("internal_error");
 						return;
 					}
-
 					getAccessToken(clientData,token);
 			}
 
-			var url = URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd);
+			var url = URL+"/oauth2/token";
 			getRedirectedUrl(url,_onSuccess);
 
 	}
 
 	function getAuthorizationCode(clientData)
 	{
+			var url = URL+"/oauth2/authorize?response_type=code&client_id="+clientData.client_id;
+
+			if(!isRedirectUrlWorks())
+			{
+					var uname = encodeURIComponent(server.reqdata.username);
+					var pwd = encodeURIComponent(server.reqdata.pwd);
+					var params = "username="+uname+"&password="+pwd;
+
+					var array = [url,URL+"/oauth2/token",params];
+					URLRedirecter.redirect(
+								function (redirectURL) {
+										var token = getParameterByName("code",redirectURL);
+										if(!token)
+										{
+											servercall_error("internal_error");
+											return;
+										}
+										getAccessToken(clientData,token);
+								},
+								function(error)
+								{
+										var msg = "internal_error";
+										onAuthorizationCodeSuccess(msg);
+								},
+								array
+					);
+
+					return;
+			}
 			var _onSuccess = function()
 			{
 
@@ -225,16 +255,9 @@ define (function (require) {
 
 			var _onError = function(response,error,msg)
 			{
-					if(response.status === 401)
-					{
-						 getAuthenticate(clientData);
-					}else {
-						servercall_error(response);
-					}
-
+					getAuthenticate(clientData);
 			}
 
-			var url = URL+"/oauth2/authorize?response_type=code&client_id="+clientData.client_id;
 			makeServerCall("GET",url,"",_onSuccess,_onError);
 	}
 
@@ -256,26 +279,52 @@ define (function (require) {
 			makeServerCall("POST",URL+"/oauth2/register",obj,_onSuccess,_onError);
 	}
 
+
 	function getInitialTokenForClient()
 	{
-
-			var _onSuccess = function(callbackUrl)
+			var _onSuccess = function(redirectURL)
 			{
-					var token = getParameterByName("initial_access_token",callbackUrl);
+					var token = getParameterByName("initial_access_token",redirectURL);
 					if(!token)
 					{
-						var error = getParameterByName("error",callbackUrl);
 						servercall_error("internal_error");
-						return;
 					}
 					registerClient(token);
 			}
-			var url = URL+"/oauth2/token?username="+encodeURIComponent(server.reqdata.username)+"&password="+encodeURIComponent(server.reqdata.pwd);
+
+			var url = URL+"/oauth2/token";
 			getRedirectedUrl(url,_onSuccess);
 	}
 
 	function getClientAuthenticatationSSO()
 	{
+			if(!isRedirectUrlWorks())
+			{
+					var uname = encodeURIComponent(server.reqdata.username);
+					var pwd = encodeURIComponent(server.reqdata.pwd);
+					var params = "username="+uname+"&password="+pwd;
+
+					var array = [URL+"/oauth2/authorize?response_type=initial_token",URL+"/oauth2/token",params];
+					URLRedirecter.redirect(
+								function (redirectURL) {
+										var token = getParameterByName("initial_access_token",redirectURL);
+										if(!token)
+										{
+											servercall_error("internal_error");
+										}
+										registerClient(token);
+								},
+								function(error)
+								{
+										servercall_error("internal_error");
+								},
+								array
+
+					);
+
+					return;
+			}
+
 			var _onSuccess = function(data)
 			{
 
@@ -283,12 +332,7 @@ define (function (require) {
 
 			var _onError = function(response,error,msg)
 			{
-					if(response.status === 401)
-					{
-							getInitialTokenForClient();
-					}else {
-						servercall_error(response);
-					}
+					getInitialTokenForClient();
 			}
 			makeServerCall("GET",URL+"/oauth2/authorize?response_type=initial_token","",_onSuccess,_onError);
 	}
@@ -354,26 +398,9 @@ define (function (require) {
 
 	function getRedirectedUrl(url,callback)
 	{
-			if(!isRedirectUrlWorks())
-			{
-
-
-				var browserRef = window.open(url, "_blank", "hidden=yes");
-				 browserRef.addEventListener('loadstop', function (e) {
-
-					 browserRef.close();
-					 browserRef = undefined;
-						 callback(e.url);
-
-				 });
-
-				 browserRef.addEventListener('loaderror', function (e) {
-						 browserRef.close();
-						 browserRef = undefined;
-					 	 callback(e.url);
-				 });
-				 return;
-			}
+			var uname = encodeURIComponent(server.reqdata.username);
+			var pwd = encodeURIComponent(server.reqdata.pwd);
+			var params = "username="+uname+"&password="+pwd;
 
 			var xhttp;
 			if (window.XMLHttpRequest) {
@@ -391,8 +418,9 @@ define (function (require) {
 					callback(null);
 				}
 			};
-			xhttp.open("GET",url, true);
-			xhttp.send();
+			xhttp.open("POST",url, true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send(params);
 	}
 
 });
