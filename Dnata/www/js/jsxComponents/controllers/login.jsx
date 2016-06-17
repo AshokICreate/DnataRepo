@@ -98,7 +98,7 @@ define(function (require) {
         <div className="footer">
           <div className="metricLogo">
             <div className="msfooter">{getString("powered_by")}</div>
-            <img className="msLogo"></img>
+            <img className="msLogo" src='img/metricstreamlogo.svg' alt='MetricStream'></img>
           </div>
           <div className="vfooter">{getString("version")}</div>
         </div>
