@@ -101,7 +101,7 @@ define(function (require) {
 
       return(
         <div className="container">
-        <ReactCSSTransitionGroup transitionName="controller" transitionEnterTimeout={500}>
+        <ReactCSSTransitionGroup transitionName="controller" transitionEnterTimeout={500} transitionLeave={false}>
           {controller}
         </ReactCSSTransitionGroup>
 

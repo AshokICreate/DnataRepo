@@ -134,7 +134,7 @@ define (function (require) {
                 }
             default:
                 {
-                    console.log ("No Registered action");
+                    return true;
                 }
         }
     });

@@ -13,7 +13,7 @@ requirejs.config({
         controllers:"../js/components/controllers"
     }
 });
-requirejs(["jquery-2.2.1.min", "react-with-addons", "flux", "l20n.min", "moment.min"], function (jquery, react, flux, l20n, moment) {
+requirejs(["jquery-2.2.1.min", "react-with-addons.min", "flux", "l20n.min", "moment.min"], function (jquery, react, flux, l20n, moment) {
     window.React = react;
     window.Moment = moment;
     window.l20n = L20n.getContext ();
@@ -31,10 +31,6 @@ requirejs(["jquery-2.2.1.min", "react-with-addons", "flux", "l20n.min", "moment.
         });
     window.l20n.requestLocales();
     window.l20n.ready (function () {
-      requirejs(["hammer.min"], function (hammer) {
-          window.Hammer = hammer;
-          requirejs(["js/index.js"]);
-      });
-
+      requirejs(["js/index.js"]);
     });
 });

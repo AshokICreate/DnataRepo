@@ -4,7 +4,6 @@ define (function (require) {
     var assign = require ("object-assign");
     var constants = require ("constants/formConstants");
     var serverCall = require ("util/serverCall");
-    var JsonParser = require ("util/JSONParsers");
     var formData;
     var errorMsg;
 
@@ -351,13 +350,6 @@ define (function (require) {
             }
             formData[id] = obj;
             FormStore.emitChange(constants.Change_Data_Event);
-
-
-
-          // if(data)
-          // {
-          //   JsonParser.parseJsonToFormContent("content",data,assignmentId,id);
-          // }
 
         }
         var createdTask = function(data,error)

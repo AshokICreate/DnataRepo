@@ -6,13 +6,18 @@ define (function (require) {
 	//Performance system: 172.27.132.219
 	//var URL= "https://172.27.132.219/metricstream";
 	//dev
-	//var URL = "http://172.27.138.47/metricstream";
+	var URL = "http://172.27.138.47/metricstream";
 	//production
-	var URL = "https://safetyhub.dnata.com/metricstream";
+	//var URL = "https://safetyhub.dnata.com/metricstream";
 	var isSSO = false;
 	var versionM2 = "m2/2.3";
 	var BaseURL;
 	var authorization;
+	var errorMessage = "internal_error";
+	var client_sec = "SDS";
+	var client_id_sec = "safetyhub";
+	var clientData = "clientData";
+
 
 	function servercall_success(msg)
 	{
@@ -35,7 +40,7 @@ define (function (require) {
 			}else if(401 === msg.status){
 				server.callBackSuccess(data,"invalid_session");
 			}else{
-				server.callBackSuccess(data,"internal_error");
+				server.callBackSuccess(data,errorMessage);
 			}
 
 	};
@@ -206,7 +211,7 @@ define (function (require) {
 					var token = getParameterByName("code",redirectURL);
 					if(!token)
 					{
-						servercall_error("internal_error");
+						servercall_error(errorMessage);
 						return;
 					}
 					getAccessToken(clientData,token);
@@ -233,15 +238,14 @@ define (function (require) {
 										var token = getParameterByName("code",redirectURL);
 										if(!token)
 										{
-											servercall_error("internal_error");
+											servercall_error("error");
 											return;
 										}
 										getAccessToken(clientData,token);
 								},
 								function(error)
 								{
-										var msg = "internal_error";
-										onAuthorizationCodeSuccess(msg);
+										servercall_error(errorMessage);
 								},
 								array
 					);
@@ -250,7 +254,7 @@ define (function (require) {
 			}
 			var _onSuccess = function()
 			{
-
+					servercall_error(errorMessage);
 			}
 
 			var _onError = function(response,error,msg)
@@ -265,8 +269,13 @@ define (function (require) {
 	{
 			var _onSuccess = function(data)
 			{
-					var storage = window.localStorage;
-					storage.setItem("clientData", JSON.stringify(data));
+					var message = JSON.stringify(data);
+					encryptMessage([message,client_id_sec],function(encryptedMessage){
+							var storage = window.localStorage;
+							storage.setItem(clientData, encryptedMessage);
+						},function(){
+							servercall_error(errorMessage);
+						});
 					getAuthorizationCode(data);
 			}
 
@@ -287,7 +296,8 @@ define (function (require) {
 					var token = getParameterByName("initial_access_token",redirectURL);
 					if(!token)
 					{
-						servercall_error("internal_error");
+						servercall_error(errorMessage);
+						return;
 					}
 					registerClient(token);
 			}
@@ -310,13 +320,14 @@ define (function (require) {
 										var token = getParameterByName("initial_access_token",redirectURL);
 										if(!token)
 										{
-											servercall_error("internal_error");
+											servercall_error(errorMessage);
+											return;
 										}
 										registerClient(token);
 								},
 								function(error)
 								{
-										servercall_error("internal_error");
+										servercall_error(errorMessage);
 								},
 								array
 
@@ -327,7 +338,7 @@ define (function (require) {
 
 			var _onSuccess = function(data)
 			{
-
+					servercall_error(errorMessage);
 			}
 
 			var _onError = function(response,error,msg)
@@ -343,10 +354,15 @@ define (function (require) {
 			{
 					server.reqdata.pwd = encryptedMessage;
 					var storage = window.localStorage;
-					var value = storage.getItem("clientData");
+					var value = storage.getItem(clientData);
 					if(value)
 					{
-							getAuthorizationCode(JSON.parse(value));
+							decryptMessage([value,client_id_sec],function(decryptedMessage){
+									getAuthorizationCode(JSON.parse(decryptedMessage));
+								},function(){
+									servercall_error(errorMessage);
+								});
+
 					}else {
 							getClientAuthenticatationSSO();
 					}
@@ -355,7 +371,7 @@ define (function (require) {
 			{
 					servercall_error(error);
 			}
-			encryptMessage(server.reqdata.pwd,encryptSuccess,encryptError);
+			encryptMessage([server.reqdata.pwd,client_sec],encryptSuccess,encryptError);
 	}
 
 	function encryptMessage(message,callBackSuccess,callBackError)
@@ -366,8 +382,21 @@ define (function (require) {
 						},
 						function(error)
 						{
-								var msg = "internal_error";
-								callBackError(msg);
+								callBackError(errorMessage);
+						},
+						message
+			);
+	}
+
+	function decryptMessage(message,callBackSuccess,callBackError)
+	{
+			Encrypter.decryptMessage(
+						function (decryptedMessage) {
+								callBackSuccess(decryptedMessage);
+						},
+						function(error)
+						{
+								callBackError(errorMessage);
 						},
 						message
 			);
