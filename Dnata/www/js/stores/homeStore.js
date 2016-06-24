@@ -3,7 +3,7 @@ define (function (require) {
   var EventEmitter = require ("event-emitter").EventEmitter;
   var assign = require ("object-assign");
 
-  var homeMenuItems = ["MS_INC_ACTUAL_INJURY","MS_INC_POTENTIAL_INJ_FORM","feedback"];
+  var homeMenuItems = ["MS_INC_ACTUAL_INJURY","MS_INC_POTENTIAL_INJ_FORM","MS_INC_FEEDBACK"];
   var potentialInjuryFormItems = ["PSD","FLY","WAB", "SBR","DGR","EQD","PRD", "PAE"];
   var actualInjuryFormItems = ["PSD","FLY","EQD"];
 

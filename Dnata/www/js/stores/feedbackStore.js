@@ -142,27 +142,28 @@ define (function (require) {
       var data = feedbackObj.data;
       var content = data.content;
 
-      content.DD_CURRENT_STAGE = {value:1};
+      content.DD_CURRENT_STAGE = {value:"1"};
       content.DD_PROCESS_CODE = {value:"FEEDBACK_WF_NEW"};
-      content.INSTANCE_REC_NUM = {value:1};
-      content.FEEDBACK_STATUS = {value:0};
+      content.INSTANCE_REC_NUM = {value:"1"};
+      content.FEEDBACK_STATUS = {value:"0"};
       content.FEEDBACK_TITLE = {value: feedbackObj.feedback_title};
       content.REPORTER_NAME = {value: feedbackObj.feedback_name};
       content.REPORTER_COMPANY_NAME = {value: feedbackObj.company_name};
       content.REPORTER_EMAIL = {value: feedbackObj.email_address};
       content.REPOTER_CONCTACT_NUMBER = {value: feedbackObj.contact_number};
+      content.INC_REF_NUMBER = {value: ""};
 
-      content.FORM_ACTION = {value:'2'};
+      content.FORM_ACTION = {value:"2"};
 
-      content.DUMMY_CHAR1 = {value:0};
+      content.DUMMY_CHAR1 = {value:""+data.meta.pid};
 
-      var reportTitle  = getString('feedback')+" - "+ Moment().format("MM/DD/YYYY");
+      var reportTitle  = getString('MS_INC_FEEDBACK')+"-"+ Moment().format("MM/DD/YYYY");
       content.DUMMY_CHAR5 = {value: reportTitle};
 
       var localObject = feedbackObj.primary_location;
-      content.COUNTRY = localObject.key;
+      content.COUNTRY = {value:localObject.key};
 
-      content.PREVIOUS_STAGE = {value:data.meta.pid};
+      content.PREVIOUS_STAGE = {value:"0"};
       content.RECIEVE_UPDATE = {value: feedbackObj.receive_update};
 
       return data;

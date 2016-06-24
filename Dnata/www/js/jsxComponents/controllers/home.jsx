@@ -70,7 +70,7 @@ define(function (require) {
         break;
       }
 
-      case "feedback":
+      case "MS_INC_FEEDBACK":
       {
         content = <Feedback />;
           rightButtonName="Submit";
