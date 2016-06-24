@@ -59,31 +59,43 @@ public class URLRedirecter extends CordovaPlugin {
     private static String redirect(JSONArray input) throws Exception {
         CookieManager cookieManager = new CookieManager();
         CookieHandler.setDefault(cookieManager);
-
-        URL url = new URL(input.getString(0));
+        String urlString = input.getString(0);
+        boolean useHttps = false;
+        if(urlString.contains("https"))
+            useHttps = true;
+        URL url = new URL(urlString);
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         HostnameVerifier oldHostnameVerifier = null;
         SSLSocketFactory oldSocketFactory = null;
 
         try {
-            HttpsURLConnection https = (HttpsURLConnection)urlConnection;
-            oldSocketFactory = trustAllHosts(https);
-            // Save the current hostnameVerifier
-            oldHostnameVerifier = https.getHostnameVerifier();
-            // Setup the connection not to verify hostnames
-            https.setHostnameVerifier(DO_NOT_VERIFY);
+            HttpsURLConnection https;
+            if(useHttps)
+            {
+                https = (HttpsURLConnection)urlConnection;
+                oldSocketFactory = trustAllHosts(https);
+                // Save the current hostnameVerifier
+                oldHostnameVerifier = https.getHostnameVerifier();
+                // Setup the connection not to verify hostnames
+                https.setHostnameVerifier(DO_NOT_VERIFY);
+            }
 
             int responseCode = urlConnection.getResponseCode();
             urlConnection.disconnect();
 
             url = new URL(input.getString(1));
             urlConnection = (HttpURLConnection) url.openConnection();
-            https = (HttpsURLConnection)urlConnection;
-            oldSocketFactory = trustAllHosts(https);
-            // Save the current hostnameVerifier
-            oldHostnameVerifier = https.getHostnameVerifier();
-            // Setup the connection not to verify hostnames
-            https.setHostnameVerifier(DO_NOT_VERIFY);
+
+            if(useHttps)
+            {
+                https = (HttpsURLConnection)urlConnection;
+                oldSocketFactory = trustAllHosts(https);
+                // Save the current hostnameVerifier
+                oldHostnameVerifier = https.getHostnameVerifier();
+                // Setup the connection not to verify hostnames
+                https.setHostnameVerifier(DO_NOT_VERIFY);
+            }
+
 
             urlConnection.setDoOutput(true);
             urlConnection.setChunkedStreamingMode(0);
@@ -116,9 +128,13 @@ public class URLRedirecter extends CordovaPlugin {
 
             return newUrl;
         } finally {
-            HttpsURLConnection https = (HttpsURLConnection) urlConnection;
-            https.setHostnameVerifier(oldHostnameVerifier);
-            https.setSSLSocketFactory(oldSocketFactory);
+
+            if(useHttps)
+            {
+                HttpsURLConnection https = (HttpsURLConnection) urlConnection;
+                https.setHostnameVerifier(oldHostnameVerifier);
+                https.setSSLSocketFactory(oldSocketFactory);
+            }
             urlConnection.disconnect();
         }
 

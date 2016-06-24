@@ -13,10 +13,7 @@ define(function (require) {
   var NavigationActions = require ("actions/navigationActions");
   var NavigationStore = require ("stores/navigationStore");
   var NavigationConstants = require ("constants/navigationConstants");
-  var LoginConstants = require ("constants/loginConstants");
-  var LoginStore = require("stores/loginStore");
 
-  var Feedback = require("controllers/feedback");
   var TextArea = require("views/textareaBox");
   var Confirm = require("views/confirmBox");
   var Msg = require("views/msgBox");
@@ -33,7 +30,6 @@ define(function (require) {
           Store.addChangeListener (constants.On_Error,this.showError);
           NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
           NavigationStore.addChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
-          LoginStore.addChangeListener (LoginConstants.Logout_Issued_Event,this.loggedOut);
 
           var state = NavigationStore.getControllerState();
 
@@ -66,7 +62,6 @@ define(function (require) {
           Store.removeChangeListener (constants.On_Error,this.showError);
           NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
           NavigationStore.removeChangeListener (NavigationConstants.Back_Click_Event,this._onBackButtonClick);
-          LoginStore.removeChangeListener (LoginConstants.Logout_Issued_Event,this.loggedOut);
 
           var node = this.getDOMNode();
           $(node).find('input').unbind('keydown');
@@ -78,10 +73,6 @@ define(function (require) {
           //Phani: not proper fix , it should remember the state of the child tab. Shouldnt go to top always when tabs are shifted
           var node = this.getDOMNode();
           node.scrollTop = 0;
-      },
-      loggedOut:function()
-      {
-          actions.loggedOut();
       },
       getResources:{},
       render: function () {

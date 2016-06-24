@@ -9,7 +9,7 @@ define (function (require) {
 	var URL = "http://172.27.138.47/metricstream";
 	//production
 	//var URL = "https://safetyhub.dnata.com/metricstream";
-	var isSSO = false;
+	var isSSO = true;
 	var versionM2 = "m2/2.3";
 	var BaseURL;
 	var authorization;
@@ -46,13 +46,42 @@ define (function (require) {
 	};
 
 	var serverCall = {
-		getURL:function()
+
+		login:function(reqdata,successFunction)
 		{
-				return URL;
+				server.reqType = "GET";
+				server.reqdata = reqdata;
+				server.callBackSuccess = successFunction;
+				server.requestURL = "handshake";
+
+				if(isSSO)
+				{
+					authenticateBySSOEncryption();
+				}else {
+					var userDetails = {};
+					userDetails.token_type = server.reqdata.pwd;
+					userDetails.access_token = null;
+					userDetails.expires_in = 3600;
+					userDetails.user_name = server.reqdata.username;
+					verifyM2Access(userDetails);
+				}
 		},
-		clearCookies:function()
+		logout:function(successFunction)
 		{
-				authorization = "";
+				var tokens = authorization.split(" ");
+				if(!isSSO || 2 != tokens.length)
+				{
+						successFunction();
+						return;
+				}
+
+				var params = "access_token="+tokens[1];
+				server.reqType = "POST";
+				server.reqdata = params;
+				server.callBackSuccess = successFunction;
+				server.requestURL = "/oauth2/revoke";
+
+				makeServerCall(server.reqType,URL+server.requestURL,params,servercall_success,servercall_error,"application/x-www-form-urlencoded");
 		},
 		uploadDocument:function(reqType,reqURL,fileURL,options,successFunction)
 		{
@@ -83,26 +112,6 @@ define (function (require) {
 				server.callBackSuccess = successFunction;
 				server.requestURL = reqURL;
 
-				if(reqURL=="handshake")
-				{
-						BaseURL = URL+"/"+versionM2+"/"+server.reqdata.username+"/";
-
-
-						if(isSSO)
-						{
-							authenticateBySSOEncryption();
-						}else {
-							var userDetails = {};
-							userDetails.token_type = server.reqdata.pwd;
-							userDetails.access_token = null;
-							userDetails.expires_in = 3600;
-							userDetails.user_name = server.reqdata.username;
-							verifyM2Access(userDetails);
-						}
-
-						return;
-				}
-
 				var type = contentType;
 				if(!contentType)
 				{
@@ -130,8 +139,6 @@ define (function (require) {
 
 	};
 
-	return serverCall;
-
 	function makeServerCall(reqType,serviceUrl,reqdata,successFunction,errorFunction,contentType)
 	{
 
@@ -147,7 +154,6 @@ define (function (require) {
 				url             : serviceUrl, // Location of the service
 				data            : reqdata, //Data sent to server
 				contentType     : contentType, // content type sent to server
-				dataType        : "JSON", //Expected data format from server
 				processdata     : false, //True or False
 				timeout			    : 60000,
 				xhrFields       : {withCredentials: true},
@@ -254,7 +260,7 @@ define (function (require) {
 			}
 			var _onSuccess = function()
 			{
-					servercall_error(errorMessage);
+					getAuthenticate(clientData);
 			}
 
 			var _onError = function(response,error,msg)
@@ -338,7 +344,7 @@ define (function (require) {
 
 			var _onSuccess = function(data)
 			{
-					servercall_error(errorMessage);
+					getInitialTokenForClient();
 			}
 
 			var _onError = function(response,error,msg)
@@ -452,4 +458,5 @@ define (function (require) {
 			xhttp.send(params);
 	}
 
+	return serverCall;
 });

@@ -13,12 +13,6 @@ define (function (require) {
         appDispatcher.dispatch ({
             actionType: constants.Clear_Form_Data
         });
-      },
-      loggedOut:function()
-      {
-        appDispatcher.dispatch ({
-            actionType: constants.Logged_Out
-        });
       }
     };
     return formActions;

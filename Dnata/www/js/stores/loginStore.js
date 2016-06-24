@@ -100,7 +100,7 @@ define (function (require) {
           }
           LoginStore.emitChange(constants.Login_Issued_Event);
       }
-      serverCall.connectServer("GET","handshake",user,gotLoginData);
+      serverCall.login(user,gotLoginData);
 
     }
 
@@ -122,7 +122,7 @@ define (function (require) {
                username: userDetails.user_name,
                pwd: issueCode,
             }
-            serverCall.connectServer("GET","handshake",Obj,reloggedData);
+            serverCall.login(Obj,reloggedData);
         }else {
           //this call shouldn't happen. If cade is executig this line then there is some problem with authentication workflow
             logout();
@@ -131,11 +131,22 @@ define (function (require) {
     }
 
     function logout(){
-      // userDetails = undefined;
-      // clearSessionTimers();
-      // serverCall.clearCookies()
-      // LoginStore.emitChange(constants.Logout_Issued_Event);
       document.location = "index.html";
+    }
+
+    function revokeToken()
+    {
+        var _onSuccess = function(data,error)
+        {
+            if(error)
+            {
+                errorMsg = error;
+                LoginStore.emitChange(constants.Logout_Error_Event);
+                return;
+            }
+            logout();
+        }
+        serverCall.logout(_onSuccess);
     }
 
     appDispatcher.register (function (action) {
@@ -149,7 +160,7 @@ define (function (require) {
             case constants.Logout:
             {
 
-              logout();
+              revokeToken();
               break;
             }
             case constants.Login_Reissue:

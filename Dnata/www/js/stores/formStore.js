@@ -272,11 +272,6 @@ define (function (require) {
           FormStore.emitChange(constants.Clear_Data_Event);
           break;
         }
-        case constants.Logged_Out:
-        {
-          formData = undefined;
-          break;
-        }
         default:
         {
             return true;
@@ -286,19 +281,17 @@ define (function (require) {
 
     });
 
-    return FormStore;
-
     function uploadToServer(fileURL,callback)
     {
         var success = function (data,error) {
           if(error)
           {
-            if(error === "network_failed")
-              callback(fileURL,'',"network_failed");
-            else {
-              callback(fileURL,'',"attachment_upload_failed");
-            }
-            return;
+              if(error === "network_failed")
+                callback(fileURL,'',error);
+              else {
+                callback(fileURL,'',"attachment_upload_failed");
+              }
+              return;
           }
           callback(fileURL,data);
         }
@@ -369,4 +362,5 @@ define (function (require) {
 
     }
 
+    return FormStore;
   });

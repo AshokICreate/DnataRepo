@@ -4,27 +4,48 @@ define(function (require) {
   var ActualInjury = require ("controllers/actualInjury");
   var NavigationController = require ("controllers/navigationController");
   var NavigationActions = require ("actions/navigationActions");
-  var Feedback = require("controllers/feedback");
   var NavigationStore = require ("stores/navigationStore");
-  var LoginActions = require ('actions/loginActions');
   var NavigationConstants = require ("constants/navigationConstants");
+  var LoginActions = require ('actions/loginActions');
+  var LoginConstants= require ('constants/loginConstants');
+  var LoginStore = require ("stores/loginStore");
+  var Loader = require("views/loader");
+  var Feedback = require("controllers/feedback");
+
   var Msg = require("views/msgBox");
   var home = React.createClass({
 
   componentDidMount: function () {
       NavigationStore.addChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+      LoginStore.addChangeListener(LoginConstants.Logout_Error_Event,this._showError);
   },
 
   componentWillUnmount: function () {
       NavigationStore.removeChangeListener (NavigationConstants.Right_Click_Event,this._onRightButtonClick);
+      LoginStore.removeChangeListener(LoginConstants.Logout_Error_Event,this._showError);
   },
   _onRightButtonClick:function(){
-    var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
-    NavigationActions.presentPopup(<Msg msgLabel={"confirm_logout"} buttons={msgButtonsArray} onMsgClick={this._onMsgClick}/>);
+      var msgButtonsArray = [{"title":"yes"},{"title":"no"}];
+      NavigationActions.presentPopup(<Msg msgLabel={"confirm_logout"} buttons={msgButtonsArray} onMsgClick={this._onMsgClick}/>);
+  },
+  _onCancel:function()
+  {
+      NavigationActions.removePopup();
+  },
+  _showError:function()
+  {
+      NavigationActions.removePopup();
+      var error = LoginStore.getError();
+      if(error)
+      {
+          var msgButtonsArray = [{"title":"ok"}];
+          NavigationActions.presentPopup(<Msg msgLabel={error} buttons={msgButtonsArray} onMsgClick={this._onCancel}/>);
+      }
   },
   _onMsgClick:function(title){
     if(title==="yes"){
       NavigationActions.removePopup();
+      NavigationActions.presentPopup(<Loader />);
       LoginActions.logOut();
     }
     else if(title==="no"){

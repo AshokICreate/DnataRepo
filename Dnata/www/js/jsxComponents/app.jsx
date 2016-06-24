@@ -19,13 +19,11 @@ define(function (require) {
     componentDidMount: function () {
         FormStore.addChangeListener (FormConstants.Clear_Data_Event,this.onChange);
         LoginStore.addChangeListener (LoginConstants.Login_Issued_Event,this.onChange);
-        LoginStore.addChangeListener (LoginConstants.Logout_Issued_Event,this.onChange);
         LoginStore.addChangeListener (LoginConstants.Pre_Session_Expiry_Event,this.showExpiryPrompt);
     },
     componentWillUnmount: function () {
         FormStore.removeChangeListener (FormConstants.Clear_Data_Event,this.onChange);
         LoginStore.removeChangeListener (LoginConstants.Login_Issued_Event,this.onChange);
-        LoginStore.removeChangeListener (LoginConstants.Logout_Issued_Event,this.onChange);
         LoginStore.removeChangeListener (LoginConstants.Pre_Session_Expiry_Event,this.showExpiryPrompt);
     },
     onChange:function()
