@@ -2,11 +2,12 @@ define (function (require) {
 
 	var server={requestURL:"", reqType:"",reqdata:"",callBackSuccess:""};
 	//var URL= "http://msi-l1905/metricstream";
+	//UAT
 	//var URL= "https://dnatasafetyhub-uat.ek.aero/metricstream";
 	//Performance system: 172.27.132.219
 	//var URL= "https://172.27.132.219/metricstream";
 	//dev
-	var URL = "http://172.27.138.47/metricstream";
+  var URL = "http://172.27.138.47/metricstream";
 	//production
 	//var URL = "https://safetyhub.dnata.com/metricstream";
 	var isSSO = true;
@@ -181,7 +182,7 @@ define (function (require) {
 					servercall_error(response);
 			}
 
-			BaseURL = URL+"/"+versionM2+"/"+server.reqdata.username+"/";
+			BaseURL = URL+"/"+versionM2+"/"+userDetails.user_name+"/";
 			authorization = userDetails.token_type;
 			if(userDetails.access_token)
 			{
