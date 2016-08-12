@@ -7,7 +7,7 @@ define (function (require) {
 	//Performance system: 172.27.132.219
 	//var URL= "https://172.27.132.219/metricstream";
 	//dev
-  //var URL = "http://172.27.138.47/metricstream";
+    //var URL = "http://172.27.138.47/metricstream";
 	//production
 	var URL = "https://safetyhub.dnata.com/metricstream";
 	var isSSO = true;
@@ -424,7 +424,7 @@ define (function (require) {
 			var platform = device.platform;
 			var version = device.version;
 
-			if(platform === "Android" && parseInt(version) <5)
+			if(platform === "Android" && parseInt(version) < 5)
 			{
 				return false;
 			}
@@ -449,11 +449,15 @@ define (function (require) {
 			xhttp.onreadystatechange = function() {
 				if (xhttp.responseURL && xhttp.readyState == 4 && xhttp.status == 200) {
 					callback(xhttp.responseURL);
-				}else if(xhttp.readyState == 4 && xhttp.status == 200)
+				}else if(xhttp.readyState == 4)
 				{
 					callback(null);
 				}
 			};
+      xhttp.ontimeout = function (e) {
+        callback(null);
+      };
+      xhttp.timeout = 60000;
 			xhttp.open("POST",url, true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhttp.send(params);
